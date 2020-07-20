@@ -1,0 +1,27 @@
+﻿@model List<ManagementDashboard.Models.CanceledClients>
+
+<table class="table table-condensed table-responsive table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Ref</th>
+            <th>Customer</th>
+            <th>Cancel Start</th>
+            <th>Cancel End</th>
+            <th>Comment</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ref</td>
+                <td>@item.Customer</td>
+                <td>@item.CancelStart.ToString("dd-MM-yyyy")</td>
+                <td>@item.CancelEnd.ToString("dd-MM-yyyy")</td>
+                <td>@item.Comment</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

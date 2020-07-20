@@ -1,0 +1,22 @@
+﻿@model List<ManagementDashboard.Models.NoRunClients>
+
+<table class="table table-condensed table-responsive table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Ref</th>
+            <th>StartDate</th>
+            <th>Customer</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ref</td>
+                <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.Customer</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

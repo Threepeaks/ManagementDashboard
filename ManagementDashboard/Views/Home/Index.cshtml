@@ -1,0 +1,524 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<button type="button" onclick="printJS('Report', 'html')">
+    Print
+</button>
+
+
+<div id="Report">
+    <!--Report-->
+
+
+    <h2>Submission Trend</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="SubmissionsTrendChart0">Loading....</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+
+                        @Html.Action("SubmissionsTrendChart", "TPMS", new { id = 1 })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+
+                    @Html.Action("SubmissionsTrendChart", "TPMS", new { id = 2 })
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>Debits Records Trend Chart</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DebitsRecordsTrendChart", "TPMS", new { id = 0 })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DebitsRecordsTrendChart", "TPMS", new { id = 1 })
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    @Html.Action("DebitsRecordsTrendChart", "TPMS", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <h2>Debits Value Trend Chart</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel">
+
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DebitsValueTrendChart", "TPMS", new { id = 0 })
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+
+                        @Html.Action("DebitsValueTrendChart", "TPMS", new { id = 1 })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    @Html.Action("DebitsValueTrendChart", "TPMS", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <h2>Payment Trend</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("ReconDebitTrendChart", "TPMS", new { id = 0 })
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+
+                        @Html.Action("ReconDebitTrendChart", "TPMS", new { id = 1 })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-4">
+
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    @Html.Action("ReconDebitTrendChart", "TPMS", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <h2>Top</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Highest Debit Value @DateTime.Now.ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopValueDebits", "Top", new { id = 0 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Highest Debit Value @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopValueDebits", "Top", new { id = 1 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Highest Debit Value @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopValueDebits", "Top", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Highest Customer Value @DateTime.Now.ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopValueCustomers", "Top", new { id = 0 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Highest Customer Value @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopValueCustomers", "Top", new { id = 1 })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Highest Customer Value @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopValueCustomers", "Top", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Deposit Movements per Month @DateTime.Now.ToString("MMMM yyyy")</h4>
+                    @Html.Action("DepositMovement", "Top", new { id = 0 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+
+                    <h4>Top 10 Deposit Movements per Month @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("DepositMovement", "Top", new { id = 1 })
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Deposit Movements per Month @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("DepositMovement", "Top", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Unpaids per Month @DateTime.Now.ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopUnpaids", "Top", new { id = 0 })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Unpaids per Month @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopUnpaids", "Top", new { id = 1 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Top 10 Unpaids per Month @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("GetTopUnpaids", "Top", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>No Run Clients @DateTime.Now.ToString("MMMM yyyy")</h4>
+                    @Html.Action("NoRunClients", "Top", new { id = 0 })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>No Run Clients @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("NoRunClients", "Top", new { id = 1 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>No Run Clients @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("NoRunClients", "Top", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Canceled Clients @DateTime.Now.ToString("MMMM yyyy")</h4>
+                    @Html.Action("CanceledClients", "Top", new { id = 0 })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Canceled Clients @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("CanceledClients", "Top", new { id = 1 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Canceled Clients @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("CanceledClients", "Top", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Retention Not Released @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("RetNotReleased", "Top", new { id = 1, IsBetween = true })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Retention Not Released @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("RetNotReleased", "Top", new { id = 2, IsBetween = true })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Retention Not Released @DateTime.Now.AddMonths(-3).ToString("MMMM yyyy")</h4>
+                    @Html.Action("RetNotReleased", "Top", new { id = 3, IsBetween = false })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Pending Clients @DateTime.Now.ToString("MMMM yyyy")</h4>
+                    @Html.Action("PendingClients", "Top", new { id = 0 })
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Pending Clients @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    @Html.Action("PendingClients", "Top", new { id = 1 })
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>Pending Clients @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    @Html.Action("PendingClients", "Top", new { id = 2 })
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>No Deposits & Retentions</h4>
+                    @Html.Action("NoRetentionDeposit", "Top", new { id = 0 })
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <h2>Overview Report - Hyphen</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <h4>Records</h4>
+                        @Html.Action("OverviewReportRecords", "TPMS", new { id = 0 })
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <h4>Values</h4>
+                        @Html.Action("OverviewReportValues", "TPMS", new { id = 0 })
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <h2>Overview Report - Fulcrum</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <h4>Records</h4>
+                        @Html.Action("OverviewReportRecords", "TPMS", new { id = 1 })
+
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <h4>Values</h4>
+                        @Html.Action("OverviewReportValues", "TPMS", new { id = 1 })
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+    </div><!--/Report -->
+
+
+    @section scripts
+{
+
+        <script>
+            $().ready(function () {
+
+                $("#PrintThis").click(function () {
+                    $('#Report').printThis();
+                });
+
+            });
+
+        </script>
+
+
+        <script>
+
+
+        $().ready(function () {
+            $.ajax({
+                method: "POST",
+                url: "@Url.Action("SubmissionsTrendChart", "TPMS")",
+                data: { id: 0}
+            })
+                .done(function (msg) {
+                    $("#SubmissionsTrendChart0").html(msg);
+                });
+
+        });
+
+        </script>
+
+
+    }

@@ -1,0 +1,55 @@
+﻿
+
+@using Chart.Mvc.ComplexChart
+@model ManagementDashboard.Models.ChartModel
+
+<div class="">
+    @Model.Title
+</div>
+
+@{
+    var barChart = new BarChart();
+    barChart.ChartConfiguration.Responsive = true;
+    barChart.ComplexData.Labels.AddRange(Model.Labels);
+    barChart.ComplexData.Datasets.AddRange(Model.ComplesDatasets);
+}
+
+<!--height="400" style="width: 100%; height: 400px;"-->
+<canvas id="@Model.ChartID"></canvas>
+@Html.CreateChart(Model.ChartID, barChart)
+
+@{
+    if (Model.ShowTable)
+    {
+
+        <table class="table table-condensed table-striped table-responsive" style="font-size: 10px;">
+            <thead>
+                <tr>
+
+                        <td></td>
+                        @foreach (var itemLabel in Model.Labels)
+                        {
+                            <td>@itemLabel</td>
+                        }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ComplesDatasets)
+                {
+                    <tr>
+                        <td>
+                            @item.Label
+
+                        </td>
+                        @foreach (var itemData in item.Data)
+                        {
+                            <td class="text-right">@itemData.ToString("N")</td>
+                        }
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+    }
+}

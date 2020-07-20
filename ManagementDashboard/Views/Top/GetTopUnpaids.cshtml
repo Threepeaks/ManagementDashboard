@@ -1,0 +1,24 @@
+﻿
+@model List<ManagementDashboard.Models.GetTopUnpaids>
+
+<table class="table table-condensed table-responsive table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Code</th>
+            <th>Count</th>
+            <th class="text-right">Value</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Description</td>
+                <td class="text-right">@item.Code</td>
+                <td class="text-right">@item.Count</td>
+                <td class="text-right">@item.Amount.ToString("N")</td>
+            </tr>
+        }
+    </tbody>
+</table>

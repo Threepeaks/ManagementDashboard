@@ -1,0 +1,21 @@
+﻿@model List<ManagementDashboard.Models.SubmissionGroupByDate>
+
+
+<div class="row">
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-2">
+
+            <div class="bg-success text-center" style="padding: 5px;margin-bottom:2px;">
+                
+                    <small>@item.Date.ToString("dd-MM-yy")</small>
+                    <h2 class="" style="font-size: 2em;">@item.Count</h2>
+                
+            </div>
+
+        </div>
+
+    }
+</div>
+
