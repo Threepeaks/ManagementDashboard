@@ -319,6 +319,7 @@
     <Content Include="Views\Top\RetNotReleased.cshtml" />
     <Content Include="Views\Top\PendingClients.cshtml" />
     <Content Include="Views\Top\NoRetentionDeposit.cshtml" />
+    <Content Include="Views\Top\DormantClients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

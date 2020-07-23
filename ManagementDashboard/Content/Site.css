@@ -27,3 +27,6 @@ textarea {
 .table-sm td {
     font-size: 10px !important;
 }
+html {
+    scroll-behavior: smooth;
+}

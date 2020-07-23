@@ -307,7 +307,7 @@ namespace ManagementDashboard.Controllers
                 $"case com_retterms when 1 then ifnull((select sum(rbr_total_retention) from tblrbr where rbr_status = 3 and rbr_comref = com_ref " +
                 $"and rbr_ret_released = 0),0) when 2 then - 1 when 3 then ifnull((select sum(amount) from tbl_accounting_depost_tracking where " +
                 $"cref = com_ref),0) end as 'Value', if ((select count(*) from tblrbr where rbr_comref = com_ref limit 1) >= 1, 'Yes','No') as " +
-                $"'Have Runs' from tblcompany where com_acc_cancel in (0, 1)";
+                $"'Have Runs' from tblcompany where com_acc_cancel in (0, 1) ";
 
             var model = new List<ManagementDashboard.Models.NoRetentionDeposit>();
             var result = db.Query(query);
@@ -323,7 +323,57 @@ namespace ManagementDashboard.Controllers
                 
                 model.Add(RetDep);
             }
+
+            List<ManagementDashboard.Models.NoRetentionDeposit> filteredModel = model.Where(x => x.Value == 0).ToList() ;
+            return PartialView(filteredModel);
+        }
+
+        public PartialViewResult DormantClients(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+            int span = 35;
+
+            var db = new DBConnect();
+            string query = $"select com_ref as 'Ref', case com_acc_cancel when 0 then if (com_ac_pending=1, if(com_acc_pending_flagdate < '{startDate.ToString("yyyy - MM - dd")}','Pending Ended', " +
+                $"if (com_ac_pending_date > '{endDate.ToString("yyyy-MM-dd")}','Active', 'Pending')), 'Active') when 1 then 'In Cancellation' when 2 then " +
+                $"if (com_acc_cancel_enddate < '{startDate.ToString("yyyy-MM-dd")}','Cancelled Before', if (com_acc_cancel_date < '{startDate.ToString("yyyy-MM-dd")}', " +
+                $"'In Cancellation', if (com_acc_cancel_date < '{endDate.ToString("yyyy-MM-dd")}' ,'In Cancellation','Active'))) else -1 end as 'State', " +
+                $"(select max(rbr_date) from tblrbr where rbr_status not in (99) and rbr_comref = com_ref and rbr_date< '{startDate.ToString("yyyy-MM-dd")}') as 'Prev Run', " +
+                $"ifnull((select min(rbr_date) from tblrbr where rbr_status not in (99) and rbr_comref = com_ref and rbr_date between '{startDate.ToString("yyyy-MM-dd")}' " +
+                $"and '{endDate.ToString("yyyy-MM-dd")}'),'na') as 'Next', datediff((select max(rbr_date) from tblrbr where rbr_status not in (99) and  rbr_comref = com_ref " +
+                $"and rbr_date < '{startDate.ToString("yyyy-MM-dd")}'), '{endDate.ToString("yyyy-MM-dd")}') as 'span'from tblcompany where (select min(rbr_date) from tblrbr " +
+                $"where rbr_status not in (99) and rbr_comref = com_ref) < '{startDate.ToString("yyyy-MM-dd")}' and(select count(rbr_id) from tblrbr where rbr_status not in " +
+                $"(99) and  rbr_comref = com_ref and rbr_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}') = 0 and if (com_acc_cancel = 2 , " +
+                $"if (com_acc_cancel_enddate < '{startDate.ToString("yyyy-MM-dd")}', 0,if (com_acc_cancel_date < '{startDate.ToString("yyyy-MM-dd")}', 1, " +
+                $"if (com_acc_cancel_date < '{endDate.ToString("yyyy-MM-dd")}' ,1,1))),1) = 1 and com_acc_cancel = 0 and com_ac_pending = 0 and datediff((select max(rbr_date) " +
+                $" from tblrbr where rbr_status not in (99) and rbr_comref = com_ref and rbr_date< '{startDate.ToString("yyyy-MM-dd")}'), " +
+                $"'{endDate.ToString("yyyy-MM-dd")}') <= (-1 * '{span}') order by span, ifnull((select min(rbr_date) from tblrbr where rbr_status not in (99) " +
+                $"and  rbr_comref = com_ref and rbr_date > '{endDate.ToString("yyyy-MM-dd")}'),'0000-00-00'), (select max(rbr_date) from tblrbr  where rbr_status not in " +
+                $"(99) and rbr_comref = com_ref and rbr_date< '{startDate.ToString("yyyy-MM-dd")}'), com_ref";
+           
+            var model = new List<ManagementDashboard.Models.DormantClients>();
+            var result = db.Query(query);
+
+            foreach (DataRow dRow in result.Tables[0].Rows)
+            {
+                var domCus = new Models.DormantClients();
+                domCus.Ref = dRow.Field<string>("Ref");
+                domCus.State = dRow.Field<string>("State");
+                domCus.PrevRun = (DateTime)dRow.Field<DateTime>("Prev Run");
+                domCus.Next = dRow.Field<string>("Next");
+                Type t = dRow["span"].GetType();
+                domCus.Span = (int)dRow.Field<Int32>("span");
+
+                model.Add(domCus);
+            }
             return PartialView(model);
         }
+
+
     }
 }
