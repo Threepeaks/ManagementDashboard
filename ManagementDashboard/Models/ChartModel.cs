@@ -13,7 +13,8 @@ namespace ManagementDashboard.Models
         public string Title { get; internal set; }
         public string ChartID { get; internal set; }
 
-        public bool ShowTable { get; set; } 
+        public bool ShowTable { get; set; }
+        public int ChartHeight { get; internal set; } = 400;
     }
 
 }

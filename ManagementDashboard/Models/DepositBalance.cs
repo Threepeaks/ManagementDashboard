@@ -69,4 +69,15 @@ namespace ManagementDashboard.Models
         public string Next { get; set; }
         public int Span { get; set; }
     }
+    
+    public class HighestCustomerValue
+    {
+        public string Ref { get; set; }
+        public decimal Value { get; set; }
+        public int Count { get; set; }
+    }
+
+
+
+
  }

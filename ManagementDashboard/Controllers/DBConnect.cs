@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using ManagementDashboard.Properties;
+using MySql.Data.MySqlClient;
 using System.Data;
 
 namespace ManagementDashboard.Controllers
@@ -19,15 +20,16 @@ namespace ManagementDashboard.Controllers
 
         private void Initialize()
         {
-            server = "102.130.113.170";
+            //server = "102.130.113.170";
+            server = Settings.Default.MySQLHost;
             database = "threepeaks_tpms";
-            uid = "cameronm";
-            password = "73PCDAUafMfua2V2";
+            uid = Settings.Default.MySQLUsername;
+            password = Settings.Default.MySQLPassword;
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";Connection Timeout=60;";
+            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";Connection Timeout=120;";
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandTimeout = 60;
+            cmd.CommandTimeout = 120;
 
             connection = new MySqlConnection(connectionString);
         }

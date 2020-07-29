@@ -26,7 +26,7 @@ namespace ManagementDashboard.Controllers
 
             var db = new DBConnect();
             string query = "select dbt_comref,dbt_ref,dbt_date,dbt_rbr,dbt_amount  from tbldebits where " +
-                $"dbt_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' order by dbt_amount  desc limit 10";
+                $"dbt_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' order by dbt_amount  desc limit 20";
             var model = new List<ManagementDashboard.Models.GetTopDebitValue>(); // do you have a model yet  ??? ();
             var result = db.Query(query);
 
@@ -374,6 +374,32 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+        public PartialViewResult HighestCustomerValue(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
 
+            var db = new DBConnect();
+            string query = "select dbt_comref as 'Ref', count(*) as 'Count', sum(dbt_amount) as 'Value' from tbldebits " +
+                $"left join tblrbr    on rbr_id = dbt_rbr where dbt_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' " +
+                $"and rbr_status<> 99 group by dbt_comref order by count(*) desc limit 20";
+            var model = new List<ManagementDashboard.Models.HighestCustomerValue>();
+            var result = db.Query(query);
+
+            foreach (DataRow dRow in result.Tables[0].Rows)
+            {
+                var highCus = new Models.HighestCustomerValue();
+                highCus.Ref = dRow.Field<string>("Ref");
+                highCus.Count = (int)dRow.Field<Int64>("Count");
+                highCus.Value = (int)dRow.Field<decimal>("Value");
+                model.Add(highCus);
+            }
+            return PartialView(model);
+
+        }
     }
 }

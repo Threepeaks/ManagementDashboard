@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ManagementDashboard.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MySQLHost" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">102.130.113.170</Value>
+    </Setting>
+    <Setting Name="MySQLUsername" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cameronm</Value>
+    </Setting>
+    <Setting Name="MySQLPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">73PCDAUafMfua2V2</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

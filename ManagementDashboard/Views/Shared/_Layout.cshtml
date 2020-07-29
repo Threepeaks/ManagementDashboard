@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
     @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/Chart.js"></script>
+    
     
     <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
     <link src="https://printjs-4de6.kxcdn.com/print.min.css" type="text/css"/>
@@ -38,19 +38,20 @@
         </div>
     </div>
     <div class="container body-content">
-           
+
         @RenderBody()
 
-            
 
-        
+
+
 
     </div>
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Management Dashboard</p>
-        </footer>
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Management Dashboard</p>
+    </footer>
 
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/Chart.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

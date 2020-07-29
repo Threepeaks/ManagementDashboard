@@ -293,9 +293,9 @@ namespace ManagementDashboard.Controllers
         public PartialViewResult OverviewReportRecords(int id)
         {
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
-            DateTime endDateCalculation = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-12);
+            DateTime endDateCalculation = new DateTime(currentDate.Year, currentDate.Month, 1).AddMonths(-13);
 
-            DateTime startDate = currentDate;
+            DateTime startDate = currentDate.AddMonths(1);
             DateTime endDate = endDateCalculation;
             
             
@@ -375,9 +375,9 @@ namespace ManagementDashboard.Controllers
         public PartialViewResult OverviewReportValues(int id)
         {
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
-            DateTime endDateCalculation = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(-12);
+            DateTime endDateCalculation = new DateTime(currentDate.Year, currentDate.Month, 1).AddMonths(-13);
 
-            DateTime startDate = currentDate;
+            DateTime startDate = currentDate.AddMonths(1);
             DateTime endDate = endDateCalculation;
 
             //Labels
@@ -453,10 +453,6 @@ namespace ManagementDashboard.Controllers
             return $"rgba({color.R},{color.G},{color.B},{alpha})";
         }
 
-
-
-   
-
         public  Color ChangeColorBrightness(Color color, float correctionFactor)
         {
             float red = (float)color.R;
@@ -480,5 +476,118 @@ namespace ManagementDashboard.Controllers
             return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
         }
 
+
+        public PartialViewResult NewClientByIndustry(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+            var db = new DBConnect();
+            //Get data from db - query
+            string query = $"SELECT count(*) as 'Count', srv_name as 'Industry' FROM threepeaks_tpms.tblcompany left join tblservice on com_serviceid = srv_id " +
+                $"where com_startdate between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by srv_name";
+            DataSet result = db.Query(query);
+
+            var listLabels = new List<string>();
+            foreach (DataRow dr in result.Tables[0].Rows)
+            {
+                listLabels.Add(dr.Field<string>("Industry"));
+            }
+            string[] labels = listLabels.ToArray();
+
+            var data = new List<ComplexDataset>();
+
+            var submissionData = new List<double>();
+            foreach (DataRow dr in result.Tables[0].Rows)
+            {
+                //Type t = dr["Count"].GetType();
+                submissionData.Add((int)dr.Field<Int64>("Count"));
+            }
+            data.Add(new ComplexDataset
+            {
+
+                Data = submissionData,
+                Label = "Submissions",
+                FillColor = "rgba(151,187,205,0.2)",
+                StrokeColor = "rgba(151,187,205,1)",
+                PointColor = "rgba(151,187,205,1)",
+                PointStrokeColor = "#fff",
+                PointHighlightFill = "#fff",
+                PointHighlightStroke = "rgba(151,187,205,1)",
+            });
+
+
+            ManagementDashboard.Models.ChartModel model = new ChartModel();
+            model.Labels = labels;
+            model.ComplesDatasets = data;
+            model.Title = $"Date Range {startDate.ToString("dd/MM/yyyy")} to {endDate.ToString("dd/MM/yyyy")}";
+            model.ChartID = $"ChartNewClientByIndustry{id}";
+            model.ChartHeight = 350;
+            return PartialView("BarChartPartial", model);
+
+        }
+
+        public PartialViewResult SubmissionReceivedTrend(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+
+
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+            var db = new DBConnect();
+            //Get data from db - query
+            string query = $"select date_format(rbr_datetime_sub,'%Y-%m-%d') as 'Received Date', count(*) as 'Count', " +
+                $"sum(rbr_total_records) as 'Total Records' from tblrbr where rbr_datetime_sub " +
+                $"between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by date_format(rbr_datetime_sub, '%Y-%m-%d')";
+            
+            DataSet result = db.Query(query);
+
+
+            var listLabels = new List<string>();
+            foreach (DataRow dr in result.Tables[0].Rows)
+            {
+                listLabels.Add(Convert.ToDateTime(dr["Received Date"]).ToString(LABEL_DATE_FORMAT));
+            }
+            string[] labels = listLabels.ToArray();
+
+
+            var data = new List<ComplexDataset>();
+
+            var ReconData = new List<double>();
+            foreach (DataRow dr in result.Tables[0].Rows)
+            {
+                //Type t = dr["Count"].GetType();
+                ReconData.Add((int)dr.Field<Int64>("Count"));
+            }
+
+
+
+            data.Add(new ComplexDataset
+            {   
+                Data = ReconData,
+                Label = "Recon Debit Trend",
+                FillColor = "rgba(151,187,205,0.2)",
+                StrokeColor = "rgba(151,187,205,1)",
+                PointColor = "rgba(151,187,205,1)",
+                PointStrokeColor = "#fff",
+                PointHighlightFill = "#fff",
+                PointHighlightStroke = "rgba(151,187,205,1)",
+            });
+
+
+            ManagementDashboard.Models.ChartModel model = new ChartModel();
+            model.Labels = labels;
+            model.ComplesDatasets = data;
+            model.Title = $"Date Range {startDate.ToString("dd-MM-yyyy")} to {endDate.ToString("dd-MM-yyyy")}";
+            model.ChartID = $"ChartSubmissionReceivedTrend{id}";            
+            return PartialView("LineChartPartial", model);
+        }
     }
 }
