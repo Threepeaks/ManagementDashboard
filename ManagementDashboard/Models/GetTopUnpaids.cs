@@ -13,5 +13,10 @@ namespace ManagementDashboard.Models
         public int Amount { get; internal set; }
     }
 
-   
+    public class GetTop20Unpaids
+    {
+        public string Customer { get; set; }
+        public int Unpaids { get; set; }
+    }
+
 }

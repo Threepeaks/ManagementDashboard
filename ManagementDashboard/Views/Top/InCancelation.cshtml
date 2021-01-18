@@ -1,0 +1,26 @@
+﻿@model List<ManagementDashboard.Models.InCancelation>
+
+<table class="table table-condensed table-responsive table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Ref</th>
+            <th>Customer</th>
+            <th>Cancel Status</th>
+            <th>Pending Status</th>
+            <th>Comment</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ref</td>
+                <td>@item.Customer</td>
+                <td>@item.CancelStatus</td>
+                <td>@item.PendingStatus</td>
+                <td>@item.Comment</td>
+            </tr>
+        }
+    </tbody>
+</table>

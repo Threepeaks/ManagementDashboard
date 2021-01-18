@@ -1,0 +1,11 @@
+﻿@model ManagementDashboard.Models.SQLReportTableViewModel
+@{
+    ViewBag.Title = "RBR";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>RBR</h2>
+
+
+
+@Html.Raw(Model.HtmlTable)

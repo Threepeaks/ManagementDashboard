@@ -1,0 +1,29 @@
+﻿@model List<ManagementDashboard.Models.ListOfPendingClient>
+
+<table class="table table-condensed table-responsive table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Ref</th>
+            <th>Customer</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Pending Status</th>
+            <th>Service</th>
+            <th>Sales Agent</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ref</td>
+                <td>@item.Customer</td>
+                <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.PendingStatus</td>
+                <td>@item.Service</td>
+                <td>@item.SalesAgent</td>
+            </tr>
+        }
+    </tbody>
+</table>

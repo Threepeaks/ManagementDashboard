@@ -1,0 +1,24 @@
+﻿
+@model List<ManagementDashboard.Models.TransactionCodes>
+
+<table class="table table-condensed table-responsive table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Count</th>
+            <th>State</th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Count</td>
+                <td>@item.State</td>
+               
+            </tr>
+        }
+    </tbody>
+</table>
+

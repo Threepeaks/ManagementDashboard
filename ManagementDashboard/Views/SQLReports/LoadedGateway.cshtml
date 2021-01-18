@@ -1,0 +1,9 @@
+﻿@model ManagementDashboard.Models.SQLReportTableViewModel
+@{
+    ViewBag.Title = "LoadedGateway";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer Account Loaded At Gateway</h2>
+
+@Html.Raw(Model.HtmlTable)

@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top bg-primary">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,23 +29,26 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    <li>@Html.ActionLink("Loaded Gateway", "LoadedGateway", "SQLReports")</li>
+                    <li>@Html.ActionLink("Management Prediction", "ManagementPrediction", "SQLReports")</li>
                     <li>@Html.ActionLink("Deposit Balances", "DepositBalanceReport", "Reports")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>
-    <div class="container body-content">
+    @*<div class="container body-content">*@
+
+    <div style="padding: 20px;">
+
 
         @RenderBody()
 
-
-
-
-
     </div>
+
+
+
+
     <footer>
         <p>&copy; @DateTime.Now.Year - Management Dashboard</p>
     </footer>
