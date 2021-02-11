@@ -308,7 +308,8 @@ namespace ManagementDashboard.Controllers
                 listLabels.Add("Collection Records");
                 listLabels.Add("Unpaids Records");
                 listLabels.Add("Disputes Records");
-                
+            listLabels.Add("Unp R");
+            listLabels.Add("Dis R");
             string[] labels = listLabels.ToArray();
             
             var data = new List<ComplexDataset>();
@@ -329,6 +330,11 @@ namespace ManagementDashboard.Controllers
                 ReconData.Add((double)dr.Field<decimal>("Collection Records"));
                 ReconData.Add((double)dr.Field<decimal>("Unpaids Records"));
                 ReconData.Add((double)dr.Field<decimal>("Disputes Records"));
+                var unpaidRatio = ((double)dr.Field<decimal>("Unpaids Records") / (double)dr.Field<decimal>("Collection Records")) * 100;
+                ReconData.Add(unpaidRatio);
+                var disputeRatio = ((double)dr.Field<decimal>("Disputes Records") / (double)dr.Field<decimal>("Collection Records")) * 100;
+                ReconData.Add(disputeRatio);
+
                 data.Add(new ComplexDataset
                 {
 

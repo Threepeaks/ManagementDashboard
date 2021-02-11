@@ -397,7 +397,7 @@ namespace ManagementDashboard.Controllers
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
             DateTime startDate = currentDate;
             DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-            DateTime today = DateTime.Now.Date;
+            DateTime today = DateTime.Now.Date; //Filter for current Date
             int span = 45;
 
             var db = new DBConnect();
