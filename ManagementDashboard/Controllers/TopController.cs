@@ -614,7 +614,6 @@ namespace ManagementDashboard.Controllers
             var model = new List<ManagementDashboard.Models.GetTopUnpaids>();
             var result = db.Query(query);
 
-            //got an issue with this query... OK will help just now
 
             foreach (DataRow dRow in result.Tables[0].Rows)
             {
@@ -630,6 +629,40 @@ namespace ManagementDashboard.Controllers
 
             }
 
+            return PartialView(model);
+
+        }
+
+        public PartialViewResult ManagementFees(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+
+            var db = new DBConnect();
+            string query = "select dbt_unpaid_datetime as 'Unpaid Date', dbt_ref as 'Customer Reference', " +
+                "case dbt_pass_unpaid when 2 then 'Current' when 3 then 'Late' end as 'Type', dbt_amount as 'Amount', " +
+                "dbt_accrejcode as 'Code', hec_description as 'Reason' from tbldebits left join tblhyphen_errcodes " +
+                "on hec_code = dbt_accrejcode where dbt_comref = 'THREE' and dbt_unpaid_datetime " +
+                $"between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'" +
+                " order by dbt_unpaid_datetime,dbt_ref";
+            var model = new List<ManagementDashboard.Models.ManagementFees>();
+            var result = db.Query(query);
+
+            foreach (DataRow dRow in result.Tables[0].Rows)
+            {
+                var manFee = new Models.ManagementFees();
+                manFee.UnpaidDate = (DateTime)dRow.Field<DateTime>("Unpaid Date");
+                manFee.CustomerReference = dRow.Field<string>("Customer Reference");
+                manFee.Type = dRow.Field<string>("Type");
+                manFee.Amount = (int)dRow.Field<decimal>("Amount");
+                manFee.Code = dRow.Field<string>("Code");
+                manFee.Reason = dRow.Field<string>("Reason");
+                model.Add(manFee);
+            }
             return PartialView(model);
 
         }

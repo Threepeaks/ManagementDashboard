@@ -240,6 +240,7 @@
     <Compile Include="Models\GetTopValueCustomer.cs" />
     <Compile Include="Models\GetTopDebitValue.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LiabilityCurrent.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SQLReportTableViewModel.cs" />
     <Compile Include="Models\SubmissionStateCount.cs" />
@@ -281,6 +282,8 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\printThis.js" />
+    <Content Include="SQLQueries\CustomerComments.sql" />
+    <Content Include="SQLQueries\liabilitycurrent.sql" />
     <Content Include="SQLQueries\LoadedGateway.sql" />
     <Content Include="SQLQueries\ManagementPrediction.sql" />
     <Content Include="SQLQueries\rbr.sql">
@@ -347,6 +350,9 @@
     <Content Include="Views\Top\NewGrowth.cshtml" />
     <Content Include="Views\Top\InCancelation.cshtml" />
     <Content Include="Views\Top\GetTop20Unpaids.cshtml" />
+    <Content Include="Views\SQLReports\CustomerComments.cshtml" />
+    <Content Include="Views\Top\ManagementFees.cshtml" />
+    <Content Include="Views\SQLReports\LiabilityCurrent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

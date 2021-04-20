@@ -39,6 +39,7 @@
     <a class="btn btn-primary" href="#NewClients">New Clients</a>
     <a class="btn btn-primary" href="#TransactionCodes">Transaction Codes</a>
     <a class="btn btn-primary" href="#NewGrowth">New Growth</a>
+    <a class="btn btn-primary" href="#ManagementFees">Management Fees</a>
     <a class="btn btn-primary" href="#OverviewReportRecords">Hyphen</a>
     <a class="btn btn-primary" href="#OverviewReportRecords">Fulcrum</a>
 
@@ -785,6 +786,43 @@
 
     </div>
 
+    <a href="#" id="ManagementFees"></a>
+    <h2>Management Fees</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+                    <div id="ManagementFees0">Loading....</div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    <div id="ManagementFees1">Loading....</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-body1" style="overflow:auto;">
+                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    <div id="ManagementFees2">Loading....</div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
 
     <a href="#" id="OverviewReportRecords"></a>
     <h2>Overview Report - Hyphen</h2>
@@ -1003,7 +1041,12 @@
 
                aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 0 }, "#NewGrowth0");
                 aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 1 }, "#NewGrowth1");
-              aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 2 }, "#NewGrowth2");
+                aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 2 }, "#NewGrowth2");
+
+                //Management fee
+                aJaxPost("@Url.Action("ManagementFees", "Top")", { id: 0 }, "#ManagementFees0");
+                aJaxPost("@Url.Action("ManagementFees", "Top")", { id: 1 }, "#ManagementFees1");
+                aJaxPost("@Url.Action("ManagementFees", "Top")", { id: 2 }, "#ManagementFees2");
         });
 
     </script>

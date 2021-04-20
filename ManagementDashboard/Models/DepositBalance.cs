@@ -52,6 +52,16 @@ namespace ManagementDashboard.Models
         public int Age { get; set; }
 
     }
+    public class ManagementFees
+    {
+        public DateTime UnpaidDate { get; set; }
+        public string CustomerReference { get; set; }
+        public string Code { get; set; }
+        public string Type { get; set; }
+        public decimal Amount { get; set; }
+        public string   Reason { get; set; }
+
+    }
 
     public class PendingClients
     {
@@ -117,7 +127,7 @@ namespace ManagementDashboard.Models
         public string Customer { get; set; }
 
         public DateTime StartDate { get; set; }
-    }
+    } 
     public class TransactionCodes
     {
         public string State { get; set; }
