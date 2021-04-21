@@ -23,6 +23,7 @@ namespace ManagementDashboard.Controllers
 
         private const string LABEL_DATE_FORMAT = "dd-MM";
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DebitsRecordsTrendChart(int id)
         {
 
@@ -76,6 +77,8 @@ namespace ManagementDashboard.Controllers
             return PartialView("LineChartPartial", model);
 
         }
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DebitsValueTrendChart(int id)
         {
             int monthSelected = 0;
@@ -129,7 +132,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult SubmissionsTrendChart(int id)
         {
             int monthSelected = 0;
@@ -185,7 +188,7 @@ namespace ManagementDashboard.Controllers
             return PartialView("LineChartPartial", model);
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult ReconDebitTrendChart(int id)
         {
             int monthSelected = 0;
@@ -245,7 +248,7 @@ namespace ManagementDashboard.Controllers
             return PartialView("LineChartPartial", model);
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         private List<string> GetFulcrumCustomerRefernces()
         {
             var db = new DBConnect();
@@ -260,6 +263,7 @@ namespace ManagementDashboard.Controllers
             return customers;
         }
 
+      
         private string ConcatStringMysql(List<string> list)
         {
             var sb = new List<string>();
@@ -269,6 +273,8 @@ namespace ManagementDashboard.Controllers
             }
             return string.Join(",", sb);
         }
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id;startDate;endDate")]
         private string GetOverReportQuery(int id,DateTime startDate, DateTime endDate )
         {
 
@@ -290,6 +296,7 @@ namespace ManagementDashboard.Controllers
             return query;
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult OverviewReportRecords(int id)
         {
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
@@ -377,7 +384,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult OverviewReportValues(int id)
         {
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
@@ -482,7 +489,7 @@ namespace ManagementDashboard.Controllers
             return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NewClientByIndustry(int id)
         {
             int monthSelected = 0;
@@ -537,6 +544,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult SubmissionReceivedTrend(int id)
         {
             int monthSelected = 0;

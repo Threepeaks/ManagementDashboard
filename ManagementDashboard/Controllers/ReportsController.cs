@@ -17,6 +17,7 @@ namespace ManagementDashboard.Controllers
 
 
         // GET: Reports
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DepositBalancePartial(int id)
         {
             int monthSelected = 0;

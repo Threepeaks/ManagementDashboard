@@ -67,6 +67,7 @@ namespace ManagementDashboard.Controllers
             return html;
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public ActionResult RBR(int id)
         {
 
@@ -96,6 +97,7 @@ namespace ManagementDashboard.Controllers
             return View(vm);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public ActionResult LiabilityCurrent()
         {
 
@@ -143,7 +145,7 @@ namespace ManagementDashboard.Controllers
             return View(model);
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public ActionResult ManagementPrediction()
         {
 
@@ -167,6 +169,7 @@ namespace ManagementDashboard.Controllers
             return View(vm);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public ActionResult LoadedGateway()
         {
 
@@ -191,6 +194,7 @@ namespace ManagementDashboard.Controllers
             return View(vm);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public ActionResult CustomerComments()
         {
 

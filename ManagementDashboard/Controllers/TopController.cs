@@ -7,6 +7,12 @@ using System.Web.Mvc;
 
 namespace ManagementDashboard.Controllers
 {
+    public static class MDConst
+    {
+        public  const int  OUTPUTCASH_DURATION = 600;
+        
+    }
+
     public class TopController : Controller
     {
         // GET: Top
@@ -14,6 +20,8 @@ namespace ManagementDashboard.Controllers
         // Top 10 Value of Debit
         // Customer Reference / Debit Reference / Action Date / RBR /Amount
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam ="id")]
         public PartialViewResult GetTopValueDebits(int id)
         {
             int monthSelected = 0;
@@ -44,6 +52,8 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTopValueCustomers(int id)
         {
             int monthSelected = 0;
@@ -74,6 +84,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTopCustomerRecords(int id)
         {
             int monthSelected = 0;
@@ -104,6 +116,7 @@ namespace ManagementDashboard.Controllers
         }
 
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DepositMovement(int id)
         {
             int monthSelected = 0;
@@ -135,6 +148,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTop20Unpaids(int id)
         {
             int monthSelected = 0;
@@ -167,6 +182,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NoRunClients(int id)
         {
             int monthSelected = 0;
@@ -195,6 +212,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult CanceledClients(int id)
         {
             int monthSelected = 0;
@@ -223,6 +242,9 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
 
         }
+
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult InCancelation(int id)
         {
             int monthSelected = 0;
@@ -257,6 +279,7 @@ namespace ManagementDashboard.Controllers
 
 
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id;IsBetween")]
         [Route("api/top/RetNotReleased/{id}/IsBetween")]
         public PartialViewResult RetNotReleased(int id, bool IsBetween)
         {
@@ -304,6 +327,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult PendingClients(int id)
         {
             int monthSelected = 0;
@@ -333,6 +357,7 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public PartialViewResult ListOfPendingClient()
         {
             var db = new DBConnect();
@@ -360,6 +385,7 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NoRetentionDeposit(int id)
         {
             var db = new DBConnect();
@@ -389,6 +415,7 @@ namespace ManagementDashboard.Controllers
             return PartialView(filteredModel);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DormantClients(int id)
         {
             int monthSelected = 0;
@@ -436,6 +463,7 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult HighestCustomerValue(int id)
         {
             int monthSelected = 0;
@@ -465,7 +493,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult uManageCustomers(int id)
         {
             int monthSelected = 0;
@@ -495,6 +523,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NewClients(int id)
         {
             int monthSelected = 0;
@@ -522,7 +551,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public PartialViewResult TransactionCodes()
         {
 
@@ -545,6 +574,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NewGrowth(int id)
         {
     
@@ -599,6 +629,9 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
 
         }
+
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTopUnpaids(int id)
         {
             int monthSelected = 0;
@@ -633,6 +666,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult ManagementFees(int id)
         {
             int monthSelected = 0;
