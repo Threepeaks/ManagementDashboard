@@ -4,6 +4,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Management Prediction</h2>
+<div class="card card-primary">
+    <div class="card-header">
+        <h2>Management Prediction</h2>
+    </div>
 
-@Html.Raw(Model.HtmlTable)
+    <div class="card">
+
+        @Html.Raw(Model.HtmlTable)
+    </div>
+</div>

@@ -3,43 +3,48 @@
     ViewBag.Title = "LiabilityCurrent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="card card-primary">
+    <div class="card-header">
+        <h2>Liability Current</h2>
+    </div>
+    <div class="card">
+        <table class="table table-condensed table-responsive table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Gateway</th>
+                    <th>B/F</th>
+                    <th>Collection</th>
+                    <th>Unpaids</th>
+                    <th>Late Unpaids</th>
+                    <th>Retention Held</th>
+                    <th>Account</th>
+                    <th>Balance</th>
+                    <th>Debit</th>
+                    <th>Credit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Customer</td>
+                        <td>@item.Status</td>
+                        <td>@item.Gateway</td>
+                        <td>@item.BalanceBroughtForward</td>
+                        <td>@item.Collection</td>
+                        <td>@item.Unpaids</td>
+                        <td>@item.LateUnpaids</td>
+                        <td>@item.RetentionHeld</td>
+                        <td>@item.Account</td>
+                        <td>@item.Balance</td>
+                        <td>@item.Debit</td>
+                        <td>@item.Credit</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-<h2>Liability Current</h2>
-
-<table class="table table-condensed table-responsive table-striped table-sm">
-    <thead>
-        <tr>
-            <th>Customer</th>
-            <th>Status</th>
-            <th>Gateway</th>
-            <th>B/F</th>
-            <th>Collection</th>
-            <th>Unpaids</th>
-            <th>Late Unpaids</th>
-            <th>Retention Held</th>
-            <th>Account</th>
-            <th>Balance</th>
-            <th>Debit</th>
-            <th>Credit</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Customer</td>
-                <td>@item.Status</td>
-                <td>@item.Gateway</td>
-                <td>@item.BalanceBroughtForward</td>
-                <td>@item.Collection</td>
-                <td>@item.Unpaids</td>
-                <td>@item.LateUnpaids</td>
-                <td>@item.RetentionHeld</td>
-                <td>@item.Account</td>
-                <td>@item.Balance</td>
-                <td>@item.Debit</td>
-                <td>@item.Credit</td>
-            </tr>
-        }
-    </tbody>
-</table>
+    </div>
+</div>
