@@ -643,7 +643,7 @@ namespace ManagementDashboard.Controllers
 
             var db = new DBConnect();
             string query = "select hec_description as Description , hec_code as Code, count(*) as Count ,sum(dbt_amount) as amount from tbldebits left join tblhyphen_errcodes on dbt_accrejcode = hec_code left join tblrbr on rbr_id = dbt_rbr where dbt_pass_unpaid in (2,3) and rbr_status not in (99) " +
-                $" and rbr_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by hec_code";
+                $" and dbt_pass_unpaidD between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by hec_code";
             var model = new List<ManagementDashboard.Models.GetTopUnpaids>();
             var result = db.Query(query);
 

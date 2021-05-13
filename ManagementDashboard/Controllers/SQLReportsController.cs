@@ -20,7 +20,7 @@ namespace ManagementDashboard.Controllers
 
         public static string ConvertDataTableToHTML(DataTable dt)
         {
-            string html = "<table class='table table-striped table-condensed'>";
+            string html = "<table class='table table-striped table-sm '>";
 
             //add header row
             html += "<thead>";
@@ -44,7 +44,7 @@ namespace ManagementDashboard.Controllers
         }
         public static string ConvertLiabilityTableToHTML(DataTable dt)
         {
-            string html = "<table class='table table-striped table-condensed'>";
+            string html = "<table class='table table-striped table-sm text-sm'>";
 
             //add header row
             html += "<thead>";
@@ -219,6 +219,54 @@ namespace ManagementDashboard.Controllers
             return View(cm);
         }
 
-       
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
+        public ActionResult LateUnpaidsCreditProvided()
+        {
+
+            var cm = new Models.SQLReportTableViewModel();
+
+            var db = new DBConnect();
+
+            string file = Server.MapPath("~") + "SQLQueries\\LateUnpaidsCreditProvided.sql";
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+                var query = fileContent;
+
+                var result = db.Query(query);
+                string htmlTable = ConvertDataTableToHTML(result.Tables[0]);
+                cm.HtmlTable = htmlTable;
+
+            }
+
+            return View(cm);
+        }
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
+        public PartialViewResult HyphenBatchesStates()
+        {
+
+            var cm = new Models.SQLReportTableViewModel();
+
+            var db = new DBConnect();
+
+            string file = Server.MapPath("~") + "SQLQueries\\HyphenBatchesStates.sql";
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+                var query = fileContent;
+
+                var result = db.Query(query);
+                string htmlTable = ConvertDataTableToHTML(result.Tables[0]);
+                cm.HtmlTable = htmlTable;
+
+            }
+
+            return PartialView(cm);
+        }
     }
 }

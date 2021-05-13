@@ -278,20 +278,18 @@ namespace ManagementDashboard.Controllers
         private string GetOverReportQuery(int id,DateTime startDate, DateTime endDate )
         {
 
-            string InOrNot = "not in";
+            int gatewayId = 1;
             if (id == 0) // Hyphen
-                InOrNot = "not in";
+                gatewayId = 1;
             if (id == 1) // Fulcrum
-                InOrNot = "in";
+                gatewayId = 2;
 
 
             string fulcrumCustomerString = ConcatStringMysql(GetFulcrumCustomerRefernces());
 
             string query = "select date_format(dbt_date, '%Y-%m') as 'YearMonth', count(*) as 'Initial Records', sum(dbt_amount) as 'Initial Amount', sum(if (dbt_cdv = 4,1,0)) +sum(if (dbt_cdv = 3 and dbt_accrej = 4,1,0))as 'Reject Records', sum(if (dbt_cdv = 4,dbt_amount,0)) +sum(if (dbt_cdv = 3 and dbt_accrej = 4, dbt_amount,0))  as 'Reject Amount'  ,sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 0,1,0)) as 'Collection Records', sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 0,dbt_amount,0)) as 'Collection Amount' ,sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1 and dbt_accrejcode not in (4, 30, 34, 36, 88),1,0)) as 'Unpaids Records', sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1  and dbt_accrejcode not in (4, 30, 34, 36, 88),dbt_amount,0)) as 'Unpaids Amount'  ,sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1 and dbt_accrejcode  in (4, 30, 34, 36, 88),1,0)) as 'Disputes Records', sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1  and dbt_accrejcode  in (4, 30, 34, 36, 88),dbt_amount,0)) as 'Disputes Amount' from tbldebits left join tblrbr on rbr_id = dbt_rbr " +
                 $"where dbt_date between '{endDate.ToString("yyyy-MM-dd")}' and '{startDate.ToString("yyyy-MM-dd")}' and rbr_status in (0, 1, 2, 3, 4) " +
-                
-                $"and rbr_comref {InOrNot} ({fulcrumCustomerString}) " +
-
+                $"and rbr_gatewayId  = {gatewayId} " +
                 "group by date_format(dbt_date, '%Y-%m')";
             return query;
         }
@@ -310,6 +308,7 @@ namespace ManagementDashboard.Controllers
             //Labels
             DataSet result = GetData(id, startDate, endDate);
             var listLabels = new List<string>();
+                //listLabels.Add("Date");
                 listLabels.Add("Initial Records");
                 listLabels.Add("Reject Records");
                 listLabels.Add("Collection Records");
@@ -331,7 +330,8 @@ namespace ManagementDashboard.Controllers
             {
                 var ReconData = new List<double>();
 
-                Type t = dr["Initial Records"].GetType();
+                Type t = dr["YearMonth"].GetType();
+                
                 ReconData.Add((double)dr.Field<Int64>("Initial Records"));
                 ReconData.Add((double)dr.Field<decimal>("Reject Records"));
                 ReconData.Add((double)dr.Field<decimal>("Collection Records"));
@@ -401,7 +401,7 @@ namespace ManagementDashboard.Controllers
             listLabels.Add("Reject Amount");
             listLabels.Add("Collection Amount");
             listLabels.Add("Unpaids Amount");
-            listLabels.Add("Dispites Amount");
+            listLabels.Add("Dispute Amount");
             listLabels.Add("Unp R");
             listLabels.Add("Dis R");
             string[] labels = listLabels.ToArray();
@@ -418,7 +418,8 @@ namespace ManagementDashboard.Controllers
             {
                 var ReconData = new List<double>();
 
-                Type t = dr["Initial Records"].GetType();
+                //Type t = dr["Initial Records"].GetType();
+                
                 ReconData.Add((double)dr.Field<decimal>("Initial Amount"));
                 ReconData.Add((double)dr.Field<decimal>("Reject Amount"));
                 ReconData.Add((double)dr.Field<decimal>("Collection Amount"));

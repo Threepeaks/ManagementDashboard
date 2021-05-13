@@ -136,6 +136,60 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <p>Liability Current</p>
                             </a>
                         </li>
+                        @*<li class="nav-item">
+                            <a href="@Url.Action("Rbr","SQLReports")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>RBR</p>
+                            </a>
+                        </li>*@
+                        <li class="nav-item">
+                            <a href="@Url.Action("LateUnpaidsCreditProvided","SQLReports")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Late Unpaids Credit Provided</p>
+                            </a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("ManagementView","Home")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Management(TP)</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("SubmissionsView","Home")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Submissions</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("OverviewView","Home")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Over View</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="@Url.Action("WithholdingsView","Home")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Withholdings</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="@Url.Action("AccountingView","Home")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Accounting</p>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a href="@Url.Action("CustomerView","Home")" class="nav-link">
+                                <i class="nav-icon fas fa-th"></i>
+                                <p>Customer</p>
+                            </a>
+                        </li>
 
 
                     </ul>
@@ -182,10 +236,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-                Anything you want
+               
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+           
         </footer>
     </div>
     <!-- ./wrapper -->

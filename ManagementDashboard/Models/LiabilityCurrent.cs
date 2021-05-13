@@ -16,4 +16,15 @@
         public decimal Credit { get; set; }
 
     }
+
+
+    public class LateUnpaidsCreditProvided
+    {
+        //rbr_comref, sum(dbt_amount), Total Holding, Risk Type, Credit Provided
+        public string Customer { get; set; }
+        public decimal TotalDebit { get; set; }
+        public decimal TotalHolding { get; set; }
+        public decimal CreditProvided { get; set; }
+        public string RiskType { get; set; }
+    }
 }

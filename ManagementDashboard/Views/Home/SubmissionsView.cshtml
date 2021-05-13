@@ -1,0 +1,427 @@
+﻿
+@{
+    ViewBag.Title = "SubmissionsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="SubmissionTrend"></a>
+        Submission Trend
+    </div>
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <div class="card-body bg-light">
+                        <div class="panel-body1" style="overflow:auto;">
+                            <div id="SubmissionsTrendChart0">Loading....</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <div class="card-body bg-light">
+                        <div class="panel-body1" style="overflow:auto;">
+                            <div id="SubmissionsTrendChart1">Loading....</div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body bg-light">
+                    <div class="card-body bg-light">
+                        <div class="panel-body1" style="overflow:auto;">
+                            <div id="SubmissionsTrendChart2">Loading....</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="Top20HighestDebitValue"></a>
+        Top 20 Highest Debit Value
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4> @DateTime.Now.ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="GetTopValueDebits0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="GetTopValueDebits1">Loading....</div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="GetTopValueDebits2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="Top20Unpaids"></a>
+        Top 20 Unpaids per Month
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="Top20Unpaids0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="Top20Unpaids1">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="Top20Unpaids2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="GetTopUnpaids"></a>
+        Unpaid count per Reason
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="GetTopUnpaids0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="GetTopUnpaids1">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="GetTopUnpaids2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<!--Report-->
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="DebitsRecordsTrend"></a>
+        Debits Records Trend
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="DebitsRecordsTrendChart0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+
+                        <div id="DebitsRecordsTrendChart1">Loading....</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+
+                        <div id="DebitsRecordsTrendChart2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="DebitsValueTrend"></a>
+        Debits Value Trend
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="DebitsValueTrendChart0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="DebitsValueTrendChart1">Loading....</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="DebitsValueTrendChart2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="SubmissionReceivedTrend"></a>
+        Submission Received Trend
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="SubmissionReceivedTrend0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="" style="overflow:auto;">
+                        <div id="SubmissionReceivedTrend1">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="" style="overflow:auto;">
+                        <div id="SubmissionReceivedTrend2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+
+    <script>
+        $().ready(function () {
+
+            $("#PrintThis").click(function () {
+                $('#Report').printThis();
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+
+        $().ready(function () {
+
+
+            function aJaxPost(action, myData, target) {
+                $.ajax({
+                    method: "POST",
+                    url: action,
+                    data: myData,
+                    success: function (response) {
+                        $(target).html(response);
+                        // alert(response);
+                        // alert(target + " Details saved successfully!!!");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $(target).html(xhr.status);
+                        //alert(xhr.status);
+                        //alert(thrownError);
+                    }
+                });
+            }
+
+
+
+
+
+               //Submission Trend
+               aJaxPost("@Url.Action("SubmissionsTrendChart", "TPMS")", { id: 0 }, "#SubmissionsTrendChart0");
+               aJaxPost("@Url.Action("SubmissionsTrendChart", "TPMS")", { id: 1 }, "#SubmissionsTrendChart1");
+               aJaxPost("@Url.Action("SubmissionsTrendChart", "TPMS")", { id: 2 }, "#SubmissionsTrendChart2");
+
+               //Html.Action("DebitsRecordsTrendChart", "TPMS", new { id = 2 })
+               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "TPMS")", { id: 0 }, "#DebitsRecordsTrendChart0");
+               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "TPMS")", { id: 1 }, "#DebitsRecordsTrendChart1");
+               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "TPMS")", { id: 2 }, "#DebitsRecordsTrendChart2");
+
+               //Html.Action("DebitsValueTrendChart", "TPMS", new { id = 0 })
+               aJaxPost("@Url.Action("DebitsValueTrendChart", "TPMS")", { id: 0 }, "#DebitsValueTrendChart0");
+               aJaxPost("@Url.Action("DebitsValueTrendChart", "TPMS")", { id: 1 }, "#DebitsValueTrendChart1");
+               aJaxPost("@Url.Action("DebitsValueTrendChart", "TPMS")", { id: 2 }, "#DebitsValueTrendChart2");
+
+
+               //SubmissionReceivedTrend
+               aJaxPost("@Url.Action("SubmissionReceivedTrend", "TPMS")", { id: 0 }, "#SubmissionReceivedTrend0");
+               aJaxPost("@Url.Action("SubmissionReceivedTrend", "TPMS")", { id: 1 }, "#SubmissionReceivedTrend1");
+            aJaxPost("@Url.Action("SubmissionReceivedTrend", "TPMS")", { id: 2 }, "#SubmissionReceivedTrend2");
+
+                   //Html.Action("GetTopUnpaids", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("GetTopUnpaids", "Top")", { id: 0 }, "#GetTopUnpaids0");
+               aJaxPost("@Url.Action("GetTopUnpaids", "Top")", { id: 1 }, "#GetTopUnpaids1");
+               aJaxPost("@Url.Action("GetTopUnpaids", "Top")", { id: 2 }, "#GetTopUnpaids2");
+
+
+                    //Html.Action("GetTopValueDebits", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("GetTopValueDebits", "Top")", { id: 0 }, "#GetTopValueDebits0");
+               aJaxPost("@Url.Action("GetTopValueDebits", "Top")", { id: 1 }, "#GetTopValueDebits1");
+               aJaxPost("@Url.Action("GetTopValueDebits", "Top")", { id: 2 }, "#GetTopValueDebits2");
+
+
+
+                     //Html.Action("Top20Unpaids", "Top", new { id = 0 })
+                aJaxPost("@Url.Action("GetTop20Unpaids", "Top")", { id: 0 }, "#Top20Unpaids0");
+                aJaxPost("@Url.Action("GetTop20Unpaids", "Top")", { id: 1 }, "#Top20Unpaids1");
+                aJaxPost("@Url.Action("GetTop20Unpaids", "Top")", { id: 2 }, "#Top20Unpaids2");
+
+
+        });
+
+    </script>
+
+
+}

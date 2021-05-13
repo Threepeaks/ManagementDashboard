@@ -474,9 +474,13 @@
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
     <Content Include="SQLQueries\CustomerComments.sql" />
+    <Content Include="SQLQueries\LateUnpaidsCreditProvided.sql" />
     <Content Include="SQLQueries\liabilitycurrent.sql" />
     <Content Include="SQLQueries\LoadedGateway.sql" />
     <Content Include="SQLQueries\ManagementPrediction.sql" />
+    <Content Include="SQLQueries\HyphenBatchesStates.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SQLQueries\rbr.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -555,6 +559,16 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\TrendView.cshtml" />
+    <Content Include="Views\Home\NewGrowthView.cshtml" />
+    <Content Include="Views\Home\OverviewView.cshtml" />
+    <Content Include="Views\Home\AccountingView.cshtml" />
+    <Content Include="Views\Home\SubmissionsView.cshtml" />
+    <Content Include="Views\Home\WithholdingsView.cshtml" />
+    <Content Include="Views\Home\CustomerView.cshtml" />
+    <Content Include="Views\Home\ManagementView.cshtml" />
+    <Content Include="Views\SQLReports\LateUnpaidsCreditProvided.cshtml" />
+    <Content Include="Views\SQLReports\HyphenBatchesStates.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
