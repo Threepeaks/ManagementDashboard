@@ -168,6 +168,55 @@ namespace ManagementDashboard.Controllers
 
             return View(vm);
         }
+        
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
+        public ActionResult CustomerBlockedProcessing()
+        {
+
+            var vm = new Models.SQLReportTableViewModel();
+            var db = new DBConnect();
+
+            string file = Server.MapPath("~") + "SQLQueries\\CustomerBlockedProcessing.sql";
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+                var query = fileContent;
+
+                var result = db.Query(query);
+                string htmlTable = ConvertDataTableToHTML(result.Tables[0]);
+                vm.HtmlTable = htmlTable;
+
+            }
+
+            return View(vm);
+        }
+        
+        
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
+        public ActionResult CustomerPaymentBlocked()
+        {
+
+            var vm = new Models.SQLReportTableViewModel();
+            var db = new DBConnect();
+
+            string file = Server.MapPath("~") + "SQLQueries\\CustomerPaymentBlocked.sql";
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+                var query = fileContent;
+
+                var result = db.Query(query);
+                string htmlTable = ConvertDataTableToHTML(result.Tables[0]);
+                vm.HtmlTable = htmlTable;
+
+            }
+
+            return View(vm);
+        }
 
         [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public ActionResult LoadedGateway()
@@ -192,6 +241,55 @@ namespace ManagementDashboard.Controllers
             }
 
             return View(vm);
+        } 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
+        public ActionResult CustomerReferredBy()
+        {
+
+            var vm = new Models.SQLReportTableViewModel();
+
+            var db = new DBConnect();
+
+            string file = Server.MapPath("~") + "SQLQueries\\CustomerReferredBy.sql";
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+                var query = fileContent;
+
+                var result = db.Query(query);
+                string htmlTable = ConvertDataTableToHTML(result.Tables[0]);
+                vm.HtmlTable = htmlTable;
+
+            }
+
+            return View(vm);
+        }
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
+        public ActionResult RunsNotSentToBank()
+        {
+
+            var rnsb = new Models.SQLReportTableViewModel();
+
+            var db = new DBConnect();
+
+            string file = Server.MapPath("~") + "SQLQueries\\RunsNotSentToBank.sql";
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+                var query = fileContent;
+
+                var result = db.Query(query);
+                string htmlTable = ConvertDataTableToHTML(result.Tables[0]);
+                rnsb.HtmlTable = htmlTable;
+
+            }
+
+            return View(rnsb);
         }
 
         [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]

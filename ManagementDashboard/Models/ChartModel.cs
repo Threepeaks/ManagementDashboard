@@ -15,6 +15,14 @@ namespace ManagementDashboard.Models
 
         public bool ShowTable { get; set; }
         public int ChartHeight { get; internal set; } = 400;
+
+        public List<string> DataTableItems { get; set; }
+
+    }
+
+    public class DataTableItem
+    {
+        public string Value { get; set; }
     }
 
 }

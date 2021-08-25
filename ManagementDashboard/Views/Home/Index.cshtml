@@ -1,14 +1,45 @@
 ﻿@{
     ViewBag.Title = "Dashboard";
+    var runsNotSendClass = "btn-primary";
+    if (ViewBag.CountRunsNotSend > 0)
+    {
+        runsNotSendClass = "btn-warning";
+    }
+    var CountBlockProcess = "btn-primary";
+    if (ViewBag.CountBlockProcess > 0)
+    {
+        CountBlockProcess = "btn-warning";
+    }
+    var CountPayBlock = "btn-primary";
+    if (ViewBag.CountPayBlock > 0)
+    {
+        CountPayBlock = "btn-warning";
+    }
+
 }
 <style>
     html {
         scroll-behavior: smooth;
     }
 </style>
-<div style="height: 50px;display:block;">
+<div style="height: 20px;display:block;">
 
 </div>
+
+<a href="@Url.Action("RunsNotSentToBank","SQLReports")" class="btn @runsNotSendClass">
+    Runs not Send (@ViewBag.CountRunsNotSend)
+</a>
+<a href="@Url.Action("CustomerBlockedProcessing","SQLReports")" class="btn @CountBlockProcess">
+    Customer Blocked Processing (@ViewBag.CountBlockProcess)
+</a>
+<a href="@Url.Action("CustomerPaymentBlocked","SQLReports")" class="btn @CountPayBlock">
+    Customer Payment Blocked (@ViewBag.CountPayBlock)
+</a>
+
+<div style="height: 20px;display:block;">
+
+</div>
+
 
 @Html.Action("HyphenBatchesStates", "SQLReports")
 

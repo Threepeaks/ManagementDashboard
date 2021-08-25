@@ -457,7 +457,7 @@ namespace ManagementDashboard.Controllers
                 domCus.Next = dRow.Field<string>("Next");
                 Type t = dRow["span"].GetType();
                 domCus.Span = (int)dRow.Field<Int32>("span");
-
+                if (domCus.Span < -45)
                 model.Add(domCus);
             }
             return PartialView(model);
@@ -643,7 +643,7 @@ namespace ManagementDashboard.Controllers
 
             var db = new DBConnect();
             string query = "select hec_description as Description , hec_code as Code, count(*) as Count ,sum(dbt_amount) as amount from tbldebits left join tblhyphen_errcodes on dbt_accrejcode = hec_code left join tblrbr on rbr_id = dbt_rbr where dbt_pass_unpaid in (2,3) and rbr_status not in (99) " +
-                $" and dbt_pass_unpaidD between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by hec_code";
+                $" and dbt_pass_unpaid between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by hec_code";
             var model = new List<ManagementDashboard.Models.GetTopUnpaids>();
             var result = db.Query(query);
 

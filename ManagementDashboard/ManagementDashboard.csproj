@@ -473,7 +473,9 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="SQLQueries\CustomerBlockedProcessing.sql" />
     <Content Include="SQLQueries\CustomerComments.sql" />
+    <Content Include="SQLQueries\CustomerPaymentBlocked.sql" />
     <Content Include="SQLQueries\LateUnpaidsCreditProvided.sql" />
     <Content Include="SQLQueries\liabilitycurrent.sql" />
     <Content Include="SQLQueries\LoadedGateway.sql" />
@@ -484,6 +486,7 @@
     <Content Include="SQLQueries\rbr.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SQLQueries\RunsNotSentToBank.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -569,6 +572,10 @@
     <Content Include="Views\Home\ManagementView.cshtml" />
     <Content Include="Views\SQLReports\LateUnpaidsCreditProvided.cshtml" />
     <Content Include="Views\SQLReports\HyphenBatchesStates.cshtml" />
+    <Content Include="Views\SQLReports\RunsNotSentToBank.cshtml" />
+    <Content Include="Views\SQLReports\CustomerPaymentBlocked.cshtml" />
+    <Content Include="Views\SQLReports\CustomerBlockedProcessing.cshtml" />
+    <Content Include="Views\SQLReports\CustomerReferredBy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

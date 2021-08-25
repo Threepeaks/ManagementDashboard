@@ -301,10 +301,8 @@ namespace ManagementDashboard.Controllers
             DateTime endDateCalculation = new DateTime(currentDate.Year, currentDate.Month, 1).AddMonths(-13);
 
             DateTime startDate = currentDate.AddMonths(1);
-            DateTime endDate = endDateCalculation;
+            DateTime endDate = endDateCalculation;  
             
-            
-
             //Labels
             DataSet result = GetData(id, startDate, endDate);
             var listLabels = new List<string>();
@@ -325,18 +323,18 @@ namespace ManagementDashboard.Controllers
             Color fillColor = Color.FromArgb(151, 187, 205);
             Color strokeColor = Color.FromArgb(151, 187, 205);
             Color pointColor = Color.FromArgb(151, 187, 205, 1);
-
+                
             foreach (DataRow dr in result.Tables[0].Rows)
             {
                 var ReconData = new List<double>();
-
-                Type t = dr["YearMonth"].GetType();
+                // Type t = dr["YearMonth"].GetType();                
                 
                 ReconData.Add((double)dr.Field<Int64>("Initial Records"));
                 ReconData.Add((double)dr.Field<decimal>("Reject Records"));
                 ReconData.Add((double)dr.Field<decimal>("Collection Records"));
                 ReconData.Add((double)dr.Field<decimal>("Unpaids Records"));
-                ReconData.Add((double)dr.Field<decimal>("Disputes Records"));
+                ReconData.Add((double)dr.Field<decimal>("Disputes Records"));                
+
                 var unpaidRatio = ((double)dr.Field<decimal>("Unpaids Records") / (double)dr.Field<decimal>("Collection Records")) * 100;
                 ReconData.Add(unpaidRatio);
                 var disputeRatio = ((double)dr.Field<decimal>("Disputes Records") / (double)dr.Field<decimal>("Collection Records")) * 100;
@@ -344,7 +342,6 @@ namespace ManagementDashboard.Controllers
 
                 data.Add(new ComplexDataset
                 {
-
                     Data = ReconData,
                     Label = dr.Field<string>("YearMonth"),
                     FillColor = GetRGBAToString(fillColor,0.2M),
@@ -357,17 +354,13 @@ namespace ManagementDashboard.Controllers
                 fillColor = ChangeColorBrightness(fillColor, correctionFactor);
                 strokeColor = ChangeColorBrightness(strokeColor, correctionFactor);
                 pointColor = ChangeColorBrightness(pointColor, correctionFactor);
-
-
-
             }
-
 
             ManagementDashboard.Models.ChartModel model = new ChartModel();
             model.Labels = labels;
             model.ComplesDatasets = data;
             model.Title = $"Overview {endDate.ToString("dd-MM-yyyy")} to {startDate.ToString("dd-MM-yyyy")}";
-
+            //model.DataTableItems = ;
             model.ChartID = $"OverViewChart{id}";
             model.ShowTable = true;
             return PartialView("BarChartPartial", model);
