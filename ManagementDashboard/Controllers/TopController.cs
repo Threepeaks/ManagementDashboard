@@ -665,6 +665,36 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
 
         }
+         [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
+        public PartialViewResult GetTopRevenue(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+
+            var db = new DBConnect();
+            string query = $"select * from(select inv_comref as 'ComRef'," +
+                $"inv_comname as 'Company', sum(inv_t_total) as 'Total' from threepeaks_tpms.tblinvoice where " +
+                $"inv_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'" +
+                $"group by inv_comref) as g order by g.`Total` desc limit 20";
+            var model = new List<ManagementDashboard.Models.GetTopRevenue>();
+            var result = db.Query(query);
+
+
+            foreach (DataRow dRow in result.Tables[0].Rows)
+            {
+                var rev = new Models.GetTopRevenue();
+                rev.comRef = dRow.Field<string>("ComRef");
+                rev.Company = dRow.Field<string>("Company");
+                rev.total = (int)dRow.Field<decimal>("Total");
+
+                model.Add(rev);
+            }
+            return PartialView(model);
+        }
 
         [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult ManagementFees(int id)

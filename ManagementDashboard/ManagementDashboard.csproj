@@ -576,6 +576,8 @@
     <Content Include="Views\SQLReports\CustomerPaymentBlocked.cshtml" />
     <Content Include="Views\SQLReports\CustomerBlockedProcessing.cshtml" />
     <Content Include="Views\SQLReports\CustomerReferredBy.cshtml" />
+    <Content Include="Views\Top\GetTopRevenue.cshtml" />
+    <Content Include="Views\Home\Revenue.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

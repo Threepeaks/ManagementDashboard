@@ -277,13 +277,11 @@ namespace ManagementDashboard.Controllers
         [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id;startDate;endDate")]
         private string GetOverReportQuery(int id,DateTime startDate, DateTime endDate )
         {
-
             int gatewayId = 1;
             if (id == 0) // Hyphen
                 gatewayId = 1;
             if (id == 1) // Fulcrum
                 gatewayId = 2;
-
 
             string fulcrumCustomerString = ConcatStringMysql(GetFulcrumCustomerRefernces());
 

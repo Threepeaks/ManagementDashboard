@@ -29,7 +29,7 @@ namespace ManagementDashboard.Controllers
 
             var db = new DBConnect();
             string query = "select cref as Customer, sum(amount) as Amount from tbl_accounting_depost_tracking a left join tblcompany b on a.cref = b.com_ref " +
-                $"where deposit_date <= '{endDate.ToString("yyyy-MM-dd")}' and com_acc_cancel != 2 group by cref";
+                $"where deposit_date <= '{endDate.ToString("yyyy-MM-dd")}' and com_acc_cancel != 2 and com_retterms = 3 group by cref";
 
             var model = new List<ManagementDashboard.Models.DepositBalance>();
             var result = db.Query(query);

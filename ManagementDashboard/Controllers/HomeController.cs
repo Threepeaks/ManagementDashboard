@@ -121,6 +121,10 @@ namespace ManagementDashboard.Controllers
         {
             return View();
         }
+        public ActionResult Revenue()
+        {
+            return View();
+        }
 
     }
 }
