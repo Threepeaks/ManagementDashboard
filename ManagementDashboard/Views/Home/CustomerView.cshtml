@@ -3,121 +3,48 @@
     ViewBag.Title = "CustomerView";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="NoRunClients"></a>
-        No Run Customers
-    </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="NoRunClients0">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="NoRunClients1">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="NoRunClients2">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="CanceledClients"></a>
-        Canceled Customers
-    </div>
-
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="CanceledClients0">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="CanceledClients1">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <divv class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="CanceledClients2">Loading....</div>
-                    </div>
-                </divv>
-            </div>
-        </div>
-    </div>
+<div class="alert alert-primary">
+    <a href="#" id="NoRunClients"></a>
+    No Run Customers
 </div>
 
 
-
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="inCancelation"></a>
-        In Cancelation Customers
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NoRunClients0">Loading....</div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="inCancelation0">Loading....</div>
-                    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NoRunClients1">Loading....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NoRunClients2">Loading....</div>
                 </div>
             </div>
         </div>
@@ -125,121 +52,72 @@
 </div>
 
 
+<div class="alert alert-primary">
+    <a href="#" id="CanceledClients"></a>
+    Canceled Customers
+</div>
 
 
 
+<div class="row">
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="PendingClients"></a>
-        Pending Customers by Month
-    </div>
-    <div class="row">
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="PendingClients0">Loading....</div>
-                    </div>
-                </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="PendingClients1">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="PendingClients2">Loading....</div>
-                    </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="CanceledClients0">Loading....</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="row">
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="ListOfPendingClient"></a>
-        Pending Customers
-    </div>
-
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="ListOfPendingClient1">Loading....</div>
-                    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="CanceledClients1">Loading....</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<div class="row">
 
-
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="HighestCustomerRecord"></a>
-        Top 20 Highest Customer Records
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <divv class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="CanceledClients2">Loading....</div>
+                </div>
+            </divv>
+        </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4> @DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="HighestCustomerValue0">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="HighestCustomerValue1">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="alert alert-primary">
+    <a href="#" id="inCancelation"></a>
+    In Cancelation Customers
+</div>
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4> @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="HighestCustomerValue2">Loading....</div>
-                    </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="inCancelation0">Loading....</div>
                 </div>
             </div>
         </div>
@@ -248,98 +126,68 @@
 
 
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="Top10HighestCustomerValue"></a>
-        Top 10 Highest Customer Value
+
+
+<div class="alert alert-primary">
+    <a href="#" id="PendingClients"></a>
+    Pending Customers by Month
+</div>
+
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="PendingClients0">Loading....</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="GetTopValueCustomers0">Loading....</div>
-                    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="PendingClients1">Loading....</div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="GetTopValueCustomers1">Loading....</div>
-                    </div>
-                </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
             </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="GetTopValueCustomers2">Loading....</div>
-                    </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="PendingClients2">Loading....</div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="DormantClients"></a>
-        Dormant Customers
-    </div>
+<div class="alert alert-primary">
+    <a href="#" id="ListOfPendingClient"></a>
+    Pending Customers
+</div>
 
-    <div class="row">
+<div class="row">
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DormantClients1">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DormantClients2">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DormantClients3">Loading....</div>
-                    </div>
+    <div class="col-sm-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="ListOfPendingClient1">Loading....</div>
                 </div>
             </div>
         </div>
@@ -347,48 +195,142 @@
 </div>
 
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="uManageCustomers"></a>
-        uManage Customers
+<div class="alert alert-primary">
+    <a href="#" id="HighestCustomerRecord"></a>
+    Top 20 Highest Customer Records
+</div>
+
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4> @DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="HighestCustomerValue0">Loading....</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="uManageCustomers1">Loading....</div>
-                    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="HighestCustomerValue1">Loading....</div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="uManageCustomers2">Loading....</div>
-                    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4> @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="HighestCustomerValue2">Loading....</div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+<div class="alert alert-primary">
+    <a href="#" id="Top10HighestCustomerValue"></a>
+    Top 10 Highest Customer Value
+</div>
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="GetTopValueCustomers0">Loading....</div>
                 </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="uManageCustomers3">Loading....</div>
-                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="GetTopValueCustomers1">Loading....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="GetTopValueCustomers2">Loading....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-primary">
+    <a href="#" id="DormantClients"></a>
+    Dormant Customers
+</div>
+
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="DormantClients1">Loading....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="DormantClients2">Loading....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="DormantClients3">Loading....</div>
                 </div>
             </div>
         </div>
@@ -396,48 +338,94 @@
 </div>
 
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="NewClientByIndustryA"></a>
-        New Customers By Industry
+<div class="alert alert-primary">
+    <a href="#" id="uManageCustomers"></a>
+    uManage Customers
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="uManageCustomers1">Loading....</div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="NewClientByIndustry0">Loading....</div>
-                    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="uManageCustomers2">Loading....</div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="NewClientByIndustry1">Loading....</div>
-                    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="uManageCustomers3">Loading....</div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+<div class="alert alert-primary">
+    <a href="#" id="NewClientByIndustryA"></a>
+    New Customers By Industry
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NewClientByIndustry0">Loading....</div>
                 </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="NewClientByIndustry2">Loading....</div>
-                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NewClientByIndustry1">Loading....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NewClientByIndustry2">Loading....</div>
                 </div>
             </div>
         </div>
@@ -445,17 +433,18 @@
 </div>
 
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="NewClients"></a>
-        New Customers
-    </div>
+<div class="alert alert-primary">
+    <a href="#" id="NewClients"></a>
+    New Customers
+</div>
+
+
 
     <div class="row">
 
         <div class="col-md-4">
             <div class="card">
-                <div class="card-title">
+                <div class="card-header">
                     <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
                 </div>
                 <div class="card-body">
@@ -468,7 +457,7 @@
 
         <div class="col-md-4">
             <div class="card">
-                <div class="card-title">
+                <div class="card-header">
                     <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
                 </div>
                 <div class="card-body">
@@ -482,7 +471,7 @@
 
         <div class="col-md-4">
             <div class="card">
-                <div class="card-title">
+                <div class="card-header">
                     <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
                 </div>
                 <div class="card-body">
@@ -493,20 +482,20 @@
             </div>
         </div>
     </div>
-</div>
 
 
-<div class="card card-primary">
-    <div class="card-header">
+    <div class="alert alert-primary">
         <a href="#" id="TransactionCodes"></a>
         Transaction Codes
     </div>
+
+
 
     <div class="row">
 
         <div class="col-md-4">
             <div class="card">
-                <div class="card-title">
+                <div class="card-header">
                     <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
                 </div>
                 <div class="card-body">
@@ -519,7 +508,6 @@
 
     </div>
 
-</div>
 
 
 
@@ -620,7 +608,7 @@
                aJaxPost("@Url.Action("HighestCustomerValue", "Top")", { id: 0 }, "#HighestCustomerValue0");
                aJaxPost("@Url.Action("HighestCustomerValue", "Top")", { id: 1 }, "#HighestCustomerValue1");
                aJaxPost("@Url.Action("HighestCustomerValue", "Top")", { id: 2 }, "#HighestCustomerValue2");
-                      
+
 
         });
 

@@ -428,7 +428,7 @@ namespace ManagementDashboard.Controllers
             int span = 45;
 
             var db = new DBConnect();
-            string query = $"select com_ref as 'Ref', case com_acc_cancel when 0 then if (com_ac_pending=1, if(com_acc_pending_flagdate < '{startDate.ToString("yyyy - MM - dd")}','Pending Ended', " +
+            string query = $"select com_ref as 'Ref', case com_acc_cancel when 0 then if (com_ac_pending=1, if(com_acc_pending_flagdate < '{startDate.ToString("yyyy-MM-dd")}','Pending Ended', " +
                 $"if (com_ac_pending_date > '{endDate.ToString("yyyy-MM-dd")}','Active', 'Pending')), 'Active') when 1 then 'In Cancellation' when 2 then " +
                 $"if (com_acc_cancel_enddate < '{startDate.ToString("yyyy-MM-dd")}','Cancelled Before', if (com_acc_cancel_date < '{startDate.ToString("yyyy-MM-dd")}', " +
                 $"'In Cancellation', if (com_acc_cancel_date < '{endDate.ToString("yyyy-MM-dd")}' ,'In Cancellation','Active'))) else -1 end as 'State', " +
