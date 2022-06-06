@@ -49,5 +49,14 @@ namespace ManagementDashboard.Properties {
                 return ((string)(this["MySQLPassword"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int OutputCache {
+            get {
+                return ((int)(this["OutputCache"]));
+            }
+        }
     }
 }

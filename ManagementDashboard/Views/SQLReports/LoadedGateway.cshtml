@@ -4,6 +4,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Customer Account Loaded At Gateway</h2>
+<div class="card card-primary">
+    <div class="card-header">
+        Customer Account Loaded At Gateway
+    </div>
 
-@Html.Raw(Model.HtmlTable)
+
+    <div class="card">
+
+        @Html.Raw(Model.HtmlTable)
+    </div>
+</div>

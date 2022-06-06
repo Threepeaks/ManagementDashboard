@@ -23,6 +23,7 @@ namespace ManagementDashboard.Controllers
 
         private const string LABEL_DATE_FORMAT = "dd-MM";
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DebitsRecordsTrendChart(int id)
         {
 
@@ -76,6 +77,8 @@ namespace ManagementDashboard.Controllers
             return PartialView("LineChartPartial", model);
 
         }
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DebitsValueTrendChart(int id)
         {
             int monthSelected = 0;
@@ -129,7 +132,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult SubmissionsTrendChart(int id)
         {
             int monthSelected = 0;
@@ -185,7 +188,7 @@ namespace ManagementDashboard.Controllers
             return PartialView("LineChartPartial", model);
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult ReconDebitTrendChart(int id)
         {
             int monthSelected = 0;
@@ -245,7 +248,7 @@ namespace ManagementDashboard.Controllers
             return PartialView("LineChartPartial", model);
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         private List<string> GetFulcrumCustomerRefernces()
         {
             var db = new DBConnect();
@@ -260,6 +263,7 @@ namespace ManagementDashboard.Controllers
             return customers;
         }
 
+      
         private string ConcatStringMysql(List<string> list)
         {
             var sb = new List<string>();
@@ -269,46 +273,45 @@ namespace ManagementDashboard.Controllers
             }
             return string.Join(",", sb);
         }
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id;startDate;endDate")]
         private string GetOverReportQuery(int id,DateTime startDate, DateTime endDate )
         {
-
-            string InOrNot = "not in";
+            int gatewayId = 1;
             if (id == 0) // Hyphen
-                InOrNot = "not in";
+                gatewayId = 1;
             if (id == 1) // Fulcrum
-                InOrNot = "in";
-
+                gatewayId = 2;
 
             string fulcrumCustomerString = ConcatStringMysql(GetFulcrumCustomerRefernces());
 
             string query = "select date_format(dbt_date, '%Y-%m') as 'YearMonth', count(*) as 'Initial Records', sum(dbt_amount) as 'Initial Amount', sum(if (dbt_cdv = 4,1,0)) +sum(if (dbt_cdv = 3 and dbt_accrej = 4,1,0))as 'Reject Records', sum(if (dbt_cdv = 4,dbt_amount,0)) +sum(if (dbt_cdv = 3 and dbt_accrej = 4, dbt_amount,0))  as 'Reject Amount'  ,sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 0,1,0)) as 'Collection Records', sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 0,dbt_amount,0)) as 'Collection Amount' ,sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1 and dbt_accrejcode not in (4, 30, 34, 36, 88),1,0)) as 'Unpaids Records', sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1  and dbt_accrejcode not in (4, 30, 34, 36, 88),dbt_amount,0)) as 'Unpaids Amount'  ,sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1 and dbt_accrejcode  in (4, 30, 34, 36, 88),1,0)) as 'Disputes Records', sum(if (dbt_cdv = 3 and dbt_accrej = 3 and dbt_pass_unpaid > 1  and dbt_accrejcode  in (4, 30, 34, 36, 88),dbt_amount,0)) as 'Disputes Amount' from tbldebits left join tblrbr on rbr_id = dbt_rbr " +
                 $"where dbt_date between '{endDate.ToString("yyyy-MM-dd")}' and '{startDate.ToString("yyyy-MM-dd")}' and rbr_status in (0, 1, 2, 3, 4) " +
-                
-                $"and rbr_comref {InOrNot} ({fulcrumCustomerString}) " +
-
+                $"and rbr_gatewayId  = {gatewayId} " +
                 "group by date_format(dbt_date, '%Y-%m')";
             return query;
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult OverviewReportRecords(int id)
         {
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
             DateTime endDateCalculation = new DateTime(currentDate.Year, currentDate.Month, 1).AddMonths(-13);
 
             DateTime startDate = currentDate.AddMonths(1);
-            DateTime endDate = endDateCalculation;
+            DateTime endDate = endDateCalculation;  
             
-            
-
             //Labels
             DataSet result = GetData(id, startDate, endDate);
             var listLabels = new List<string>();
+                //listLabels.Add("Date");
                 listLabels.Add("Initial Records");
                 listLabels.Add("Reject Records");
                 listLabels.Add("Collection Records");
                 listLabels.Add("Unpaids Records");
                 listLabels.Add("Disputes Records");
-                
+            listLabels.Add("Unp R");
+            listLabels.Add("Dis R");
             string[] labels = listLabels.ToArray();
             
             var data = new List<ComplexDataset>();
@@ -318,20 +321,25 @@ namespace ManagementDashboard.Controllers
             Color fillColor = Color.FromArgb(151, 187, 205);
             Color strokeColor = Color.FromArgb(151, 187, 205);
             Color pointColor = Color.FromArgb(151, 187, 205, 1);
-
+                
             foreach (DataRow dr in result.Tables[0].Rows)
             {
                 var ReconData = new List<double>();
-
-                Type t = dr["Initial Records"].GetType();
+                // Type t = dr["YearMonth"].GetType();                
+                
                 ReconData.Add((double)dr.Field<Int64>("Initial Records"));
                 ReconData.Add((double)dr.Field<decimal>("Reject Records"));
                 ReconData.Add((double)dr.Field<decimal>("Collection Records"));
                 ReconData.Add((double)dr.Field<decimal>("Unpaids Records"));
-                ReconData.Add((double)dr.Field<decimal>("Disputes Records"));
+                ReconData.Add((double)dr.Field<decimal>("Disputes Records"));                
+
+                var unpaidRatio = ((double)dr.Field<decimal>("Unpaids Records") / (double)dr.Field<decimal>("Collection Records")) * 100;
+                ReconData.Add(unpaidRatio);
+                var disputeRatio = ((double)dr.Field<decimal>("Disputes Records") / (double)dr.Field<decimal>("Collection Records")) * 100;
+                ReconData.Add(disputeRatio);
+
                 data.Add(new ComplexDataset
                 {
-
                     Data = ReconData,
                     Label = dr.Field<string>("YearMonth"),
                     FillColor = GetRGBAToString(fillColor,0.2M),
@@ -344,17 +352,13 @@ namespace ManagementDashboard.Controllers
                 fillColor = ChangeColorBrightness(fillColor, correctionFactor);
                 strokeColor = ChangeColorBrightness(strokeColor, correctionFactor);
                 pointColor = ChangeColorBrightness(pointColor, correctionFactor);
-
-
-
             }
-
 
             ManagementDashboard.Models.ChartModel model = new ChartModel();
             model.Labels = labels;
             model.ComplesDatasets = data;
             model.Title = $"Overview {endDate.ToString("dd-MM-yyyy")} to {startDate.ToString("dd-MM-yyyy")}";
-
+            //model.DataTableItems = ;
             model.ChartID = $"OverViewChart{id}";
             model.ShowTable = true;
             return PartialView("BarChartPartial", model);
@@ -371,7 +375,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult OverviewReportValues(int id)
         {
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddDays(-1);
@@ -388,7 +392,7 @@ namespace ManagementDashboard.Controllers
             listLabels.Add("Reject Amount");
             listLabels.Add("Collection Amount");
             listLabels.Add("Unpaids Amount");
-            listLabels.Add("Dispites Amount");
+            listLabels.Add("Dispute Amount");
             listLabels.Add("Unp R");
             listLabels.Add("Dis R");
             string[] labels = listLabels.ToArray();
@@ -405,7 +409,8 @@ namespace ManagementDashboard.Controllers
             {
                 var ReconData = new List<double>();
 
-                Type t = dr["Initial Records"].GetType();
+                //Type t = dr["Initial Records"].GetType();
+                
                 ReconData.Add((double)dr.Field<decimal>("Initial Amount"));
                 ReconData.Add((double)dr.Field<decimal>("Reject Amount"));
                 ReconData.Add((double)dr.Field<decimal>("Collection Amount"));
@@ -476,7 +481,7 @@ namespace ManagementDashboard.Controllers
             return Color.FromArgb(color.A, (int)red, (int)green, (int)blue);
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NewClientByIndustry(int id)
         {
             int monthSelected = 0;
@@ -531,6 +536,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult SubmissionReceivedTrend(int id)
         {
             int monthSelected = 0;

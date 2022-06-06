@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "AccountingView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="DepositMovement"></a>
+        Deposit Movements Per Month
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="DepositMovement0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="DepositMovement1">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="DepositMovement2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="RetNotReleased"></a>
+        Retention Not Released
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="RetNotReleased1">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="RetNotReleased2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-3).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="RetNotReleased3">Loading....</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="PaymentTrend"></a>
+        Payment Trend
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="ReconDebitTrendChart0">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="ReconDebitTrendChart1">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        <div id="ReconDebitTrendChart2">Loading....</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+
+    <script>
+        $().ready(function () {
+
+            $("#PrintThis").click(function () {
+                $('#Report').printThis();
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+
+        $().ready(function () {
+
+
+            function aJaxPost(action, myData, target) {
+                $.ajax({
+                    method: "POST",
+                    url: action,
+                    data: myData,
+                    success: function (response) {
+                        $(target).html(response);
+                        // alert(response);
+                        // alert(target + " Details saved successfully!!!");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $(target).html(xhr.status);
+                        //alert(xhr.status);
+                        //alert(thrownError);
+                    }
+                });
+            }
+              //Html.Action("DepositMovement", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("DepositMovement", "Top")", { id: 0 }, "#DepositMovement0");
+               aJaxPost("@Url.Action("DepositMovement", "Top")", { id: 1 }, "#DepositMovement1");
+               aJaxPost("@Url.Action("DepositMovement", "Top")", { id: 2 }, "#DepositMovement2");
+
+             //Html.Action("RetNotReleased", "Top", new { id = 1, IsBetween = true })
+               var data1 = { "id": 1, "IsBetween" : true };
+               aJaxPost("@Url.Action("RetNotReleased", "Top")", { id: 1, IsBetween: false }, "#RetNotReleased1");
+               aJaxPost("@Url.Action("RetNotReleased", "Top")", { id: 2, IsBetween : false }, "#RetNotReleased2");
+            aJaxPost("@Url.Action("RetNotReleased", "Top")", { id: 3, IsBetween: false }, "#RetNotReleased3");
+
+               //Html.Action("ReconDebitTrendChart", "TPMS", new { id = 0 })
+               aJaxPost("@Url.Action("ReconDebitTrendChart", "TPMS")", { id: 0 }, "#ReconDebitTrendChart0");
+               aJaxPost("@Url.Action("ReconDebitTrendChart", "TPMS")", { id: 1 }, "#ReconDebitTrendChart1");
+               aJaxPost("@Url.Action("ReconDebitTrendChart", "TPMS")", { id: 2 }, "#ReconDebitTrendChart2");
+
+        });
+
+    </script>
+
+
+}

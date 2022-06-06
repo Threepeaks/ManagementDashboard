@@ -1,41 +1,52 @@
-﻿
-@{
-
-}
-    <div>
-    <p> 
-        </p>
-    </div> 
-<div class="row">
-    <h2>Deposit Balance per Month</h2>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                    @Html.Action("DepositBalancePartial", "Reports", new { id = 0 })
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    @Html.Action("DepositBalancePartial", "Reports", new { id = 1 })
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    @Html.Action("DepositBalancePartial", "Reports", new { id = 2 })
-
-                </div>
-            </div>
-
-        </div>
+﻿<div class="card card-primary">
+    <div class="card-header">
+        Deposit Balance per Month
     </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DepositBalancePartial", "Reports", new { id = 0 })
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+
+                        @Html.Action("DepositBalancePartial", "Reports", new { id = 1 })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-title">
+                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DepositBalancePartial", "Reports", new { id = 2 })
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -12,11 +12,18 @@ namespace ManagementDashboard.Models
         public int Count { get; set; }
         public int Amount { get; internal set; }
     }
+    public class GetTopRevenue
+    {
+        public string comRef { get; set; }
+        public string Company { get; set; }
+        public decimal total { get; internal set; }
+    }
 
     public class GetTop20Unpaids
     {
         public string Customer { get; set; }
         public int Unpaids { get; set; }
     }
+
 
 }

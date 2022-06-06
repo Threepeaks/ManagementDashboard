@@ -7,6 +7,12 @@ using System.Web.Mvc;
 
 namespace ManagementDashboard.Controllers
 {
+    public static class MDConst
+    {
+        public  const int  OUTPUTCASH_DURATION = 600;
+        
+    }
+
     public class TopController : Controller
     {
         // GET: Top
@@ -14,6 +20,8 @@ namespace ManagementDashboard.Controllers
         // Top 10 Value of Debit
         // Customer Reference / Debit Reference / Action Date / RBR /Amount
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam ="id")]
         public PartialViewResult GetTopValueDebits(int id)
         {
             int monthSelected = 0;
@@ -44,6 +52,8 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTopValueCustomers(int id)
         {
             int monthSelected = 0;
@@ -74,6 +84,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTopCustomerRecords(int id)
         {
             int monthSelected = 0;
@@ -104,6 +116,7 @@ namespace ManagementDashboard.Controllers
         }
 
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DepositMovement(int id)
         {
             int monthSelected = 0;
@@ -135,6 +148,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTop20Unpaids(int id)
         {
             int monthSelected = 0;
@@ -167,6 +182,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NoRunClients(int id)
         {
             int monthSelected = 0;
@@ -195,6 +212,8 @@ namespace ManagementDashboard.Controllers
 
         }
 
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult CanceledClients(int id)
         {
             int monthSelected = 0;
@@ -223,6 +242,9 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
 
         }
+
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult InCancelation(int id)
         {
             int monthSelected = 0;
@@ -257,6 +279,7 @@ namespace ManagementDashboard.Controllers
 
 
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id;IsBetween")]
         [Route("api/top/RetNotReleased/{id}/IsBetween")]
         public PartialViewResult RetNotReleased(int id, bool IsBetween)
         {
@@ -304,6 +327,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult PendingClients(int id)
         {
             int monthSelected = 0;
@@ -333,6 +357,7 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public PartialViewResult ListOfPendingClient()
         {
             var db = new DBConnect();
@@ -360,6 +385,7 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NoRetentionDeposit(int id)
         {
             var db = new DBConnect();
@@ -389,6 +415,7 @@ namespace ManagementDashboard.Controllers
             return PartialView(filteredModel);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DormantClients(int id)
         {
             int monthSelected = 0;
@@ -397,11 +424,11 @@ namespace ManagementDashboard.Controllers
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
             DateTime startDate = currentDate;
             DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-            DateTime today = DateTime.Now.Date;
+            DateTime today = DateTime.Now.Date; //Filter for current Date
             int span = 45;
 
             var db = new DBConnect();
-            string query = $"select com_ref as 'Ref', case com_acc_cancel when 0 then if (com_ac_pending=1, if(com_acc_pending_flagdate < '{startDate.ToString("yyyy - MM - dd")}','Pending Ended', " +
+            string query = $"select com_ref as 'Ref', case com_acc_cancel when 0 then if (com_ac_pending=1, if(com_acc_pending_flagdate < '{startDate.ToString("yyyy-MM-dd")}','Pending Ended', " +
                 $"if (com_ac_pending_date > '{endDate.ToString("yyyy-MM-dd")}','Active', 'Pending')), 'Active') when 1 then 'In Cancellation' when 2 then " +
                 $"if (com_acc_cancel_enddate < '{startDate.ToString("yyyy-MM-dd")}','Cancelled Before', if (com_acc_cancel_date < '{startDate.ToString("yyyy-MM-dd")}', " +
                 $"'In Cancellation', if (com_acc_cancel_date < '{endDate.ToString("yyyy-MM-dd")}' ,'In Cancellation','Active'))) else -1 end as 'State', " +
@@ -430,12 +457,13 @@ namespace ManagementDashboard.Controllers
                 domCus.Next = dRow.Field<string>("Next");
                 Type t = dRow["span"].GetType();
                 domCus.Span = (int)dRow.Field<Int32>("span");
-
+                if (domCus.Span < -45)
                 model.Add(domCus);
             }
             return PartialView(model);
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult HighestCustomerValue(int id)
         {
             int monthSelected = 0;
@@ -465,7 +493,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult uManageCustomers(int id)
         {
             int monthSelected = 0;
@@ -495,6 +523,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NewClients(int id)
         {
             int monthSelected = 0;
@@ -522,7 +551,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
         public PartialViewResult TransactionCodes()
         {
 
@@ -545,6 +574,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NewGrowth(int id)
         {
     
@@ -599,6 +629,9 @@ namespace ManagementDashboard.Controllers
             return PartialView(model);
 
         }
+
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult GetTopUnpaids(int id)
         {
             int monthSelected = 0;
@@ -610,11 +643,10 @@ namespace ManagementDashboard.Controllers
 
             var db = new DBConnect();
             string query = "select hec_description as Description , hec_code as Code, count(*) as Count ,sum(dbt_amount) as amount from tbldebits left join tblhyphen_errcodes on dbt_accrejcode = hec_code left join tblrbr on rbr_id = dbt_rbr where dbt_pass_unpaid in (2,3) and rbr_status not in (99) " +
-                $" and rbr_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by hec_code";
+                $" and dbt_pass_unpaid between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by hec_code";
             var model = new List<ManagementDashboard.Models.GetTopUnpaids>();
             var result = db.Query(query);
 
-            //got an issue with this query... OK will help just now
 
             foreach (DataRow dRow in result.Tables[0].Rows)
             {
@@ -630,6 +662,71 @@ namespace ManagementDashboard.Controllers
 
             }
 
+            return PartialView(model);
+
+        }
+         [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
+        public PartialViewResult GetTopRevenue(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+
+            var db = new DBConnect();
+            string query = $"select * from(select inv_comref as 'ComRef'," +
+                $"inv_comname as 'Company', sum(inv_t_total) as 'Total' from threepeaks_tpms.tblinvoice where " +
+                $"inv_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'" +
+                $"group by inv_comref) as g order by g.`Total` desc limit 20";
+            var model = new List<ManagementDashboard.Models.GetTopRevenue>();
+            var result = db.Query(query);
+
+
+            foreach (DataRow dRow in result.Tables[0].Rows)
+            {
+                var rev = new Models.GetTopRevenue();
+                rev.comRef = dRow.Field<string>("ComRef");
+                rev.Company = dRow.Field<string>("Company");
+                rev.total = (int)dRow.Field<decimal>("Total");
+
+                model.Add(rev);
+            }
+            return PartialView(model);
+        }
+
+        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
+        public PartialViewResult ManagementFees(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+
+            var db = new DBConnect();
+            string query = "select dbt_unpaid_datetime as 'Unpaid Date', dbt_ref as 'Customer Reference', " +
+                "case dbt_pass_unpaid when 2 then 'Current' when 3 then 'Late' end as 'Type', dbt_amount as 'Amount', " +
+                "dbt_accrejcode as 'Code', hec_description as 'Reason' from tbldebits left join tblhyphen_errcodes " +
+                "on hec_code = dbt_accrejcode where dbt_comref = 'THREE' and dbt_unpaid_datetime " +
+                $"between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'" +
+                " order by dbt_unpaid_datetime,dbt_ref";
+            var model = new List<ManagementDashboard.Models.ManagementFees>();
+            var result = db.Query(query);
+
+            foreach (DataRow dRow in result.Tables[0].Rows)
+            {
+                var manFee = new Models.ManagementFees();
+                manFee.UnpaidDate = (DateTime)dRow.Field<DateTime>("Unpaid Date");
+                manFee.CustomerReference = dRow.Field<string>("Customer Reference");
+                manFee.Type = dRow.Field<string>("Type");
+                manFee.Amount = (int)dRow.Field<decimal>("Amount");
+                manFee.Code = dRow.Field<string>("Code");
+                manFee.Reason = dRow.Field<string>("Reason");
+                model.Add(manFee);
+            }
             return PartialView(model);
 
         }

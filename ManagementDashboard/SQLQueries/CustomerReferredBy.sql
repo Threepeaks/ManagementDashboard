@@ -1,0 +1,1 @@
+SELECT cpr_referred_by, count(*) FROM threepeaks_tpms.tbl_customer_profile group by cpr_referred_by

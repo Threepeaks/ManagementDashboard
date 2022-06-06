@@ -1,0 +1,28 @@
+﻿@model List<ManagementDashboard.Models.ManagementFees>
+
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Unpaid Date</th>
+            <th>Customer Reference</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Code</th>
+            <th>Reason</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UnpaidDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.CustomerReference</td>
+                <td>@item.Type</td>
+                <td>@item.Amount</td>
+                <td>@item.Code</td>
+                <td>@item.Reason</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,843 +1,82 @@
 ﻿@{
     ViewBag.Title = "Dashboard";
+    var runsNotSendClass = "btn-primary";
+    if (ViewBag.CountRunsNotSend > 0)
+    {
+        runsNotSendClass = "btn-warning";
+    }
+    var CountBlockProcess = "btn-primary";
+    if (ViewBag.CountBlockProcess > 0)
+    {
+        CountBlockProcess = "btn-warning";
+    }
+    var CountPayBlock = "btn-primary";
+    if (ViewBag.CountPayBlock > 0)
+    {
+        CountPayBlock = "btn-warning";
+    }
+
 }
 <style>
     html {
         scroll-behavior: smooth;
     }
 </style>
-<div style="height: 50px;display:block;">
-
-</div>
-<button type="button" onclick="printJS('Report', 'html')">
-    Print
-</button>
-
-<div class="btn-group" role="group" aria-label="Basic example" style="position:fixed;top:45px;z-index: 99999;background: #FFFFFF;">
-
-    <a class="btn btn-primary" href="#SubmissionTrend">Submission Trend</a>
-    <a class="btn btn-primary" href="#DebitsRecordsTrend">Debits Records Trend</a>
-    <a class="btn btn-primary" href="#DebitsValueTrend">Debits Value Trend</a>
-    <a class="btn btn-primary" href="#PaymentTrend">Payment Trend</a>
-    <a class="btn btn-primary" href="#SubmissionReceivedTrend">Submission Received Trend</a>
-    <a class="btn btn-primary" href="#Top20HighestDebitValue">Top 20 Highest Debit Value</a>
-    <a class="btn btn-primary" href="#HighestCustomerValue">Top 20 Highest Customer Records</a>
-    <a class="btn btn-primary" href="#Top10HighestCustomerValue">Top 10 Highest Customer Value</a>
-    <a class="btn btn-primary" href="#DepositMovement">Deposit Movements Per Month</a>
-    <a class="btn btn-primary" href="#GetTopUnpaids">Unpaids per Month</a>
-    <a class="btn btn-primary" href="#Top20Unpaids">Top 20 Unpaids per Month</a>
-    <a class="btn btn-primary" href="#NoRunClients">No Run Clients</a>
-    <a class="btn btn-primary" href="#CanceledClients">Canceled Clients</a>
-    <a class="btn btn-primary" href="#inCancelation">In Cancelation Clients</a>
-    <a class="btn btn-primary" href="#RetNotReleased">Retention Not Released</a>
-    <a class="btn btn-primary" href="#PendingClients">Pending Clients</a>
-    <a class="btn btn-primary" href="#ListOfPendingClient">List of Pending Clients</a>
-    <a class="btn btn-primary" href="#DormantClients">Dormant Clients</a>
-    <a class="btn btn-primary" href="#uManageCustomers">uManage Customers</a>
-    <a class="btn btn-primary" href="#NoRetentionDeposit">No Deposits & Retentions</a>
-    <a class="btn btn-primary" href="#NewClientByIndustryA">New Client By Industry</a>
-    <a class="btn btn-primary" href="#NewClients">New Clients</a>
-    <a class="btn btn-primary" href="#TransactionCodes">Transaction Codes</a>
-    <a class="btn btn-primary" href="#NewGrowth">New Growth</a>
-    <a class="btn btn-primary" href="#OverviewReportRecords">Hyphen</a>
-    <a class="btn btn-primary" href="#OverviewReportRecords">Fulcrum</a>
+<div style="height: 20px;display:block;">
 
 </div>
 
+<a href="@Url.Action("RunsNotSentToBank","SQLReports")" class="btn @runsNotSendClass">
+    Runs not Send (@ViewBag.CountRunsNotSend)
+</a>
+<a href="@Url.Action("CustomerBlockedProcessing","SQLReports")" class="btn @CountBlockProcess">
+    Customer Blocked Processing (@ViewBag.CountBlockProcess)
+</a>
+<a href="@Url.Action("CustomerPaymentBlocked","SQLReports")" class="btn @CountPayBlock">
+    Customer Payment Blocked (@ViewBag.CountPayBlock)
+</a>
+
+<div style="height: 20px;display:block;">
+
+</div>
+
+
+@Html.Action("HyphenBatchesStates", "SQLReports")
+
+
+
+
+@*<div class="btn-group" role="group" aria-label="Basic example";top:45px;z-index: 99999;background: #FFFFFF;">
+
+
+        <a class="btn btn-primary" href="#DepositMovement">Deposit Movements Per Month</a>
+        <a class="btn btn-primary" href="#GetTopUnpaids">Unpaids per Month</a>
+
+        <a class="btn btn-primary" href="#NoRunClients">No Run Clients</a>
+        <a class="btn btn-primary" href="#CanceledClients">Canceled Clients</a>
+        <a class="btn btn-primary" href="#inCancelation">In Cancelation Clients</a>
+        <a class="btn btn-primary" href="#RetNotReleased">Retention Not Released</a>
+        <a class="btn btn-primary" href="#PendingClients">Pending Clients</a>
+        <a class="btn btn-primary" href="#ListOfPendingClient">List of Pending Clients</a>
+        <a class="btn btn-primary" href="#DormantClients">Dormant Clients</a>
+        <a class="btn btn-primary" href="#uManageCustomers">uManage Customers</a>
+        <a class="btn btn-primary" href="#NoRetentionDeposit">No Deposits & Retentions</a>
+        <a class="btn btn-primary" href="#NewClientByIndustryA">New Client By Industry</a>
+        <a class="btn btn-primary" href="#NewClients">New Clients</a>
+        <a class="btn btn-primary" href="#TransactionCodes">Transaction Codes</a>
+
+        <a class="btn btn-primary" href="#ManagementFees">Management Fees</a>
+
+
+    </div>*@
+
+@*<button type="button" onclick="printJS('Report', 'html')">
+        Print
+    </button>*@
 <div id="Report">
-    <!--Report-->
-    <a href="#" id="SubmissionTrend"></a>
-    <h2>Submission Trend</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="SubmissionsTrendChart0">Loading....</div>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="SubmissionsTrendChart1">Loading....</div>
 
-                    </div>
-                </div>
 
-            </div>
-        </div>
-        <div class="col-sm-4">
-
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="SubmissionsTrendChart2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <a href="#" id="DebitsRecordsTrend"></a>
-    <h2>Debits Records Trend</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DebitsRecordsTrendChart0">Loading....</div>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-
-                        <div id="DebitsRecordsTrendChart1">Loading....</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-
-                    <div id="DebitsRecordsTrendChart2">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <a href="#" id="DebitsValueTrend"></a>
-    <h2>Debits Value Trend</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel">
-
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DebitsValueTrendChart0">Loading....</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DebitsValueTrendChart1">Loading....</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="DebitsValueTrendChart2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <a href="#" id="PaymentTrend"></a>
-    <h2>Payment Trend</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-
-                        <div id="ReconDebitTrendChart0">Loading....</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-
-                        <div id="ReconDebitTrendChart1">Loading....</div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-sm-4">
-
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="ReconDebitTrendChart2">Loading....</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="SubmissionReceivedTrend"></a>
-    <h2>Submission Received Trend</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="SubmissionReceivedTrend0">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="panel">
-                <div class="panel panel-primary">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="SubmissionReceivedTrend1">Loading....</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="SubmissionReceivedTrend2">Loading....</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <a href="#" id="Top20HighestDebitValue"></a>
-    <h2>Top 20 Highest Debit Value</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4> @DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="GetTopValueDebits0">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="GetTopValueDebits1">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4> @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="GetTopValueDebits2">Loading....</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="HighestCustomerRecord"></a>
-    <h2>Top 20 Highest Customer Records</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4> @DateTime.Now.ToString("MMMM yyyy")</h4>
-                    <div id="HighestCustomerValue0">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="HighestCustomerValue1">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4> @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="HighestCustomerValue2">Loading....</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="Top10HighestCustomerValue"></a>
-    <h2>Top 10 Highest Customer Value</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="GetTopValueCustomers0">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="GetTopValueCustomers1">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="GetTopValueCustomers2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <a href="#" id="DepositMovement"></a>
-    <h2>Deposit Movements Per Month</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="DepositMovement0">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="DepositMovement1">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="DepositMovement2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <a href="#" id="GetTopUnpaids"></a>
-    <h2>Unpaid count per Reason</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="GetTopUnpaids0">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="GetTopUnpaids1">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="GetTopUnpaids2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <a href="#" id="Top20Unpaids"></a>
-    <h2>Top 20 Unpaids per Month</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="Top20Unpaids0">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="Top20Unpaids1">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="Top20Unpaids2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <a href="#" id="NoRunClients"></a>
-    <h2>No Run Clients</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="NoRunClients0">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="NoRunClients1">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="NoRunClients2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <a href="#" id="CanceledClients"></a>
-    <h2>Canceled Clients</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="CanceledClients0">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="CanceledClients1">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="CanceledClients2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <a href="#" id="inCancelation"></a>
-    <h2>In Cancelation Clients</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-
-                    <div id="inCancelation0">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="RetNotReleased"></a>
-    <h2>Retention Not Released</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-
-                    <div id="RetNotReleased1">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="RetNotReleased2">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-3).ToString("MMMM yyyy")</h4>
-                    <div id="RetNotReleased3">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="PendingClients"></a>
-    <h2>Pending Clients</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="PendingClients0">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="PendingClients1">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="PendingClients2">Loading....</div>
-
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <a href="#" id="ListOfPendingClient"></a>
-    <h2>List of Pending Clients</h2>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="ListOfPendingClient1">Loading....</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="DormantClients"></a>
-    <h2>Dormant Clients</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="DormantClients1">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="DormantClients2">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="DormantClients3">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <a href="#" id="uManageCustomers"></a>
-    <h2>uManage Customers</h2>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-
-                    <div id="uManageCustomers1">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="uManageCustomers2">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="uManageCustomers3">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="NoRetentionDeposit"></a>
-    <h2>No Deposits & Retentions</h2>
-    <div class="row">
-        <div class="col-sm-5">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-
-                    <div id="NoRetentionDeposit0">Loading....</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <a href="#" id="NewClientByIndustryA"></a>
-    <h2>New Clients By Industry</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                    <div id="NewClientByIndustry0">Loading....</div>
-
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="NewClientByIndustry1">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="NewClientByIndustry2">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <a href="#" id="NewClients"></a>
-    <h2>New Clients</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                    <div id="NewClient0">Loading....</div>
-
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="NewClient1">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="NewClient2">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <a href="#" id="TransactionCodes"></a>
-    <h2>Transaction Codes</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                    <div id="TransactionCodes0">Loading....</div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <a href="#" id="NewGrowth"></a>
-    <h2>New Growth Report</h2>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy") - @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                    <div id="NewGrowth0">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-3).ToString("MMMM yyyy") - @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                    <div id="NewGrowth1">Loading....</div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>@DateTime.Now.AddMonths(-4).ToString("MMMM yyyy") - @DateTime.Now.AddMonths(-3).ToString("MMMM yyyy")</h4>
-                    <div id="NewGrowth2">Loading....</div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
-    <a href="#" id="OverviewReportRecords"></a>
-    <h2>Overview Report - Hyphen</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>Records</h4>
-                    <div id="OverviewReportRecords0">Loading....</div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>Values</h4>
-                    <div id="OverviewReportValues0">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <a href="#" id="OverviewReportRecords"></a>
-    <h2>Overview Report - Fulcrum</h2>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>Records</h4>
-                    <div id="OverviewReportRecords1">Loading....</div>
-                </div>
-            </div>
-
-
-        </div>
-        <div class="col-md-6">
-            <div class="panel panel-primary">
-                <div class="panel-body1" style="overflow:auto;">
-                    <h4>Values</h4>
-                    <div id="OverviewReportValues1">Loading....</div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
 
 </div><!--/Report -->
 
@@ -859,151 +98,33 @@
 
     <script>
 
-            $().ready(function () {
+        $().ready(function () {
 
 
-                function aJaxPost(action, myData,target) {
-                    $.ajax({
-                        method: "POST",
-                        url: action,
-                        data: myData,
-                        success: function (response) {
-                            $(target).html(response);
-                            // alert(response);
-                            // alert(target + " Details saved successfully!!!");
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            $(target).html(xhr.status);
-                            //alert(xhr.status);
-                            //alert(thrownError);
-                        }
-                    });
-                }
-               //Submission Trend
-               aJaxPost("@Url.Action("SubmissionsTrendChart", "TPMS")", { id: 0 }, "#SubmissionsTrendChart0");
-               aJaxPost("@Url.Action("SubmissionsTrendChart", "TPMS")", { id: 1 }, "#SubmissionsTrendChart1");
-               aJaxPost("@Url.Action("SubmissionsTrendChart", "TPMS")", { id: 2 }, "#SubmissionsTrendChart2");
-
-               //Html.Action("DebitsRecordsTrendChart", "TPMS", new { id = 2 })
-               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "TPMS")", { id: 0 }, "#DebitsRecordsTrendChart0");
-               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "TPMS")", { id: 1 }, "#DebitsRecordsTrendChart1");
-               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "TPMS")", { id: 2 }, "#DebitsRecordsTrendChart2");
-
-               //Html.Action("DebitsValueTrendChart", "TPMS", new { id = 0 })
-               aJaxPost("@Url.Action("DebitsValueTrendChart", "TPMS")", { id: 0 }, "#DebitsValueTrendChart0");
-               aJaxPost("@Url.Action("DebitsValueTrendChart", "TPMS")", { id: 1 }, "#DebitsValueTrendChart1");
-               aJaxPost("@Url.Action("DebitsValueTrendChart", "TPMS")", { id: 2 }, "#DebitsValueTrendChart2");
-
-               //Html.Action("ReconDebitTrendChart", "TPMS", new { id = 0 })
-               aJaxPost("@Url.Action("ReconDebitTrendChart", "TPMS")", { id: 0 }, "#ReconDebitTrendChart0");
-               aJaxPost("@Url.Action("ReconDebitTrendChart", "TPMS")", { id: 1 }, "#ReconDebitTrendChart1");
-               aJaxPost("@Url.Action("ReconDebitTrendChart", "TPMS")", { id: 2 }, "#ReconDebitTrendChart2");
-
-               //SubmissionReceivedTrend
-               aJaxPost("@Url.Action("SubmissionReceivedTrend", "TPMS")", { id: 0 }, "#SubmissionReceivedTrend0");
-               aJaxPost("@Url.Action("SubmissionReceivedTrend", "TPMS")", { id: 1 }, "#SubmissionReceivedTrend1");
-               aJaxPost("@Url.Action("SubmissionReceivedTrend", "TPMS")", { id: 2 }, "#SubmissionReceivedTrend2");
-
-               //Html.Action("GetTopValueDebits", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("GetTopValueDebits", "Top")", { id: 0 }, "#GetTopValueDebits0");
-               aJaxPost("@Url.Action("GetTopValueDebits", "Top")", { id: 1 }, "#GetTopValueDebits1");
-               aJaxPost("@Url.Action("GetTopValueDebits", "Top")", { id: 2 }, "#GetTopValueDebits2");
-
-               //Html.Action("GetTopValueCustomers", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("GetTopValueCustomers", "Top")", { id: 0 }, "#GetTopValueCustomers0");
-               aJaxPost("@Url.Action("GetTopValueCustomers", "Top")", { id: 1 }, "#GetTopValueCustomers1");
-               aJaxPost("@Url.Action("GetTopValueCustomers", "Top")", { id: 2 }, "#GetTopValueCustomers2");
-
-               //HighestCustomerValue
-               aJaxPost("@Url.Action("HighestCustomerValue", "Top")", { id: 0 }, "#HighestCustomerValue0");
-               aJaxPost("@Url.Action("HighestCustomerValue", "Top")", { id: 1 }, "#HighestCustomerValue1");
-               aJaxPost("@Url.Action("HighestCustomerValue", "Top")", { id: 2 }, "#HighestCustomerValue2");
+            function aJaxPost(action, myData, target) {
+                $.ajax({
+                    method: "POST",
+                    url: action,
+                    data: myData,
+                    success: function (response) {
+                        $(target).html(response);
+                        // alert(response);
+                        // alert(target + " Details saved successfully!!!");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $(target).html(xhr.status);
+                        //alert(xhr.status);
+                        //alert(thrownError);
+                    }
+                });
+            }
 
 
-               //Html.Action("DepositMovement", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("DepositMovement", "Top")", { id: 0 }, "#DepositMovement0");
-               aJaxPost("@Url.Action("DepositMovement", "Top")", { id: 1 }, "#DepositMovement1");
-               aJaxPost("@Url.Action("DepositMovement", "Top")", { id: 2 }, "#DepositMovement2");
-
-               //Html.Action("GetTopUnpaids", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("GetTopUnpaids", "Top")", { id: 0 }, "#GetTopUnpaids0");
-               aJaxPost("@Url.Action("GetTopUnpaids", "Top")", { id: 1 }, "#GetTopUnpaids1");
-               aJaxPost("@Url.Action("GetTopUnpaids", "Top")", { id: 2 }, "#GetTopUnpaids2");
-
-                //Html.Action("Top20Unpaids", "Top", new { id = 0 })
-                aJaxPost("@Url.Action("GetTop20Unpaids", "Top")", { id: 0 }, "#Top20Unpaids0");
-                aJaxPost("@Url.Action("GetTop20Unpaids", "Top")", { id: 1 }, "#Top20Unpaids1");
-                aJaxPost("@Url.Action("GetTop20Unpaids", "Top")", { id: 2 }, "#Top20Unpaids2");
-
-               //Html.Action("NoRunClients", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("NoRunClients", "Top")", { id: 0 }, "#NoRunClients0");
-               aJaxPost("@Url.Action("NoRunClients", "Top")", { id: 1 }, "#NoRunClients1");
-               aJaxPost("@Url.Action("NoRunClients", "Top")", { id: 2 }, "#NoRunClients2");
 
 
-               //Html.Action("CanceledClients", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("CanceledClients", "Top")", { id: 0 }, "#CanceledClients0");
-               aJaxPost("@Url.Action("CanceledClients", "Top")", { id: 1 }, "#CanceledClients1");
-                aJaxPost("@Url.Action("CanceledClients", "Top")", { id: 2 }, "#CanceledClients2");
-
-                //in cancelation
-                aJaxPost("@Url.Action("InCancelation", "Top")", { id: 0 }, "#inCancelation0");
-
-                //Html.Action("RetNotReleased", "Top", new { id = 1, IsBetween = true })
-               var data1 = { "id": 1, "IsBetween" : true };
-               aJaxPost("@Url.Action("RetNotReleased", "Top")", { id: 1, IsBetween: false }, "#RetNotReleased1");
-               aJaxPost("@Url.Action("RetNotReleased", "Top")", { id: 2, IsBetween : false }, "#RetNotReleased2");
-               aJaxPost("@Url.Action("RetNotReleased", "Top")", { id: 3, IsBetween : false }, "#RetNotReleased3");
-
-               //Html.Action("PendingClients", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("PendingClients", "Top")", { id: 1 }, "#PendingClients1");
-               aJaxPost("@Url.Action("PendingClients", "Top")", { id: 2 }, "#PendingClients2");
-               aJaxPost("@Url.Action("PendingClients", "Top")", { id: 0 }, "#PendingClients0");
-
-               //Html.Action("ListofPendingClients", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("ListOfPendingClient", "Top")", { id: 0 }, "#ListOfPendingClient1");
-
-               //Html.Action("DormantClients", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("DormantClients", "Top")", { id: 0 }, "#DormantClients1");
-               aJaxPost("@Url.Action("DormantClients", "Top")", { id: 1 }, "#DormantClients2");
-               aJaxPost("@Url.Action("DormantClients", "Top")", { id: 2 }, "#DormantClients3");
-
-               //Html.Action("uManageCustomers", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("uManageCustomers", "Top")", { id: 0 }, "#uManageCustomers1");
-               aJaxPost("@Url.Action("uManageCustomers", "Top")", { id: 1 }, "#uManageCustomers2");
-               aJaxPost("@Url.Action("uManageCustomers", "Top")", { id: 2 }, "#uManageCustomers3");
-
-               //Html.Action("NoRetentionDeposit", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("NoRetentionDeposit", "Top")", { id: 0, }, "#NoRetentionDeposit0");
-
-               //Html.Action("OverviewReportRecords", "TPMS", new { id = 0 })
-               aJaxPost("@Url.Action("OverviewReportRecords", "TPMS")", { id: 0 }, "#OverviewReportRecords0");
-
-               //Html.Action("OverviewReportValues", "TPMS", new { id = 0 })
-               aJaxPost("@Url.Action("OverviewReportValues", "TPMS")", { id: 0 }, "#OverviewReportValues0");
-
-               //Html.Action("OverviewReportRecords", "TPMS", new { id = 1 })
-               aJaxPost("@Url.Action("OverviewReportRecords", "TPMS")", { id: 1 }, "#OverviewReportRecords1");
-
-               //Html.Action("OverviewReportValues", "TPMS", new { id = 1 })
-               aJaxPost("@Url.Action("OverviewReportValues", "TPMS")", { id: 1 }, "#OverviewReportValues1");
-
-               //NewClientByIndustry
-               aJaxPost("@Url.Action("NewClientByIndustry", "TPMS")", { id: 0 }, "#NewClientByIndustry0");
-               aJaxPost("@Url.Action("NewClientByIndustry", "TPMS")", { id: 1 }, "#NewClientByIndustry1");
-               aJaxPost("@Url.Action("NewClientByIndustry", "TPMS")", { id: 2 }, "#NewClientByIndustry2");
 
 
-               aJaxPost("@Url.Action("NewClients", "Top")", { id: 0 }, "#NewClient0");
-               aJaxPost("@Url.Action("NewClients", "Top")", { id: 1 }, "#NewClient1");
-               aJaxPost("@Url.Action("NewClients", "Top")", { id: 2 }, "#NewClient2");
 
-               aJaxPost("@Url.Action("TransactionCodes", "Top")", { id: 0 }, "#TransactionCodes0");
-
-
-               aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 0 }, "#NewGrowth0");
-                aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 1 }, "#NewGrowth1");
-              aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 2 }, "#NewGrowth2");
         });
 
     </script>
