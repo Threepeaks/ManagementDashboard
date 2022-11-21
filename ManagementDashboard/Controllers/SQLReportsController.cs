@@ -10,6 +10,8 @@ using System.Web.Mvc;
 namespace ManagementDashboard.Controllers
 {
     public class DataColumnAttribute : Attribute { }
+
+    [Authorize]
     public class SQLReportsController : Controller
     {
         // GET: SQLReports

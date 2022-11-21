@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ManagementDashboard.Models;
+using System.Collections.Generic;
 
 namespace ManagementDashboard.Controllers
 {
@@ -75,10 +76,29 @@ namespace ManagementDashboard.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
+            var result = await SignInManager.SignInWithPasswordAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            SignInStatus status = (SignInStatus)result.SignInStatus;
+
+            switch (status)
             {
                 case SignInStatus.Success:
+
+                    //Creating Identity on Owin from response 
+                    var claims = new List<Claim>();
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, model.Email));
+                    claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"));
+                    claims.Add(new Claim(ClaimTypes.Name, model.Email));
+                    foreach (var role in result.Roles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, role));
+                    }
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                    HttpContext.GetOwinContext().Authentication.SignIn(
+                        new AuthenticationProperties { IsPersistent = false }, claimsIdentity);
+
+                    //Create or Update Local User, if required.
+                    CreateOrUpdateLocalUser(result, model.Password);
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -86,9 +106,36 @@ namespace ManagementDashboard.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", result.Message);
                     return View(model);
             }
+        }
+
+        /// <summary>
+        /// Create a local user account in your application
+        /// </summary>
+        /// <param name="result">User Authentication Response</param>
+        /// <param name="password">Unencrypted Password</param>
+        private void CreateOrUpdateLocalUser(tp.cloud.authShared.DTOs.UserAuthenticationResponse result, string password)
+        {
+            var db = new Models.ApplicationDbContext();
+            var user = db.Users.FirstOrDefault(x => x.UserName == result.UserInformation.Email);
+            if (user == null)
+            {
+                user = new ApplicationUser { UserName = result.UserInformation.Email, Email = result.UserInformation.Email };
+                var userCreateResult = UserManager.CreateAsync(user, password).GetAwaiter().GetResult();
+
+                if (userCreateResult.Succeeded)
+                {
+                    //Update your user's information like First Name and other properties as required.
+                }
+            }
+            else
+            {
+                //Update your user's information like First Name and other properties as required.
+            }
+
+
         }
 
         //

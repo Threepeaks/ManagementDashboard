@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewBag.Title - Management Dashboard</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+</head>
+
+<body class="hold-transition login-page" style="background: url('../Content/assits/background/dashboard.jpg');background-size:cover;">
+    <div class="login-box">
+        <!-- /.login-logo -->
+        <div class="card">
+            <div class="card-body login-card-body">
+        <div class="login-logo">
+            <a href="../../index2.html"><b>TPMS</b>Dashboard</a>
+        </div>
+
+                <p class="login-box-msg">Sign in to start your session</p>
+                @RenderBody()
+                <form action="../../index3.html" method="post">
+    
+
+
+                </form>
+
+
+
+   
+            </div>
+            <!-- /.login-card-body -->
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/dist/js/adminlte.min.js"></script>
+</body>
+</html>
+

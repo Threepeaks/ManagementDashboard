@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using ManagementDashboard.Models;
+using tp.cloud.authClient;
 
 namespace ManagementDashboard
 {
@@ -104,6 +105,31 @@ namespace ManagementDashboard
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+
+        public Task<tp.cloud.authShared.DTOs.UserAuthenticationResponse> SignInWithPasswordAsync(string username, string password, bool isPersistent, bool shouldLockout)
+        {
+            var result = new tp.cloud.authShared.DTOs.UserAuthenticationResponse();
+            try
+            {
+                var config = new AuthClientConfig()
+                {
+                    ApplicationKey = "c69aba45-22c1-48c7-80da-2cc85fa621ac",
+                    ApplicationSecret = "5kd!2s&6iA4Jxp!cJAq#\\tn3\\Kd&1YlL",
+                    EncryptionKey = "TE9ROH3J7RTH5YN0KLY17O6ABDLJS48X",
+                    AuthServerUrl = "https://auth.threepeaks.co.za"
+                };
+                var authClient = new AuthClient(config);
+                result = authClient.Authenticate(username, password);
+
+            }
+            catch (System.Exception)
+            {
+                result.SignInStatus = (int)SignInStatus.Failure;
+            }
+
+            return Task.FromResult(result);
+
         }
     }
 }
