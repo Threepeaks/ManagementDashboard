@@ -17,7 +17,7 @@ namespace ManagementDashboard.Controllers
     {
         public string Name { get; set; }
     }
-
+    [Authorize]
     public class TPMSController : Controller
     {
 

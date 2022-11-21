@@ -12,7 +12,7 @@ namespace ManagementDashboard.Controllers
         public  const int  OUTPUTCASH_DURATION = 600;
         
     }
-
+    [Authorize]
     public class TopController : Controller
     {
         // GET: Top
