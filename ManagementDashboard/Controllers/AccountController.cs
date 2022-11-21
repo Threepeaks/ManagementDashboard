@@ -10,12 +10,14 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ManagementDashboard.Models;
 using System.Collections.Generic;
+using MySqlX.XDevAPI.Common;
 
 namespace ManagementDashboard.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
+        private static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -23,7 +25,7 @@ namespace ManagementDashboard.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -35,9 +37,9 @@ namespace ManagementDashboard.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -69,45 +71,57 @@ namespace ManagementDashboard.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+
+            try
             {
-                return View(model);
-            }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.SignInWithPasswordAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            SignInStatus status = (SignInStatus)result.SignInStatus;
-
-            switch (status)
-            {
-                case SignInStatus.Success:
-
-                    //Creating Identity on Owin from response 
-                    var claims = new List<Claim>();
-                    claims.Add(new Claim(ClaimTypes.NameIdentifier, model.Email));
-                    claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"));
-                    claims.Add(new Claim(ClaimTypes.Name, model.Email));
-                    foreach (var role in result.Roles)
-                    {
-                        claims.Add(new Claim(ClaimTypes.Role, role));
-                    }
-                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
-                    HttpContext.GetOwinContext().Authentication.SignIn(
-                        new AuthenticationProperties { IsPersistent = false }, claimsIdentity);
-
-                    //Create or Update Local User, if required.
-                    CreateOrUpdateLocalUser(result, model.Password);
-
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", result.Message);
+                if (!ModelState.IsValid)
+                {
                     return View(model);
+                }
+
+                // This doesn't count login failures towards account lockout
+                // To enable password failures to trigger account lockout, change to shouldLockout: true
+                var result = await SignInManager.SignInWithPasswordAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                SignInStatus status = (SignInStatus)result.SignInStatus;
+
+                switch (status)
+                {
+                    case SignInStatus.Success:
+
+                        //Creating Identity on Owin from response 
+                        var claims = new List<Claim>();
+                        claims.Add(new Claim(ClaimTypes.NameIdentifier, model.Email));
+                        claims.Add(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "ASP.NET Identity", "http://www.w3.org/2001/XMLSchema#string"));
+                        claims.Add(new Claim(ClaimTypes.Name, model.Email));
+                        foreach (var role in result.Roles)
+                        {
+                            claims.Add(new Claim(ClaimTypes.Role, role));
+                        }
+                        ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+                        HttpContext.GetOwinContext().Authentication.SignIn(
+                            new AuthenticationProperties { IsPersistent = false }, claimsIdentity);
+
+                        //Create or Update Local User, if required.
+                        CreateOrUpdateLocalUser(result, model.Password);
+
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", result.Message);
+                        return View(model);
+                }
+            }
+            catch (Exception e)
+            {
+                Logger.Error(e, "Login Exception");
+                Logger.Error(e.Message);
+                ModelState.AddModelError("", e.Message);
+                return View(model);
             }
         }
 
@@ -167,7 +181,7 @@ namespace ManagementDashboard.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -202,8 +216,8 @@ namespace ManagementDashboard.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
