@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "Top Stats";
+}
+
+<div class="alert alert-primary">
+    <a href="#" id="HighestCustomerRecord"></a>
+    Top 20 Highest Customer Records
+</div>
+
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4> @DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="HighestCustomerValue0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="HighestCustomerValue1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4> @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="HighestCustomerValue2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-primary">
+    <a href="#" id="Top10HighestCustomerValue"></a>
+    Top 10 Highest Customer Value
+</div>
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="GetTopValueCustomers0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="GetTopValueCustomers1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="GetTopValueCustomers2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $().ready(function () {
+                    //Html.Action("GetTopValueCustomers", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("GetTopValueCustomers", "Customers")", { id: 0 }, "#GetTopValueCustomers0");
+               aJaxPost("@Url.Action("GetTopValueCustomers", "Customers")", { id: 1 }, "#GetTopValueCustomers1");
+               aJaxPost("@Url.Action("GetTopValueCustomers", "Customers")", { id: 2 }, "#GetTopValueCustomers2");
+
+                    //HighestCustomerValue
+               aJaxPost("@Url.Action("HighestCustomerValue", "Customers")", { id: 0 }, "#HighestCustomerValue0");
+               aJaxPost("@Url.Action("HighestCustomerValue", "Customers")", { id: 1 }, "#HighestCustomerValue1");
+               aJaxPost("@Url.Action("HighestCustomerValue", "Customers")", { id: 2 }, "#HighestCustomerValue2");
+
+        })
+    </script>
+    
+}

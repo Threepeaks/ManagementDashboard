@@ -1,0 +1,20 @@
+﻿@model ManagementDashboard.Models.SQLReportTableViewModel
+@{
+    ViewBag.Title = "Customers Referred By";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        Customer Referred By Count
+    </div>
+
+
+    <div class="card-body dark-mode">
+
+        @Html.Raw(Model.HtmlTable)
+    </div>
+</div>
+
+
+

@@ -1,0 +1,15 @@
+﻿@model ManagementDashboard.Models.SQLReportTableViewModel
+@{
+    ViewBag.Title = "Runs Not Sent To Bank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        Missed Runs Not Sent To Bank
+    </div>
+    <div class="card-body">
+
+        @Html.Raw(Model.HtmlTable)
+    </div>
+</div>

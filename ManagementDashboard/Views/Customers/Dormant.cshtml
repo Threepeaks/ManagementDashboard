@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewBag.Title = "Dormant Customer(s)";
+}
+
+<div class="text-sm">
+     Click on the reference to highlight the customer on all months
+</div>
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="DormantClients1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="DormantClients2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="DormantClients3"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            function loadAjax() {
+
+                aJaxPost("@Url.Action("DormantClients", "Customers")", { id: 0 }, "#DormantClients1");
+                aJaxPost("@Url.Action("DormantClients", "Customers")", { id: 1 }, "#DormantClients2");
+                aJaxPost("@Url.Action("DormantClients", "Customers")", { id: 2 }, "#DormantClients3");
+            }
+            loadAjax();
+
+            $(document).on("click", '.reference',function () {
+                var t = $(this).data("reference");
+                $(".reference").parent().removeClass("bg-warning");
+                $("[data-reference=" + t + "]").parent().addClass("bg-warning");
+            })
+
+            
+
+
+        })
+    </script>
+
+
+}

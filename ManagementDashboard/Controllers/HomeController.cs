@@ -90,12 +90,7 @@ namespace ManagementDashboard.Controllers
 
             return View();
         }
-        public ActionResult ManagementView()
-        {
-
-
-            return View();
-        }
+   
         public ActionResult NewGrowthView()
         {
             return View();
@@ -106,27 +101,15 @@ namespace ManagementDashboard.Controllers
             return View();
         }
 
-        public ActionResult AccountingView()
-        {
-            return View();
-        }
-        public ActionResult SubmissionsView()
-        {
-            return View();
-        }
+   
+     
         public ActionResult WithholdingsView()
         {
             return View();
         }
 
-        public ActionResult CustomerView()
-        {
-            return View();
-        }
-        public ActionResult Revenue()
-        {
-            return View();
-        }
+ 
+      
 
     }
 }

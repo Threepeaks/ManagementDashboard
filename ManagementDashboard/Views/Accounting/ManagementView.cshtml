@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Management Fees Unpaid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+
+@Html.CardWithTitleAndLoading("ManagementFees0", @DateTime.Now.AddMonths(0).ToString("MMMM yyyy"))
+@Html.CardWithTitleAndLoading("ManagementFees1", @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"))
+@Html.CardWithTitleAndLoading("ManagementFees2", @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"))
+
+@section scripts
+{
+
+    <script>
+        $().ready(function () {
+
+            $("#PrintThis").click(function () {
+                $('#Report').printThis();
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+
+        $().ready(function () {
+
+
+            function aJaxPost(action, myData, target) {
+                $.ajax({
+                    method: "POST",
+                    url: action,
+                    data: myData,
+                    success: function (response) {
+                        $(target).html(response);
+                        // alert(response);
+                        // alert(target + " Details saved successfully!!!");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $(target).html(xhr.status);
+                        //alert(xhr.status);
+                        //alert(thrownError);
+                    }
+                });
+            }
+
+                //Management fee
+                aJaxPost("@Url.Action("ManagementFees", "Accounting")", { id: 0 }, "#ManagementFees0");
+                aJaxPost("@Url.Action("ManagementFees", "Accounting")", { id: 1 }, "#ManagementFees1");
+                aJaxPost("@Url.Action("ManagementFees", "Accounting")", { id: 2 }, "#ManagementFees2");
+
+
+
+        });
+
+    </script>
+
+
+}
