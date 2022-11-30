@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "ManagementView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="card card-primary">
+        <div class="card-header">
+            <a href="#" id="ManagementFees"></a>
+            Management Fees
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title ">
+                        <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="panel-body1" style="overflow:auto;">
+                            <div id="ManagementFees0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">
+                        <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="panel-body1" style="overflow:auto;">
+                            <div id="ManagementFees1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">
+                        <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="panel-body1" style="overflow:auto;">
+                            <div id="ManagementFees2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@section scripts
+{
+
+    <script>
+        $().ready(function () {
+
+            $("#PrintThis").click(function () {
+                $('#Report').printThis();
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+
+        $().ready(function () {
+
+
+            function aJaxPost(action, myData, target) {
+                $.ajax({
+                    method: "POST",
+                    url: action,
+                    data: myData,
+                    success: function (response) {
+                        $(target).html(response);
+                        // alert(response);
+                        // alert(target + " Details saved successfully!!!");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $(target).html(xhr.status);
+                        //alert(xhr.status);
+                        //alert(thrownError);
+                    }
+                });
+            }
+
+                //Management fee
+                aJaxPost("@Url.Action("ManagementFees", "Top")", { id: 0 }, "#ManagementFees0");
+                aJaxPost("@Url.Action("ManagementFees", "Top")", { id: 1 }, "#ManagementFees1");
+                aJaxPost("@Url.Action("ManagementFees", "Top")", { id: 2 }, "#ManagementFees2");
+
+
+
+        });
+
+    </script>
+
+
+}

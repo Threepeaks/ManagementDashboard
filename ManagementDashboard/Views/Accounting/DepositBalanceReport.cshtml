@@ -1,0 +1,56 @@
+﻿<div class="alert alert-primary">
+    Deposit Balance per Month
+</div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        @DateTime.Now.ToString("MMMM yyyy")
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DepositBalancePartial", "Accounting", new { id = 0 })
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+
+                        @Html.Action("DepositBalancePartial", "Accounting", new { id = 1 })
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        @DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DepositBalancePartial", "Accounting", new { id = 2 })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>

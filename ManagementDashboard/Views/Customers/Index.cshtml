@@ -1,0 +1,313 @@
+﻿
+@{
+    ViewBag.Title = "Customer(s) Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="alert alert-primary">
+    <a href="#" id="NoRunClients"></a>
+    Customers with no submissions.
+</div>
+
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NoRunClients0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NoRunClients1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NoRunClients2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="alert alert-primary">
+    <a href="#" id="CanceledClients"></a>
+    Canceled Customers
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="CanceledClients0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="CanceledClients1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <divv class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="CanceledClients2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </divv>
+        </div>
+    </div>
+</div>
+
+
+<div class="alert alert-primary">
+    <a href="#" id="inCancelation"></a>
+    Customers in Cancellation
+</div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card dark-mode">
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="inCancelation0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="alert alert-primary">
+    <a href="#" id="ListOfPendingClient"></a>
+    Pending Customers
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <div class="card  dark-mode">
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="ListOfPendingClient1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="alert alert-primary">
+    <a href="#" id="PendingClients"></a>
+    Pending Customers by Month
+</div>
+
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="PendingClients0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="PendingClients1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="PendingClients2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="alert alert-primary">
+    <a href="#" id="uManageCustomers"></a>
+    uManage Customers
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="uManageCustomers1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="uManageCustomers2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="uManageCustomers3"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@section scripts
+{
+
+    <script>
+        $().ready(function () {
+
+            $("#PrintThis").click(function () {
+                $('#Report').printThis();
+            });
+
+        });
+
+    </script>
+
+
+    <script>
+
+        $().ready(function () {
+
+
+
+
+
+               //Html.Action("NoRunClients", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 0 }, "#NoRunClients0");
+               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 1 }, "#NoRunClients1");
+               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 2 }, "#NoRunClients2");
+
+
+               //Html.Action("CanceledClients", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("CanceledClients", "Customers")", { id: 0 }, "#CanceledClients0");
+               aJaxPost("@Url.Action("CanceledClients", "Customers")", { id: 1 }, "#CanceledClients1");
+                aJaxPost("@Url.Action("CanceledClients", "Customers")", { id: 2 }, "#CanceledClients2");
+
+                //in cancelation
+                aJaxPost("@Url.Action("InCancelation", "Customers")", { id: 0 }, "#inCancelation0");
+
+
+
+               //Html.Action("PendingClients", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("PendingClients", "Customers")", { id: 1 }, "#PendingClients1");
+               aJaxPost("@Url.Action("PendingClients", "Customers")", { id: 2 }, "#PendingClients2");
+               aJaxPost("@Url.Action("PendingClients", "Customers")", { id: 0 }, "#PendingClients0");
+
+               //Html.Action("ListofPendingClients", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("ListOfPendingClient", "Customers")", { id: 0 }, "#ListOfPendingClient1");
+
+
+
+               //Html.Action("uManageCustomers", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("uManageCustomers", "Customers")", { id: 0 }, "#uManageCustomers1");
+               aJaxPost("@Url.Action("uManageCustomers", "Customers")", { id: 1 }, "#uManageCustomers2");
+               aJaxPost("@Url.Action("uManageCustomers", "Customers")", { id: 2 }, "#uManageCustomers3");
+
+
+
+
+        });
+
+    </script>
+
+
+}

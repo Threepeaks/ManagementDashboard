@@ -17,31 +17,52 @@
     }
 
 }
-<style>
-    html {
-        scroll-behavior: smooth;
-    }
-</style>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>@ViewBag.CountRunsNotSend</h3>
+                <p>Submission not Processed to Bank</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-ban"></i>
+            </div>
+            <a href="@Url.Action("RunsNotSentToBank","Submissions")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>@ViewBag.CountBlockProcess</h3>
+                <p>Customer Blocked Processing</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-ban"></i>
+            </div>
+            <a href="@Url.Action("CustomerBlockedProcessing","Customers")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="small-box bg-warning">
+            <div class="inner">
+                <h3>@ViewBag.CountPayBlock</h3>
+                <p>Customer Payment Blocked</p>
+            </div>
+            <div class="icon">
+                <i class="fa fa-ban"></i>
+            </div>
+            <a href="@Url.Action("CustomerPaymentBlocked","Customers")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+</div>
+
+
+
+
 <div style="height: 20px;display:block;">
 
 </div>
-
-<a href="@Url.Action("RunsNotSentToBank","SQLReports")" class="btn @runsNotSendClass">
-    Runs not Send (@ViewBag.CountRunsNotSend)
-</a>
-<a href="@Url.Action("CustomerBlockedProcessing","SQLReports")" class="btn @CountBlockProcess">
-    Customer Blocked Processing (@ViewBag.CountBlockProcess)
-</a>
-<a href="@Url.Action("CustomerPaymentBlocked","SQLReports")" class="btn @CountPayBlock">
-    Customer Payment Blocked (@ViewBag.CountPayBlock)
-</a>
-
-<div style="height: 20px;display:block;">
-
-</div>
-
-
-@Html.Action("HyphenBatchesStates", "SQLReports")
 
 
 

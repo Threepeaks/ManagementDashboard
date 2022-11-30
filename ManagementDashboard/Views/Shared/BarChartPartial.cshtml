@@ -1,0 +1,66 @@
+﻿
+
+@using Chart.Mvc.ComplexChart
+@model ManagementDashboard.Models.ChartModel
+
+<div class="">
+    @Model.Title
+</div>
+
+@{
+    var barChart = new BarChart();
+    barChart.ChartConfiguration.Responsive = Model.Responsive;
+    barChart.ChartConfiguration.MaintainAspectRatio = Model.MaintainAspectRatio;
+    barChart.ComplexData.Labels.AddRange(Model.Labels);
+    barChart.ComplexData.Datasets.AddRange(Model.ComplexDatasets);
+    //barChart.ChartConfiguration.ScaleBeginAtZero = true;
+    
+
+    var chartHeight = $"{Model.ChartHeight}px";
+
+}
+
+<!--height="400" style="width: 100%; height: 400px;"-->
+@*<canvas id="@Model.ChartID" style="max-height: @chartHeight;"></canvas>*@
+<canvas id="@Model.ChartID" height="@Model.ChartHeight"></canvas>
+
+@Html.CreateChart(Model.ChartID, barChart)
+
+@{
+    if (Model.ShowTable)
+    {
+
+        <table class="table table-striped table-sm table-bordered" style="font-size: 12px;">
+            <thead>
+                <tr>
+                    <td class="text-center">
+                        Label
+                    </td>
+
+                    @foreach (var itemLabel in Model.Labels)
+                    {
+                        <td class="text-right">@itemLabel</td>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ComplexDatasets)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @item.Label
+
+                        </td>
+                        @foreach (var itemData in item.Data)
+                        {
+                            <td class="text-right">@itemData.ToString("N")</td>
+                        }
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+    }
+}
+

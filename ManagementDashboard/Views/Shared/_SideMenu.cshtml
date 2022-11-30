@@ -1,0 +1,252 @@
+﻿<!-- SidebarSearch Form -->
+<div class="form-inline">
+    <div class="input-group" data-widget="sidebar-search">
+        <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+        <div class="input-group-append">
+            <button class="btn btn-sidebar">
+                <i class="fas fa-search fa-fw"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" 
+        role="menu" data-accordion="false">
+        <!-- Add icons to the links using the .nav-icon class
+    with font-awesome or any other icon font library -->
+        <li class="nav-item">
+            <a href="@Url.Action("Index","Home")" class="nav-link @Html.IsActive("Home","Index")">
+                <i class="nav-icon fas fa-home"></i>
+                <p>Home</p>
+            </a>
+        </li>
+
+
+        <!--<li class="nav-item ">
+            <a href="#" class="nav-link ">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Sample
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview" style="display: none;">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Active Page</p>
+                    </a>
+                </li>
+            </ul>
+        </li>--><!--./title-->
+        <li class="nav-item @Html.IsOpen("Customers")">
+            <a href="#" class="nav-link @Html.IsActive("Customers")">
+                <i class="nav-icon fas fa-users"></i>
+                <p>
+                    Customers
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","Customers")" class="nav-link @Html.IsActive("Customers","Index")">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Overview</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Dormant","Customers")" class="nav-link @Html.IsActive("Customers","Dormant")">
+                        <i class="nav-icon fa fa-file"></i>
+                        <p>Dormant</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("NewCustomers","Customers")" class="nav-link @Html.IsActive("Customers","NewCustomers")">
+                        <i class="nav-icon fas fa-star"></i>
+                        <p>New Customers</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("TopStats","Customers")" class="nav-link @Html.IsActive("Customers","TopStats")">
+                        <i class="nav-icon fas fa-chart-area"></i>
+                        <p>Top Stats</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("CustomerBlockedProcessing","Customers")" class="nav-link @Html.IsActive("Customers","CustomerBlockedProcessing")">
+                        <i class="nav-icon fas fa-ban"></i>
+                        <p>Blocked Processing</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("CustomerPaymentBlocked","Customers")" class="nav-link @Html.IsActive("Customers","CustomerPaymentBlocked")">
+                        <i class="nav-icon fas fa-ban"></i>
+                        <p>Payment Blocked</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("CustomerComments","Customers")" class="nav-link @Html.IsActive("Customers","CustomerComments")">
+                        <i class="nav-icon fas fa-comment"></i>
+                        <p>Customer Comments</p>
+                    </a>
+                </li>
+            </ul>
+        </li><!--./Customers-->
+        <li class="nav-item @Html.IsOpen("Marketing")">
+            <a href="#" class="nav-link @Html.IsActive("Marketing")">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Marketing
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                    <a href="@Url.Action("CustomerReferredBy","Marketing")" class="nav-link @Html.IsActive("Marketing","CustomerReferredBy")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Referred By</p>
+                    </a>
+                </li>
+            </ul>
+        </li><!--./Marketing-->
+        <li class="nav-item @Html.IsOpen("Gateways")">
+            <a href="#" class="nav-link @Html.IsActive("Gateways")">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Gateways
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview ">
+                <li class="nav-item">
+                    <a href="@Url.Action("Summary","Gateways")" class="nav-link @Html.IsActive("Gateways","Summary")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Over View</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("LoadedGateway","Gateways")" class="nav-link @Html.IsActive("Gateways","LoadedGateway")">
+                        <i class="nav-icon fas fa-check-square"></i>
+                        <p>Loaded Gateway</p>
+                    </a>
+                </li>               
+                <li class="nav-item">
+                    <a href="@Url.Action("HyphenBatchesStates","Gateways")" class="nav-link  @Html.IsActive("Gateways","HyphenBatchesStates")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Hyphen Batches States</p>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <li class="nav-item @Html.IsOpen("Submissions")">
+            <a href="#" class="nav-link @Html.IsActive("Submissions")">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                    Submissions
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                    <a href="@Url.Action("Index","Submissions")" class="nav-link @Html.IsActive("Submissions","Index")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Overview</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="@Url.Action("RunsNotSentToBank","Submissions")" class="nav-link @Html.IsActive("Submissions","RunsNotSentToBank")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Runs Not Sent To Bank</p>
+                    </a>
+                </li>
+  
+            </ul>
+        </li><!--./Submissions-->
+
+
+        <li class="nav-item @Html.IsOpen("Accounting")">
+            <a href="#" class="nav-link @Html.IsActive("Accounting")">
+                <i class="nav-icon fas fa-tachometer-alt "></i>
+                <p>
+                    Accounting
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="@Url.Action("ManagementPrediction","Accounting")" class="nav-link @Html.IsActive("Accounting","ManagementPrediction") ">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Management Prediction</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("DepositBalanceReport","Accounting")" class="nav-link @Html.IsActive("Accounting","DepositBalanceReport")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Deposit Balance</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("LiabilityCurrent","Accounting")" class="nav-link @Html.IsActive("Accounting","LiabilityCurrent")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Liability Current</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("LateUnpaidsCreditProvided","Accounting")" class="nav-link @Html.IsActive("Accounting","LateUnpaidsCreditProvided")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Late Unpaids Credit Provided</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Revenue","Accounting")" class="nav-link  @Html.IsActive("Accounting","Revenue")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Revenue</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("ManagementView","Accounting")" class="nav-link @Html.IsActive("Accounting","ManagementView")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Management(TP)</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("AccountingView","Accounting")" class="nav-link @Html.IsActive("Accounting","AccountingView")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Accounting</p>
+                    </a>
+                </li>
+            </ul>
+        </li><!--./Accounting-->
+        @*<li class="nav-item">
+            <a href="@Url.Action("Rbr","SQLReports")" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>RBR</p>
+            </a>
+        </li>*@
+
+
+
+
+
+
+
+        <li class="nav-item">
+            <a href="@Url.Action("WithholdingsView","Home")" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>Withholdings</p>
+            </a>
+        </li>
+
+
+
+
+
+
+    </ul>
+</nav>

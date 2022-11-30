@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewBag.Title = "SubmissionsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="alert alert-primary">
+    Submission Trend
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        @Html.CardWithLoading("SubmissionsTrendChart0")
+    </div>
+    <div class="col-sm-4">
+        @Html.CardWithLoading("SubmissionsTrendChart1")
+    </div>
+    <div class="col-sm-4">
+        @Html.CardWithLoading("SubmissionsTrendChart2")
+    </div>
+</div>
+
+<div class="alert alert-primary">
+    Top 20 Highest Debit Value
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("GetTopValueDebits0", DateTime.Now.ToString("MMMM yyyy"))
+    </div>
+
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("GetTopValueDebits1", DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"))
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            @Html.CardWithTitleAndLoading("GetTopValueDebits2", DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"))
+        </div>
+    </div>
+ </div>
+
+
+    <div class="alert alert-primary">
+        Top 20 Unpaids per Month
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.CardWithTitleAndLoading("Top20Unpaids0", DateTime.Now.ToString("MMMM yyyy"))
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithTitleAndLoading("Top20Unpaids1", DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"))
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithTitleAndLoading("Top20Unpaids2", DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"))
+        </div>
+    </div>
+
+    <div class="alert alert-primary">
+        Unpaid Count per Reason
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.CardWithTitleAndLoading("GetTopUnpaids0", DateTime.Now.ToString("MMMM yyyy"))
+        </div>
+
+        <div class="col-sm-4">
+            @Html.CardWithTitleAndLoading("GetTopUnpaids1", DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"))
+        </div>
+
+        <div class="col-sm-4">
+            @Html.CardWithTitleAndLoading("GetTopUnpaids2", DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"))
+        </div>
+    </div>
+
+    <div class="alert alert-primary">
+        Debits Records Trend
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.CardWithLoading("DebitsRecordsTrendChart0")
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithLoading("DebitsRecordsTrendChart1")
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithLoading("DebitsRecordsTrendChart2")
+        </div>
+    </div>
+
+
+    <div class="alert alert-primary">
+        Debits Value Trend
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.CardWithLoading("DebitsValueTrendChart0")
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithLoading("DebitsValueTrendChart1")
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithLoading("DebitsValueTrendChart2")
+        </div>
+    </div>
+
+    <div class="alert alert-primary">
+        Submission Received Trend
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            @Html.CardWithLoading("SubmissionReceivedTrend0")
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithLoading("SubmissionReceivedTrend1")
+        </div>
+        <div class="col-sm-4">
+            @Html.CardWithLoading("SubmissionReceivedTrend2")
+        </div>
+    </div>
+
+    @section scripts
+{
+
+        <script>
+            $().ready(function () {
+
+                $("#PrintThis").click(function () {
+                    $('#Report').printThis();
+                });
+
+            });
+
+        </script>
+
+
+        <script>
+
+        $().ready(function () {
+
+
+
+
+
+               //Submission Trend
+               aJaxPost("@Url.Action("SubmissionsTrendChart", "Submissions")", { id: 0 }, "#SubmissionsTrendChart0");
+               aJaxPost("@Url.Action("SubmissionsTrendChart", "Submissions")", { id: 1 }, "#SubmissionsTrendChart1");
+               aJaxPost("@Url.Action("SubmissionsTrendChart", "Submissions")", { id: 2 }, "#SubmissionsTrendChart2");
+
+               //Html.Action("DebitsRecordsTrendChart", "TPMS", new { id = 2 })
+               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "Submissions")", { id: 0 }, "#DebitsRecordsTrendChart0");
+               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "Submissions")", { id: 1 }, "#DebitsRecordsTrendChart1");
+               aJaxPost("@Url.Action("DebitsRecordsTrendChart", "Submissions")", { id: 2 }, "#DebitsRecordsTrendChart2");
+
+                //Html.Action("DebitsValueTrendChart", "TPMS", new { id = 0 })
+                aJaxPost("@Url.Action("DebitsValueTrendChart", "Submissions")", { id: 0 }, "#DebitsValueTrendChart0");
+                aJaxPost("@Url.Action("DebitsValueTrendChart", "Submissions")", { id: 1 }, "#DebitsValueTrendChart1");
+                aJaxPost("@Url.Action("DebitsValueTrendChart", "Submissions")", { id: 2 }, "#DebitsValueTrendChart2");
+
+
+                //SubmissionReceivedTrend
+                aJaxPost("@Url.Action("SubmissionReceivedTrend", "Submissions")", { id: 0 }, "#SubmissionReceivedTrend0");
+                aJaxPost("@Url.Action("SubmissionReceivedTrend", "Submissions")", { id: 1 }, "#SubmissionReceivedTrend1");
+                aJaxPost("@Url.Action("SubmissionReceivedTrend", "Submissions")", { id: 2 }, "#SubmissionReceivedTrend2");
+
+                   //Html.Action("GetTopUnpaids", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("GetTopUnpaids", "Submissions")", { id: 0 }, "#GetTopUnpaids0");
+               aJaxPost("@Url.Action("GetTopUnpaids", "Submissions")", { id: 1 }, "#GetTopUnpaids1");
+               aJaxPost("@Url.Action("GetTopUnpaids", "Submissions")", { id: 2 }, "#GetTopUnpaids2");
+
+
+                    //Html.Action("GetTopValueDebits", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("GetTopValueDebits", "Submissions")", { id: 0 }, "#GetTopValueDebits0");
+               aJaxPost("@Url.Action("GetTopValueDebits", "Submissions")", { id: 1 }, "#GetTopValueDebits1");
+               aJaxPost("@Url.Action("GetTopValueDebits", "Submissions")", { id: 2 }, "#GetTopValueDebits2");
+
+
+
+                     //Html.Action("Top20Unpaids", "Top", new { id = 0 })
+                aJaxPost("@Url.Action("GetTop20Unpaids", "Submissions")", { id: 0 }, "#Top20Unpaids0");
+                aJaxPost("@Url.Action("GetTop20Unpaids", "Submissions")", { id: 1 }, "#Top20Unpaids1");
+                aJaxPost("@Url.Action("GetTop20Unpaids", "Submissions")", { id: 2 }, "#Top20Unpaids2");
+
+
+        });
+
+        </script>
+
+
+    }

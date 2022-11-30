@@ -1,0 +1,23 @@
+﻿@model List<ManagementDashboard.Models.HighestCustomerValue>
+
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Ref</th>
+            <th class="text-right">Count</th>
+            <th class="text-right">Value</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ref</td>
+                <td class="text-right">@item.Count</td>
+                <td class="text-right">@item.Value.ToString("N")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
