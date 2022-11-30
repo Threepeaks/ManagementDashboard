@@ -654,7 +654,7 @@
     <Content Include="Views\Customers\CustomerPaymentBlocked.cshtml" />
     <Content Include="Views\Customers\CustomerBlockedProcessing.cshtml" />
     <Content Include="Views\Marketing\CustomerReferredBy.cshtml" />
-    <Content Include="Views\Top\GetTopRevenue.cshtml" />
+    <Content Include="Views\Accounting\GetTopRevenue.cshtml" />
     <Content Include="Views\Accounting\Revenue.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\_SideMenu.cshtml" />

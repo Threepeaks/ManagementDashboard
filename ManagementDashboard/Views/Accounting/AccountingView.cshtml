@@ -4,145 +4,55 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="DepositMovement"></a>
-        Deposit Movements Per Month
+<div class="alert alert-primary">
+    Deposit Movements Per Month
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("DepositMovement0", DateTime.Now.ToString("MMMM yyyy"))
     </div>
+
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("DepositMovement1", DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"))
+    </div>
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("DepositMovement2", DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"))
+    </div>
+</div>
+
+<div class="alert alert-primary">
+    Retention Not Released
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("RetNotReleased1", DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"))
+    </div>
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("RetNotReleased2", DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"))
+    </div>
+    <div class="col-sm-4">
+        @Html.CardWithTitleAndLoading("RetNotReleased3", DateTime.Now.AddMonths(-3).ToString("MMMM yyyy"))
+    </div>
+</div>
+
+<div class="alert alert-primary"> 
+    Payment Trend
+</div>
 
     <div class="row">
 
         <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DepositMovement0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
+            @Html.CardWithLoading("ReconDebitTrendChart0")
         </div>
 
         <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DepositMovement1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
+            @Html.CardWithLoading("ReconDebitTrendChart1")
         </div>
-
         <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="DepositMovement2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
+            @Html.CardWithLoading("ReconDebitTrendChart2")
         </div>
     </div>
-</div>
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="RetNotReleased"></a>
-        Retention Not Released
-    </div>
 
-    <div class="row">
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4> @DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="RetNotReleased1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="RetNotReleased2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-3).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="RetNotReleased3"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="PaymentTrend"></a>
-        Payment Trend
-    </div>
-
-    <div class="row">
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="ReconDebitTrendChart0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="ReconDebitTrendChart1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="ReconDebitTrendChart2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 @section scripts

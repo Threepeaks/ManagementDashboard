@@ -92,6 +92,14 @@
                         <p>Customer Comments</p>
                     </a>
                 </li>
+
+
+                <li class="nav-item">
+                    <a href="@Url.Action("WithholdingsView","Home")" class="nav-link">
+                        <i class="nav-icon fas fa-ban"></i>
+                        <p>No Collateral</p>
+                    </a>
+                </li>
             </ul>
         </li><!--./Customers-->
         <li class="nav-item @Html.IsOpen("Marketing")">
@@ -180,6 +188,12 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
+                    <a href="@Url.Action("AccountingView","Accounting")" class="nav-link @Html.IsActive("Accounting","AccountingView")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Overview</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="@Url.Action("ManagementPrediction","Accounting")" class="nav-link @Html.IsActive("Accounting","ManagementPrediction") ">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Management Prediction</p>
@@ -212,15 +226,10 @@
                 <li class="nav-item">
                     <a href="@Url.Action("ManagementView","Accounting")" class="nav-link @Html.IsActive("Accounting","ManagementView")">
                         <i class="nav-icon fas fa-th"></i>
-                        <p>Management(TP)</p>
+                        <p>Unpaid Fee(s)</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="@Url.Action("AccountingView","Accounting")" class="nav-link @Html.IsActive("Accounting","AccountingView")">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>Accounting</p>
-                    </a>
-                </li>
+
             </ul>
         </li><!--./Accounting-->
         @*<li class="nav-item">
@@ -235,13 +244,6 @@
 
 
 
-
-        <li class="nav-item">
-            <a href="@Url.Action("WithholdingsView","Home")" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>Withholdings</p>
-            </a>
-        </li>
 
 
 

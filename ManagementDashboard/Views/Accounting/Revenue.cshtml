@@ -4,56 +4,19 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="alert alert-primary">
+    Top 20 Revenue Generating Customers
+</div>
 
-<div class="card card-primary">
-    <div class="card-header">
-        <a href="#" id="GetTopRevenue"></a>
-        Top 20 Revenue Generating Customers
+<div class="row">
+    <div class="col-md-4">
+        @Html.CardWithTitleAndLoading("GetTopRevenue0", DateTime.Now.ToString("MMMM yyyy"))
     </div>
-
-    <div class="row">
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-title ">
-                    <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="GetTopRevenue0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="GetTopRevenue1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-title">
-                    <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-                </div>
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="GetTopRevenue2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+    <div class="col-md-4">
+        @Html.CardWithTitleAndLoading("GetTopRevenue1", DateTime.Now.AddMonths(-1).ToString("MMMM yyyy"))
+    </div>
+    <div class="col-md-4">
+        @Html.CardWithTitleAndLoading("GetTopRevenue2", DateTime.Now.AddMonths(-2).ToString("MMMM yyyy"))
     </div>
 </div>
 
@@ -94,9 +57,9 @@
             }
 
             //GetTopUnpaids
-            aJaxPost("@Url.Action("GetTopRevenue", "Top")", { id: 0 }, "#GetTopRevenue0");
-            aJaxPost("@Url.Action("GetTopRevenue", "Top")", { id: 1 }, "#GetTopRevenue1");
-            aJaxPost("@Url.Action("GetTopRevenue", "Top")", { id: 2 }, "#GetTopRevenue2");
+            aJaxPost("@Url.Action("GetTopRevenue", "Accounting")", { id: 0 }, "#GetTopRevenue0");
+            aJaxPost("@Url.Action("GetTopRevenue", "Accounting")", { id: 1 }, "#GetTopRevenue1");
+            aJaxPost("@Url.Action("GetTopRevenue", "Accounting")", { id: 2 }, "#GetTopRevenue2");
 
 
 
