@@ -1,0 +1,37 @@
+﻿@model List<ManagementDashboard.Models.XeroClient>
+@{ 
+
+   
+}
+
+<table class="table table-striped">
+    <thead>
+
+    <tr>
+        <th>Reference</th>
+        <th>Customer</th>
+        <th>Connection</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var client in Model.OrderBy(x=>x.CustomerReference))
+    {
+        var connectionClass = "badge-success";
+        if (client.ConnectionStatus == "Disconnected")
+        {
+            connectionClass = "badge-warning";
+        }
+        <tr>
+            <td>@client.CustomerReference</td>
+            <td>@client.CustomerName</td>
+            <td>
+                <span class=" badge  @connectionClass">
+
+                @client.ConnectionStatus
+                </span>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

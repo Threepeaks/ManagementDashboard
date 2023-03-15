@@ -12,7 +12,7 @@ namespace ManagementDashboard.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.5.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -34,7 +34,16 @@ namespace ManagementDashboard.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("cameronm")]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public int OutputCache {
+            get {
+                return ((int)(this["OutputCache"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("jacquesz@threepeaks.co.za")]
         public string MySQLUsername {
             get {
                 return ((string)(this["MySQLUsername"]));
@@ -43,7 +52,7 @@ namespace ManagementDashboard.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("73PCDAUafMfua2V2")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Y2ukSne3JeW44ufc@2022")]
         public string MySQLPassword {
             get {
                 return ((string)(this["MySQLPassword"]));
@@ -52,10 +61,37 @@ namespace ManagementDashboard.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("60")]
-        public int OutputCache {
+        [global::System.Configuration.DefaultSettingValueAttribute("102.130.116.210")]
+        public string MySQLHostPortal {
             get {
-                return ((int)(this["OutputCache"]));
+                return ((string)(this["MySQLHostPortal"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OperationsDashbo")]
+        public string MySqlUsernamePortal {
+            get {
+                return ((string)(this["MySqlUsernamePortal"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("fAL8M2orD0l7MMhc9GHW")]
+        public string MySqlPasswordPortal {
+            get {
+                return ((string)(this["MySqlPasswordPortal"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("threesmq_webportal")]
+        public string MySqlDBPortal {
+            get {
+                return ((string)(this["MySqlDBPortal"]));
             }
         }
     }

@@ -551,7 +551,45 @@ namespace ManagementDashboard.Controllers
             return PartialView("BarChartPartial", model);
         }
 
+        public ActionResult Xero()
+        {
+            return View();
+        }
 
+
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
+        public PartialViewResult XeroClients()
+        {
+            var db = new DBConnect(new MySqlConfig() { 
+                Database = Properties.Settings.Default.MySqlDBPortal,
+                Host = Properties.Settings.Default.MySQLHostPortal,
+                Username = Properties.Settings.Default.MySqlUsernamePortal,
+                Password = Properties.Settings.Default.MySqlPasswordPortal,
+            });
+            var query = "select " +
+                " comref,com_name," +
+                " case connection_status when 0 then 'Disconnected' when 1 then 'Connected' end  as connection_status" +
+                " from tblxeroauth " +
+                " left join tblcompany on com_ref = comref";
+
+
+            var xeroClients = new List<XeroClient>();
+            var result =  db.Query(query);
+
+            foreach (DataRow dr in result.Tables[0].Rows)
+            {
+                XeroClient xeroClient = new XeroClient();
+                xeroClient.CustomerReference = dr.Field<string>("comref");
+                xeroClient.CustomerName = dr.Field<string>("com_name");
+                xeroClient.ConnectionStatus = dr.Field<string>("connection_status");
+                xeroClients.Add(xeroClient);
+
+            }
+
+
+
+            return PartialView(xeroClients);
+        }
 
     }
 }

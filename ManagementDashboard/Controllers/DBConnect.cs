@@ -4,6 +4,14 @@ using System.Data;
 
 namespace ManagementDashboard.Controllers
 {
+    public class MySqlConfig
+    {
+        public string Host { get; internal set; }
+        public string Database { get; internal set; }
+        public string Username { get; internal set; }
+        public string Password { get; internal set; }
+    }
+
     public class DBConnect
     {
         private MySqlConnection connection;
@@ -15,16 +23,27 @@ namespace ManagementDashboard.Controllers
         //Constructor
         public DBConnect()
         {
-            Initialize();
-        }
-
-        private void Initialize()
-        {
             //server = "102.130.113.170";
             server = Settings.Default.MySQLHost;
             database = "threepeaks_tpms";
             uid = Settings.Default.MySQLUsername;
             password = Settings.Default.MySQLPassword;
+
+
+            Initialize();
+        }
+        public DBConnect(MySqlConfig config)
+        {
+            server = config.Host;
+            database = config.Database;
+            uid = config.Username;
+            password = config.Password;
+
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";Connection Timeout=120;";
