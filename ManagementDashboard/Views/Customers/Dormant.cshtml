@@ -4,7 +4,7 @@
 }
 
 <div class="text-sm">
-     Click on the reference to highlight the customer on all months
+    Click on the reference to highlight the customer on all months
 </div>
 
 <div class="row">
@@ -49,6 +49,22 @@
     </div>
 </div>
 
+
+<div class="alert alert-primary">
+    <a href="#" id="NoRunClients"></a>
+    Customers with no submissions.
+</div>
+
+
+<div class="row">
+    <div class="col-sm-4" id="NoRunClients0"></div>
+    <div class="col-sm-4" id="NoRunClients1"></div>
+    <div class="col-sm-4" id="NoRunClients2"></div>
+</div>
+
+
+
+
 @section scripts
 {
     <script>
@@ -58,6 +74,12 @@
                 aJaxPost("@Url.Action("DormantClients", "Customers")", { id: 0 }, "#DormantClients1");
                 aJaxPost("@Url.Action("DormantClients", "Customers")", { id: 1 }, "#DormantClients2");
                 aJaxPost("@Url.Action("DormantClients", "Customers")", { id: 2 }, "#DormantClients3");
+
+               //Html.Action("NoRunClients", "Top", new { id = 0 })
+               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 0 }, "#NoRunClients0");
+               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 1 }, "#NoRunClients1");
+               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 2 }, "#NoRunClients2");
+
             }
             loadAjax();
 
@@ -67,7 +89,7 @@
                 $("[data-reference=" + t + "]").parent().addClass("bg-warning");
             })
 
-            
+
 
 
         })

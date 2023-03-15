@@ -14,6 +14,8 @@ namespace ManagementDashboard.Controllers
     [Authorize]
     public class CustomersController : Controller
     {
+        public object debMov { get; private set; }
+
         // GET: Customers
         public ActionResult Index()
         {
@@ -311,25 +313,41 @@ namespace ManagementDashboard.Controllers
             int monthSelected = 0;
             if (id > 0)
                 monthSelected = -1 * id;
+
             DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
             DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(-1).AddDays(-1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
 
             var db = new DBConnect();
             string query = "select com_ref as Ref ,com_startdate as StartDate, com_name as Customer from tblcompany" +
                 " where com_acc_cancel in (0,1) and (select count(*) from tblrbr where rbr_comref = com_ref and " +
-                $"rbr_status not in (99) and rbr_date <= '{endDate.ToString("yyyy-MM-dd")}' limit 1) = 0 and com_startdate > '{startDate.ToString("yyyy-MM-dd")}'";
+                $"rbr_status not in (99) and rbr_date <= '{endDate.ToString("yyyy-MM-dd")}' limit 1) = 0 ";
+
+            /* string query = "select com_ref as Ref ,com_startdate as StartDate, com_name as Customer from tblcompany" +
+                " where com_acc_cancel in (0,1) and (select count(*) from tblrbr where rbr_comref = com_ref and " +
+                $"rbr_status not in (99) and rbr_date <= '{endDate.ToString("yyyy-MM-dd")}' limit 1) = 0 and com_startdate > '{startDate.ToString("yyyy-MM-dd")}'";*/
+
+            List<string> ignoreCustomers = new List<string>() { "ZZZZZSD018", "ZZZZZRD002", "ZZZZZOD008", "SA00000001" , 
+                "ZZZZZDD009", "DEMO", "3PXERO" ,"TPSA000002"};
+
             var model = new List<ManagementDashboard.Models.NoRunClients>();
             var result = db.Query(query);
 
             foreach (DataRow dRow in result.Tables[0].Rows)
             {
+                string clientReference = dRow.Field<string>("Ref");
+                if (ignoreCustomers.Contains(clientReference))
+                    continue;
+
                 var depMov = new Models.NoRunClients();
-                depMov.Ref = dRow.Field<string>("Ref");
+                
+                depMov.Ref = clientReference;
                 depMov.StartDate = (DateTime)dRow.Field<DateTime>("StartDate");
                 depMov.Customer = dRow.Field<string>("Customer");
+                depMov.Days = (int)(DateTime.Now.Date - depMov.StartDate).TotalDays;
                 model.Add(depMov);
             }
+            ViewBag.Date = startDate.ToString("MMMMMM yyyy");
             return PartialView(model);
 
         }
@@ -532,6 +550,7 @@ namespace ManagementDashboard.Controllers
             
             return PartialView("BarChartPartial", model);
         }
+
 
 
     }

@@ -4,52 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="alert alert-primary">
-    <a href="#" id="NoRunClients"></a>
-    Customers with no submissions.
-</div>
-
-
-<div class="row">
-    <div class="col-sm-4">
-        <div class="card  dark-mode">
-            <div class="card-header">
-                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
-            </div>
-            <div class="card-body">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="NoRunClients0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-        <div class="card  dark-mode">
-            <div class="card-header">
-                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
-            </div>
-            <div class="card-body">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="NoRunClients1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
-        <div class="card  dark-mode">
-            <div class="card-header">
-                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
-            </div>
-            <div class="card-body">
-                <div class="panel-body1" style="overflow:auto;">
-                    <div id="NoRunClients2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="alert alert-primary">
@@ -270,11 +224,6 @@
 
 
 
-
-               //Html.Action("NoRunClients", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 0 }, "#NoRunClients0");
-               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 1 }, "#NoRunClients1");
-               aJaxPost("@Url.Action("NoRunClients", "Customers")", { id: 2 }, "#NoRunClients2");
 
 
                //Html.Action("CanceledClients", "Top", new { id = 0 })

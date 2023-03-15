@@ -1,22 +1,37 @@
 ﻿@model List<ManagementDashboard.Models.NoRunClients>
 
-<table class="table table-striped table-sm">
-    <thead>
-        <tr>
-            <th>Ref</th>
-            <th>StartDate</th>
-            <th>Customer</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Ref</td>
-                <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
-                <td>@item.Customer</td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+<div class="card  dark-mode">
+    <div class="card-header">
+        <h4>@ViewBag.Date</h4>
+    </div>
+    <div class="card-body">
+        <div class="panel-body1" style="overflow:auto;">
+
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>Ref</th>
+                        <th>StartDate</th>
+                        <th>Customer</th>
+                        <th>Day(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderBy(x => x.StartDate))
+                    {
+                        <tr>
+                            <td class="reference" data-reference="@item.Ref">@item.Ref</td>
+                            <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                            <td>@item.Customer</td>
+                            <td class="text-right">@item.Days</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
 
