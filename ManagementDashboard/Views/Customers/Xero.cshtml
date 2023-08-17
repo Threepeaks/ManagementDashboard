@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "XERO Clients";
+}
+
+
+
+<div id="XeroClients">
+
+</div>
+
+
+@section scripts
+{
+    <script>
+        $().ready(function () {
+               aJaxPost("@Url.Action("XeroClients", "Customers")", null, "#XeroClients");
+        });
+
+    </script>
+
+
+}

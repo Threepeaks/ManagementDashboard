@@ -8,16 +8,21 @@ namespace ManagementDashboard.Models
 {
     public class ChartModel
     {
-        public List<ComplexDataset> ComplesDatasets { get; set; }
-        public string[] Labels { get; set; }
-        public string Title { get; internal set; }
-        public string ChartID { get; internal set; }
-
+        public string Title { get; set; }
+        public string ChartID { get; set; }
         public bool ShowTable { get; set; }
-        public int ChartHeight { get; internal set; } = 400;
+        public int ChartHeight { get; set; } = 400;
 
+        public bool Responsive { get; set; } = true;
+        public bool MaintainAspectRatio { get; set; } = true;
+        public bool ScaleBeginAtZero { get; set; } = true;
+
+
+        public string[] Labels { get; set; }
+        public List<ComplexDataset> ComplexDatasets { get; set; }
         public List<string> DataTableItems { get; set; }
 
+        
     }
 
     public class DataTableItem

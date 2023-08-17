@@ -65,12 +65,24 @@
     <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.5.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=8.0.20.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.20\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.7.15\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=108.0.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.108.0.1\lib\netstandard2.0\RestSharp.dll</HintPath>
     </Reference>
     <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
@@ -80,25 +92,40 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel" />
     <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
     </Reference>
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.6.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.Encodings.Web, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.5.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=5.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.5.0.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -149,8 +176,11 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="tp.cloud.authClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\tp.cloud.authClient.1.0.24\lib\net\tp.cloud.authClient.dll</HintPath>
+    </Reference>
+    <Reference Include="tp.cloud.authShared, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\tp.cloud.authClient.1.0.24\lib\net\tp.cloud.authShared.dll</HintPath>
     </Reference>
     <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.8.0.20\lib\net452\Ubiety.Dns.Core.dll</HintPath>
@@ -224,28 +254,51 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountingController.cs" />
+    <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DBConnect.cs" />
+    <Compile Include="Controllers\GatewaysController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ReportsController.cs" />
+    <Compile Include="Controllers\MarketingController.cs" />
+    <Compile Include="Controllers\MDConst.cs" />
+    <Compile Include="Controllers\RiskController.cs" />
     <Compile Include="Controllers\SQLReportsController.cs" />
+    <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Controllers\TPMSController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HtmlHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CanceledClients.cs" />
     <Compile Include="Models\ChartModel.cs" />
     <Compile Include="Models\DepositBalance.cs" />
     <Compile Include="Models\DepositMovement.cs" />
+    <Compile Include="Models\DiffEnum.cs" />
+    <Compile Include="Models\DormantClients.cs" />
     <Compile Include="Models\GetTopUnpaids.cs" />
     <Compile Include="Models\GetTopValueCustomer.cs" />
     <Compile Include="Models\GetTopDebitValue.cs" />
+    <Compile Include="Models\HighestCustomerValue.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InCancelation.cs" />
     <Compile Include="Models\LiabilityCurrent.cs" />
+    <Compile Include="Models\ListOfPendingClient.cs" />
+    <Compile Include="Models\ManagementFees.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NewClients.cs" />
+    <Compile Include="Models\NewGrowth.cs" />
+    <Compile Include="Models\NoRetentionDeposit.cs" />
+    <Compile Include="Models\NoRunClients.cs" />
+    <Compile Include="Models\PendingClients.cs" />
+    <Compile Include="Models\RetNotReleased.cs" />
     <Compile Include="Models\SQLReportTableViewModel.cs" />
     <Compile Include="Models\SubmissionStateCount.cs" />
+    <Compile Include="Models\TransactionCodes.cs" />
+    <Compile Include="Models\uManageCustomers.cs" />
+    <Compile Include="Models\XeroClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -253,8 +306,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
+    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\assits\background\dashboard.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -269,6 +324,8 @@
     <Content Include="dist\css\alt\adminlte.core.min.css" />
     <Content Include="dist\css\alt\adminlte.extra-components.css" />
     <Content Include="dist\css\alt\adminlte.extra-components.min.css" />
+    <Content Include="dist\css\alt\adminlte.light.css" />
+    <Content Include="dist\css\alt\adminlte.light.min.css" />
     <Content Include="dist\css\alt\adminlte.pages.css" />
     <Content Include="dist\css\alt\adminlte.pages.min.css" />
     <Content Include="dist\css\alt\adminlte.plugins.css" />
@@ -298,7 +355,6 @@
     <Content Include="dist\img\prod-3.jpg" />
     <Content Include="dist\img\prod-4.jpg" />
     <Content Include="dist\img\prod-5.jpg" />
-    <Content Include="dist\img\ThreePeaksLogo.png" />
     <Content Include="dist\img\user1-128x128.jpg" />
     <Content Include="dist\img\user2-160x160.jpg" />
     <Content Include="dist\img\user3-128x128.jpg" />
@@ -316,6 +372,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="plugins\bootstrap\js\bootstrap.bundle.js" />
+    <Content Include="plugins\bootstrap\js\bootstrap.bundle.min.js" />
+    <Content Include="plugins\bootstrap\js\bootstrap.js" />
+    <Content Include="plugins\bootstrap\js\bootstrap.min.js" />
     <Content Include="plugins\fontawesome-free\css\all.css" />
     <Content Include="plugins\fontawesome-free\css\all.min.css" />
     <Content Include="plugins\fontawesome-free\css\brands.css" />
@@ -333,23 +393,12 @@
     <Content Include="plugins\fontawesome-free\webfonts\fa-brands-400.svg" />
     <Content Include="plugins\fontawesome-free\webfonts\fa-regular-400.svg" />
     <Content Include="plugins\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="plugins\jquery\jquery.js" />
+    <Content Include="plugins\jquery\jquery.min.js" />
+    <Content Include="plugins\jquery\jquery.slim.js" />
+    <Content Include="plugins\jquery\jquery.slim.min.js" />
     <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="App_Browsers\qt.browser" />
-    <Content Include="dist\css\adminlte.css.map" />
-    <Content Include="dist\css\adminlte.min.css.map" />
-    <Content Include="dist\css\alt\adminlte.components.css.map" />
-    <Content Include="dist\css\alt\adminlte.components.min.css.map" />
-    <Content Include="dist\css\alt\adminlte.core.css.map" />
-    <Content Include="dist\css\alt\adminlte.core.min.css.map" />
-    <Content Include="dist\css\alt\adminlte.extra-components.css.map" />
-    <Content Include="dist\css\alt\adminlte.extra-components.min.css.map" />
-    <Content Include="dist\css\alt\adminlte.pages.css.map" />
-    <Content Include="dist\css\alt\adminlte.pages.min.css.map" />
-    <Content Include="dist\css\alt\adminlte.plugins.css.map" />
-    <Content Include="dist\css\alt\adminlte.plugins.min.css.map" />
-    <Content Include="dist\js\.eslintrc.json" />
-    <Content Include="dist\js\adminlte.js.map" />
-    <Content Include="dist\js\adminlte.min.js.map" />
     <Content Include="plugins\fontawesome-free\webfonts\fa-brands-400.eot" />
     <Content Include="plugins\fontawesome-free\webfonts\fa-brands-400.ttf" />
     <Content Include="plugins\fontawesome-free\webfonts\fa-brands-400.woff" />
@@ -368,6 +417,35 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="dist\css\adminlte.css.map" />
+    <Content Include="dist\css\adminlte.min.css.map" />
+    <Content Include="dist\css\alt\adminlte.components.css.map" />
+    <Content Include="dist\css\alt\adminlte.components.min.css.map" />
+    <Content Include="dist\css\alt\adminlte.core.css.map" />
+    <Content Include="dist\css\alt\adminlte.core.min.css.map" />
+    <Content Include="dist\css\alt\adminlte.extra-components.css.map" />
+    <Content Include="dist\css\alt\adminlte.extra-components.min.css.map" />
+    <Content Include="dist\css\alt\adminlte.light.css.map" />
+    <Content Include="dist\css\alt\adminlte.light.min.css.map" />
+    <Content Include="dist\css\alt\adminlte.pages.css.map" />
+    <Content Include="dist\css\alt\adminlte.pages.min.css.map" />
+    <Content Include="dist\css\alt\adminlte.plugins.css.map" />
+    <Content Include="dist\css\alt\adminlte.plugins.min.css.map" />
+    <Content Include="dist\js\.eslintrc.json" />
+    <Content Include="dist\js\adminlte.js.map" />
+    <Content Include="dist\js\adminlte.min.js.map" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="plugins\bootstrap\js\bootstrap.bundle.js.map" />
+    <Content Include="plugins\bootstrap\js\bootstrap.bundle.min.js.map" />
+    <Content Include="plugins\bootstrap\js\bootstrap.js.map" />
+    <Content Include="plugins\bootstrap\js\bootstrap.min.js.map" />
+    <Content Include="plugins\jquery\jquery.min.map" />
+    <Content Include="plugins\jquery\jquery.slim.min.map" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -380,6 +458,7 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\general.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -476,6 +555,8 @@
     <Content Include="SQLQueries\CustomerBlockedProcessing.sql" />
     <Content Include="SQLQueries\CustomerComments.sql" />
     <Content Include="SQLQueries\CustomerPaymentBlocked.sql" />
+    <Content Include="SQLQueries\CustomerReferredBy.sql" />
+    <Content Include="SQLQueries\HyphenBatchStates.sql" />
     <Content Include="SQLQueries\LateUnpaidsCreditProvided.sql" />
     <Content Include="SQLQueries\liabilitycurrent.sql" />
     <Content Include="SQLQueries\LoadedGateway.sql" />
@@ -486,6 +567,7 @@
     <Content Include="SQLQueries\rbr.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SQLQueries\Risk\ClientsColelctionUnpaidsByActionDate.sql" />
     <Content Include="SQLQueries\RunsNotSentToBank.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -522,35 +604,35 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\TPMS\GetTotalSubmissions.cshtml" />
-    <Content Include="Views\Top\GetTopValueDebits.cshtml" />
-    <Content Include="Views\Top\GetTopValueCustomers.cshtml" />
-    <Content Include="Views\Top\GetTopCustomerRecords.cshtml" />
+    <Content Include="Views\Submissions\GetTopValueDebits.cshtml" />
+    <Content Include="Views\Customers\GetTopValueCustomers.cshtml" />
+    <Content Include="Views\Customers\GetTopCustomerRecords.cshtml" />
     <Content Include="Views\Top\DepositMovement.cshtml" />
-    <Content Include="Views\TPMS\LineChartPartial.cshtml" />
-    <Content Include="Views\TPMS\BarChartPartial.cshtml" />
-    <Content Include="Views\Top\GetTopUnpaids.cshtml" />
-    <Content Include="Views\Reports\DepositBalancePartial.cshtml" />
-    <Content Include="Views\Reports\DepositBalanceReport.cshtml" />
-    <Content Include="Views\Top\NoRunClients.cshtml" />
-    <Content Include="Views\Top\CanceledClients.cshtml" />
+    <Content Include="Views\Shared\LineChartPartial.cshtml" />
+    <Content Include="Views\Shared\BarChartPartial.cshtml" />
+    <Content Include="Views\Submissions\GetTopUnpaids.cshtml" />
+    <Content Include="Views\Accounting\DepositBalancePartial.cshtml" />
+    <Content Include="Views\Accounting\DepositBalanceReport.cshtml" />
+    <Content Include="Views\Customers\NoRunClients.cshtml" />
+    <Content Include="Views\Customers\CanceledClients.cshtml" />
     <Content Include="Views\Top\RetNotReleased.cshtml" />
-    <Content Include="Views\Top\PendingClients.cshtml" />
+    <Content Include="Views\Customers\PendingClients.cshtml" />
     <Content Include="Views\Top\NoRetentionDeposit.cshtml" />
-    <Content Include="Views\Top\DormantClients.cshtml" />
-    <Content Include="Views\Top\HighestCustomerValue.cshtml" />
-    <Content Include="Views\Top\ListOfPendingClient.cshtml" />
-    <Content Include="Views\Top\uManageCustomers.cshtml" />
-    <Content Include="Views\Top\NewClients.cshtml" />
+    <Content Include="Views\Customers\DormantClients.cshtml" />
+    <Content Include="Views\Customers\HighestCustomerValue.cshtml" />
+    <Content Include="Views\Customers\ListOfPendingClient.cshtml" />
+    <Content Include="Views\Customers\uManageCustomers.cshtml" />
+    <Content Include="Views\Customers\NewClients.cshtml" />
     <Content Include="Views\SQLReports\RBR.cshtml" />
-    <Content Include="Views\SQLReports\ManagementPrediction.cshtml" />
-    <Content Include="Views\SQLReports\LoadedGateway.cshtml" />
+    <Content Include="Views\Accounting\ManagementPrediction.cshtml" />
+    <Content Include="Views\Gateways\LoadedGateway.cshtml" />
     <Content Include="Views\Top\TransactionCodes.cshtml" />
     <Content Include="Views\Top\NewGrowth.cshtml" />
-    <Content Include="Views\Top\InCancelation.cshtml" />
-    <Content Include="Views\Top\GetTop20Unpaids.cshtml" />
-    <Content Include="Views\SQLReports\CustomerComments.cshtml" />
-    <Content Include="Views\Top\ManagementFees.cshtml" />
-    <Content Include="Views\SQLReports\LiabilityCurrent.cshtml" />
+    <Content Include="Views\Customers\InCancelation.cshtml" />
+    <Content Include="Views\Submissions\GetTop20Unpaids.cshtml" />
+    <Content Include="Views\Customers\CustomerComments.cshtml" />
+    <Content Include="Views\Accounting\ManagementFees.cshtml" />
+    <Content Include="Views\Accounting\LiabilityCurrent.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -565,22 +647,34 @@
     <Content Include="Views\Home\TrendView.cshtml" />
     <Content Include="Views\Home\NewGrowthView.cshtml" />
     <Content Include="Views\Home\OverviewView.cshtml" />
-    <Content Include="Views\Home\AccountingView.cshtml" />
-    <Content Include="Views\Home\SubmissionsView.cshtml" />
+    <Content Include="Views\Accounting\AccountingView.cshtml" />
+    <Content Include="Views\Submissions\Index.cshtml" />
     <Content Include="Views\Home\WithholdingsView.cshtml" />
-    <Content Include="Views\Home\CustomerView.cshtml" />
-    <Content Include="Views\Home\ManagementView.cshtml" />
-    <Content Include="Views\SQLReports\LateUnpaidsCreditProvided.cshtml" />
+    <Content Include="Views\Accounting\ManagementView.cshtml" />
+    <Content Include="Views\Accounting\LateUnpaidsCreditProvided.cshtml" />
     <Content Include="Views\SQLReports\HyphenBatchesStates.cshtml" />
-    <Content Include="Views\SQLReports\RunsNotSentToBank.cshtml" />
-    <Content Include="Views\SQLReports\CustomerPaymentBlocked.cshtml" />
-    <Content Include="Views\SQLReports\CustomerBlockedProcessing.cshtml" />
-    <Content Include="Views\SQLReports\CustomerReferredBy.cshtml" />
-    <Content Include="Views\Top\GetTopRevenue.cshtml" />
-    <Content Include="Views\Home\Revenue.cshtml" />
+    <Content Include="Views\Submissions\RunsNotSentToBank.cshtml" />
+    <Content Include="Views\Customers\CustomerPaymentBlocked.cshtml" />
+    <Content Include="Views\Customers\CustomerBlockedProcessing.cshtml" />
+    <Content Include="Views\Marketing\CustomerReferredBy.cshtml" />
+    <Content Include="Views\Accounting\GetTopRevenue.cshtml" />
+    <Content Include="Views\Accounting\Revenue.cshtml" />
+    <Content Include="Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Views\Shared\_SideMenu.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\Dormant.cshtml" />
+    <Content Include="Views\Customers\TopStats.cshtml" />
+    <Content Include="Views\Customers\NewCustomers.cshtml" />
+    <Content Include="Views\Gateways\HyphenBatchesStates.cshtml" />
+    <Content Include="Views\Gateways\Summary.cshtml" />
+    <Content Include="Views\Customers\XeroClients.cshtml" />
+    <Content Include="Views\Customers\Xero.cshtml" />
+    <Content Include="Views\Risk\ClientsColelctionUnpaidsByActionDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

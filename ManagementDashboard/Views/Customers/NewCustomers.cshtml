@@ -1,0 +1,150 @@
+﻿
+@{
+    ViewBag.Title = "New Customers";
+}
+
+<div class="alert alert-primary ">
+    <a href="#" id="NewClients"></a>
+    New Customers by month
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NewClient0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NewClient1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="NewClient2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="alert alert-primary">
+    <a href="#" id="NewClientByIndustryA"></a>
+    New Customers By Industry
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card  ">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto; min-height:450px;">
+                    <div id="NewClientByIndustry0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card ">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;min-height:450px;">
+                    <div id="NewClientByIndustry1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card ">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;min-height:450px;">
+                    <div id="NewClientByIndustry2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="alert alert-primary">
+    <a href="#" id="TransactionCodes"></a>
+    Hyphen Transaction Codes
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="TransactionCodes0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+@section scripts
+{
+    <script>
+        $().ready(function () {
+
+              //NewClientByIndustry
+               aJaxPost("@Url.Action("NewClientByIndustry", "Customers")", { id: 0 }, "#NewClientByIndustry0");
+               aJaxPost("@Url.Action("NewClientByIndustry", "Customers")", { id: 1 }, "#NewClientByIndustry1");
+               aJaxPost("@Url.Action("NewClientByIndustry", "Customers")", { id: 2 }, "#NewClientByIndustry2");
+
+
+               aJaxPost("@Url.Action("NewClients", "Customers")", { id: 0 }, "#NewClient0");
+               aJaxPost("@Url.Action("NewClients", "Customers")", { id: 1 }, "#NewClient1");
+               aJaxPost("@Url.Action("NewClients", "Customers")", { id: 2 }, "#NewClient2");
+
+               aJaxPost("@Url.Action("TransactionCodes", "Top")", { id: 0 }, "#TransactionCodes0");
+
+
+        })
+    </script>
+}

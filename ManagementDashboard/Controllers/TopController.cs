@@ -7,12 +7,7 @@ using System.Web.Mvc;
 
 namespace ManagementDashboard.Controllers
 {
-    public static class MDConst
-    {
-        public  const int  OUTPUTCASH_DURATION = 600;
-        
-    }
-
+    [Authorize]
     public class TopController : Controller
     {
         // GET: Top
@@ -21,102 +16,8 @@ namespace ManagementDashboard.Controllers
         // Customer Reference / Debit Reference / Action Date / RBR /Amount
 
 
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam ="id")]
-        public PartialViewResult GetTopValueDebits(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
 
-
-            var db = new DBConnect();
-            string query = "select dbt_comref,dbt_ref,dbt_date,dbt_rbr,dbt_amount  from tbldebits left join tblrbr on rbr_id = dbt_rbr where rbr_status not in (99) and " +
-                $"dbt_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' order by dbt_amount  desc limit 20";
-            var model = new List<ManagementDashboard.Models.GetTopDebitValue>(); // do you have a model yet  ??? ();
-            var result = db.Query(query);
-
-            foreach (DataRow dr in result.Tables[0].Rows)
-            {
-                var topItem = new Models.GetTopDebitValue();
-                topItem.Amount = (decimal)dr.Field<decimal>("dbt_amount");
-                topItem.CustomerRef = dr.Field<string>("dbt_comref");
-                topItem.DebitRef = dr.Field<string>("dbt_ref");
-                topItem.Rbr = (int)dr.Field<Int32>("dbt_rbr");
-                topItem.ActionDate = (DateTime)dr.Field<DateTime>("dbt_date");
-
-                model.Add(topItem);
-            }
-            return PartialView(model);
-        }
-
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult GetTopValueCustomers(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select dbt_comref, sum(dbt_amount) as initial, count(*) as c from tbldebits  left join tblrbr on rbr_id = dbt_rbr where dbt_date between" +
-                $"'{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' and rbr_status not in (99) group by dbt_comref order by initial desc limit 10";
-            var model = new List<ManagementDashboard.Models.GetTopValueCustomer>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var topCus = new Models.GetTopValueCustomer();
-                topCus.Customer = dRow.Field<string>("dbt_comref");
-                topCus.Collections = (decimal)dRow.Field<decimal>("initial");
-                topCus.NumOfRecords = (int)dRow.Field<Int64>("c");
-
-                model.Add(topCus);
-
-            }
-
-            return PartialView(model);
-
-        }
-
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult GetTopCustomerRecords(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select dbt_comref, sum(dbt_amount) as initial, count(*) as c from tbldebits  left join tblrbr on rbr_id = dbt_rbr where dbt_date between" +
-                $"'{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' and rbr_status not in (99) group by dbt_comref order by c desc limit 10";
-            var model = new List<ManagementDashboard.Models.GetTopValueCustomer>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var topCus = new Models.GetTopValueCustomer();
-                topCus.Customer = dRow.Field<string>("dbt_comref");
-                topCus.Collections = (decimal)dRow.Field<decimal>("initial");
-                topCus.NumOfRecords = (int)dRow.Field<Int64>("c");
-
-                model.Add(topCus);
-
-            }
-
-            return PartialView(model);
-        }
-
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult DepositMovement(int id)
         {
             int monthSelected = 0;
@@ -149,137 +50,10 @@ namespace ManagementDashboard.Controllers
         }
 
 
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult GetTop20Unpaids(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select dbt_comref as 'Company Ref', count(*) as 'Unpaids' from tbldebits " +
-                "where dbt_pass_unpaid in (2,3) and dbt_pass_unpaid_datetime between " +
-               $"'{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by " +
-                "dbt_comref order by `Unpaids` desc limit 20";
-            var model = new List<ManagementDashboard.Models.GetTop20Unpaids>();
-            var result = db.Query(query);
+       
 
 
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var t20unpaid = new Models.GetTop20Unpaids();
-                t20unpaid.Customer = dRow.Field<string>("Company Ref");
-                t20unpaid.Unpaids = (int)dRow.Field<Int64>("Unpaids");
-
-                model.Add(t20unpaid);
-
-            }
-
-            return PartialView(model);
-
-        }
-
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult NoRunClients(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(-1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select com_ref as Ref ,com_startdate as StartDate, com_name as Customer from tblcompany" +
-                " where com_acc_cancel in (0,1) and (select count(*) from tblrbr where rbr_comref = com_ref and " +
-                $"rbr_status not in (99) and rbr_date <= '{endDate.ToString("yyyy-MM-dd")}' limit 1) = 0 and com_startdate > '{startDate.ToString("yyyy-MM-dd")}'";
-            var model = new List<ManagementDashboard.Models.NoRunClients>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var depMov = new Models.NoRunClients();
-                depMov.Ref = dRow.Field<string>("Ref");
-                depMov.StartDate = (DateTime)dRow.Field<DateTime>("StartDate");
-                depMov.Customer = dRow.Field<string>("Customer");
-                model.Add(depMov);
-            }
-            return PartialView(model);
-
-        }
-
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult CanceledClients(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select com_ref as 'Ref' , com_name as 'Customer', com_acc_cancel_date as 'Cancel Start',com_acc_cancel_enddate as 'Cancel End', com_acc_cancel_note as 'Comment' " +
-                $"FROM threepeaks_tpms.tblcompany where com_acc_cancel = 2 and com_acc_cancel_enddate between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'";
-            var model = new List<ManagementDashboard.Models.CanceledClients>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var depMov = new Models.CanceledClients();
-                depMov.Ref = dRow.Field<string>("Ref");
-                depMov.Customer = dRow.Field<string>("Customer");
-                depMov.CancelStart = (DateTime)dRow.Field<DateTime>("Cancel Start");
-                depMov.CancelEnd = (DateTime)dRow.Field<DateTime>("Cancel End");
-                depMov.Comment = dRow.Field<string>("Comment");
-                model.Add(depMov);
-            }
-            return PartialView(model);
-
-        }
-
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult InCancelation(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select com_ref as 'Customer Ref', com_name as 'Company Name', case com_ac_pending " +
-                "when 0 then '' when 1 then 'Pending' when 2 then 'Pending' end as 'Pending Status', case com_acc_cancel " +
-                "when 0 then 'Active' when 1 then 'Cancelling' when 2 then 'Cancelled' else '' end as 'Cancel Status', " +
-                "com_acc_cancel_note as 'Comment' from `tblcompany` where com_acc_cancel = 1";
-
-            var model = new List<ManagementDashboard.Models.InCancelation>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var inCancel = new Models.InCancelation();
-                inCancel.Ref = dRow.Field<string>("Customer Ref");
-                inCancel.Customer = dRow.Field<string>("Company Name");
-                inCancel.CancelStatus = dRow.Field<string>("Cancel Status");
-                inCancel.PendingStatus = dRow.Field<string>("Pending Status");
-                inCancel.Comment = dRow.Field<string>("Comment");
-                model.Add(inCancel);
-            }
-            return PartialView(model);
-
-        }
-
-
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id;IsBetween")]
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION, VaryByParam = "id;IsBetween")]
         [Route("api/top/RetNotReleased/{id}/IsBetween")]
         public PartialViewResult RetNotReleased(int id, bool IsBetween)
         {
@@ -327,65 +101,10 @@ namespace ManagementDashboard.Controllers
 
         }
 
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult PendingClients(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+   
 
-            var db = new DBConnect();
-            string query = "select com_Ref as 'Ref', com_name as 'Customer',com_ac_pending_date as 'Pending Date' from tblcompany " +
-                $"where com_ac_pending = 1 and com_acc_cancel != 2 and com_ac_pending_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'";
-            var model = new List<ManagementDashboard.Models.PendingClients>();
-            var result = db.Query(query);
 
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var PenCus = new Models.PendingClients();
-                PenCus.Ref = dRow.Field<string>("Ref");
-                PenCus.Customer = dRow.Field<string>("Customer");
-                PenCus.PendingDate = (DateTime)dRow.Field<DateTime>("Pending Date");
-
-                model.Add(PenCus);
-
-            }
-
-            return PartialView(model);
-        }
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
-        public PartialViewResult ListOfPendingClient()
-        {
-            var db = new DBConnect();
-            string query = "select com_ref as 'Customer Ref', com_name as 'Company Name', com_ac_pending_date as 'Start Date', " +
-                " com_acc_pending_flagdate as 'End Date',  case com_ac_pending when 0 then '' when 1 then 'Pending' when 2 then 'Pending' end as 'Pending Status', " +
-                "case com_acc_cancel when 0 then 'Active' when 1 then 'Cancelling' when 2 then 'Cancelled' else '' end as 'CancelCancel Status'," +
-                " srv_name as 'Service', rep_name as 'Sales Agent' from tblcompany  left join tblservice on srv_id = com_serviceid left join " +
-                "tblrep on rep_id = com_repid where com_acc_cancel = 0 and com_ac_pending<> 0";
-            var model = new List<ManagementDashboard.Models.ListOfPendingClient>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var LisPenCus = new Models.ListOfPendingClient();
-                LisPenCus.Ref = dRow.Field<string>("Customer Ref");
-                LisPenCus.Customer = dRow.Field<string>("Company Name");
-                LisPenCus.StartDate = (DateTime)dRow.Field<DateTime>("Start Date");
-                LisPenCus.EndDate = (DateTime)dRow.Field<DateTime>("End Date");
-                LisPenCus.PendingStatus = dRow.Field<string>("Pending Status");
-                LisPenCus.Service = dRow.Field<string>("Service");
-                LisPenCus.SalesAgent = dRow.Field<string>("Sales Agent");
-                model.Add(LisPenCus);
-
-            }
-            return PartialView(model);
-        }
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NoRetentionDeposit(int id)
         {
             var db = new DBConnect();
@@ -415,143 +134,11 @@ namespace ManagementDashboard.Controllers
             return PartialView(filteredModel);
         }
 
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult DormantClients(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-            DateTime today = DateTime.Now.Date; //Filter for current Date
-            int span = 45;
+     
+  
 
-            var db = new DBConnect();
-            string query = $"select com_ref as 'Ref', case com_acc_cancel when 0 then if (com_ac_pending=1, if(com_acc_pending_flagdate < '{startDate.ToString("yyyy-MM-dd")}','Pending Ended', " +
-                $"if (com_ac_pending_date > '{endDate.ToString("yyyy-MM-dd")}','Active', 'Pending')), 'Active') when 1 then 'In Cancellation' when 2 then " +
-                $"if (com_acc_cancel_enddate < '{startDate.ToString("yyyy-MM-dd")}','Cancelled Before', if (com_acc_cancel_date < '{startDate.ToString("yyyy-MM-dd")}', " +
-                $"'In Cancellation', if (com_acc_cancel_date < '{endDate.ToString("yyyy-MM-dd")}' ,'In Cancellation','Active'))) else -1 end as 'State', " +
-                $"(select max(rbr_date) from tblrbr where rbr_status not in (99) and rbr_comref = com_ref and rbr_date< '{startDate.ToString("yyyy-MM-dd")}') as 'Prev Run', " +
-                $"ifnull((select min(rbr_date) from tblrbr where rbr_status not in (99) and rbr_comref = com_ref and rbr_date between '{startDate.ToString("yyyy-MM-dd")}' " +
-                $"and '{endDate.ToString("yyyy-MM-dd")}'),'na') as 'Next',  datediff((select max(rbr_date) from tblrbr where rbr_status not in (99) and  rbr_comref = com_ref " +
-                $"and rbr_date < '{startDate.ToString("yyyy-MM-dd")}'), '{today.ToString("yyyy-MM-dd")}') as 'span' from tblcompany where (select min(rbr_date) from tblrbr " +
-                $"where rbr_status not in (99) and rbr_comref = com_ref) < '{startDate.ToString("yyyy-MM-dd")}' and(select count(rbr_id) from tblrbr where rbr_status not in " +
-                $"(99) and  rbr_comref = com_ref and rbr_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}') = 0 and if (com_acc_cancel = 2 , " +
-                $"if (com_acc_cancel_enddate < '{startDate.ToString("yyyy-MM-dd")}', 0,if (com_acc_cancel_date < '{startDate.ToString("yyyy-MM-dd")}', 1, " +
-                $"if (com_acc_cancel_date < '{endDate.ToString("yyyy-MM-dd")}' ,1,1))),1) = 1 and com_acc_cancel = 0 and com_ac_pending = 0 and datediff((select max(rbr_date) " +
-                $" from tblrbr where rbr_status not in (99) and rbr_comref = com_ref and rbr_date< '{startDate.ToString("yyyy-MM-dd")}'), " +
-                $"'{endDate.ToString("yyyy-MM-dd")}') <= (-1 * '{span}') order by span, ifnull((select min(rbr_date) from tblrbr where rbr_status not in (99) " +
-                $"and  rbr_comref = com_ref and rbr_date > '{endDate.ToString("yyyy-MM-dd")}'),'0000-00-00'), (select max(rbr_date) from tblrbr  where rbr_status not in " +
-                $"(99) and rbr_comref = com_ref and rbr_date< '{startDate.ToString("yyyy-MM-dd")}'), com_ref";
 
-            var model = new List<ManagementDashboard.Models.DormantClients>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var domCus = new Models.DormantClients();
-                domCus.Ref = dRow.Field<string>("Ref");
-                domCus.State = dRow.Field<string>("State");
-                domCus.PrevRun = (DateTime)dRow.Field<DateTime>("Prev Run");
-                domCus.Next = dRow.Field<string>("Next");
-                Type t = dRow["span"].GetType();
-                domCus.Span = (int)dRow.Field<Int32>("span");
-                if (domCus.Span < -45)
-                model.Add(domCus);
-            }
-            return PartialView(model);
-        }
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult HighestCustomerValue(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select dbt_comref as 'Ref', count(*) as 'Count', sum(dbt_amount) as 'Value' from tbldebits " +
-                $"left join tblrbr on rbr_id = dbt_rbr where dbt_date between '{startDate.ToString("yyyy-MM-dd")}' and" +
-                $"'{endDate.ToString("yyyy-MM-dd")}' " +
-                $"and rbr_status<> 99 and dbt_cdv = 3 and dbt_accrej = 3 group by dbt_comref order by count(*) desc limit 20";
-            var model = new List<ManagementDashboard.Models.HighestCustomerValue>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var highCus = new Models.HighestCustomerValue();
-                highCus.Ref = dRow.Field<string>("Ref");
-                highCus.Count = (int)dRow.Field<Int64>("Count");
-                highCus.Value = (int)dRow.Field<decimal>("Value");
-                model.Add(highCus);
-            }
-            return PartialView(model);
-
-        }
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult uManageCustomers(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select rbr_comref as 'Customer Refernece', com_name as 'Company', count(*) as 'No Of Runs', " +
-                "sum(rbr_total_records) as 'Total Records' from tblrbr left join tblcompany on com_ref = rbr_comref where " +
-                $"rbr_subtype = 'File' and rbr_status not in (99) and rbr_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by rbr_comref ";
-            var model = new List<ManagementDashboard.Models.uManageCustomers>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var uMan = new Models.uManageCustomers();
-                uMan.Ref = dRow.Field<string>("Customer Refernece");
-                uMan.Customer = dRow.Field<string>("Company");
-                uMan.NoRuns = (int)dRow.Field<Int64>("No Of Runs");
-                uMan.TotalRecords = (int)dRow.Field<decimal>("Total Records");
-                model.Add(uMan);
-            }
-            return PartialView(model);
-
-        }
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult NewClients(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "SELECT com_ref as 'Customer Refernece', com_name as 'Company', com_startdate as 'Start Date'  FROM " +
-                $"threepeaks_tpms.tblcompany where com_startdate between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'";
-            var model = new List<ManagementDashboard.Models.NewClients>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var nClient = new Models.NewClients();
-                nClient.Ref = dRow.Field<string>("Customer Refernece");
-                nClient.Customer = dRow.Field<string>("Company");
-                nClient.StartDate = (DateTime)dRow.Field<DateTime>("Start Date");
-                model.Add(nClient);
-            }
-            return PartialView(model);
-
-        }
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION)]
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
         public PartialViewResult TransactionCodes()
         {
 
@@ -574,7 +161,7 @@ namespace ManagementDashboard.Controllers
 
         }
 
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public PartialViewResult NewGrowth(int id)
         {
     
@@ -631,104 +218,6 @@ namespace ManagementDashboard.Controllers
         }
 
 
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult GetTopUnpaids(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select hec_description as Description , hec_code as Code, count(*) as Count ,sum(dbt_amount) as amount from tbldebits left join tblhyphen_errcodes on dbt_accrejcode = hec_code left join tblrbr on rbr_id = dbt_rbr where dbt_pass_unpaid in (2,3) and rbr_status not in (99) " +
-                $" and dbt_pass_unpaid between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}' group by hec_code";
-            var model = new List<ManagementDashboard.Models.GetTopUnpaids>();
-            var result = db.Query(query);
-
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var depMov = new Models.GetTopUnpaids();
-                depMov.Description = dRow.Field<string>("Description");
-                depMov.Code = dRow.Field<string>("Code");
-                //Type t = dRow["Count"].GetType();
-                depMov.Count = (int)dRow.Field<Int64>("Count");
-                depMov.Amount = (int)dRow.Field<decimal>("amount");
-
-
-                model.Add(depMov);
-
-            }
-
-            return PartialView(model);
-
-        }
-         [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult GetTopRevenue(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = $"select * from(select inv_comref as 'ComRef'," +
-                $"inv_comname as 'Company', sum(inv_t_total) as 'Total' from threepeaks_tpms.tblinvoice where " +
-                $"inv_date between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'" +
-                $"group by inv_comref) as g order by g.`Total` desc limit 20";
-            var model = new List<ManagementDashboard.Models.GetTopRevenue>();
-            var result = db.Query(query);
-
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var rev = new Models.GetTopRevenue();
-                rev.comRef = dRow.Field<string>("ComRef");
-                rev.Company = dRow.Field<string>("Company");
-                rev.total = (int)dRow.Field<decimal>("Total");
-
-                model.Add(rev);
-            }
-            return PartialView(model);
-        }
-
-        [OutputCache(Duration = MDConst.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult ManagementFees(int id)
-        {
-            int monthSelected = 0;
-            if (id > 0)
-                monthSelected = -1 * id;
-            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
-            DateTime startDate = currentDate;
-            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
-
-            var db = new DBConnect();
-            string query = "select dbt_unpaid_datetime as 'Unpaid Date', dbt_ref as 'Customer Reference', " +
-                "case dbt_pass_unpaid when 2 then 'Current' when 3 then 'Late' end as 'Type', dbt_amount as 'Amount', " +
-                "dbt_accrejcode as 'Code', hec_description as 'Reason' from tbldebits left join tblhyphen_errcodes " +
-                "on hec_code = dbt_accrejcode where dbt_comref = 'THREE' and dbt_unpaid_datetime " +
-                $"between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'" +
-                " order by dbt_unpaid_datetime,dbt_ref";
-            var model = new List<ManagementDashboard.Models.ManagementFees>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var manFee = new Models.ManagementFees();
-                manFee.UnpaidDate = (DateTime)dRow.Field<DateTime>("Unpaid Date");
-                manFee.CustomerReference = dRow.Field<string>("Customer Reference");
-                manFee.Type = dRow.Field<string>("Type");
-                manFee.Amount = (int)dRow.Field<decimal>("Amount");
-                manFee.Code = dRow.Field<string>("Code");
-                manFee.Reason = dRow.Field<string>("Reason");
-                model.Add(manFee);
-            }
-            return PartialView(model);
-
-        }
+    
     }
 }

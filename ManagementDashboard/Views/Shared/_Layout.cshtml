@@ -8,10 +8,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.Title - Management Dashboard</title>
-    @Styles.Render("~/Content/css")
+    @*@Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jquery")*@
+
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -19,8 +21,43 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <link rel="stylesheet" href="~/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <style>
+        #myBtn {
+              display: none; /* Hidden by default */
+            position: fixed; /* Fixed/sticky position */
+            bottom: 20px; /* Place the button at the bottom of the page */
+            right: 30px; /* Place the button 30px from the right */
+            z-index: 99; /* Make sure it does not overlap */
+            border: none; /* Remove borders */
+            outline: none; /* Remove outline */
+            background-color: red; /* Set a background color */
+            color: white; /* Text color */
+            cursor: pointer; /* Add a mouse pointer on hover */
+            padding: 15px; /* Some padding */
+            border-radius: 10px; /* Rounded corners */
+            font-size: 18px; /* Increase font size */
+        }
+
+            #myBtn:hover {
+                  background-color: #555; /* Add a dark-grey background on hover */
+            }
+        table .fixedHeader {
+            /* Not required only for visualizing */
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+            table .fixedHeader thead tr th {
+                /* Important */
+                background-color: red;
+                position: sticky;
+                z-index: 100;
+                top: 0;
+            }
+
+    </style>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini ">
     <div class="wrapper">
 
         <!-- Navbar -->
@@ -30,7 +67,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
-                
+
             </ul>
 
             <!-- Right navbar links -->
@@ -57,7 +94,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </div>
                 </li>
 
-               
+
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
@@ -77,7 +114,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             @*<img src="dist/img/ThreePeaksLogo.png" alt="ThreePeaks Logo" width="50"  class="brand-image elevation-3" style="opacity: .8"/>*@
             <a href="index3.html" class="brand-link">
                 @*<img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">*@
-                <span class="brand-text font-weight-light">Mangement Dashboard</span>
+                <span class="brand-text font-weight-light">Management Dashboard</span>
             </a>
 
 
@@ -86,146 +123,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="sidebar">
                 <!-- Sidebar user panel (optional) -->
                 <!-- SidebarSearch Form -->
-              
-
                 <!-- Sidebar Menu -->
-                <nav class="mt-2">
-                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-
-
-
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("Index","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Home</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("LoadedGateway","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Loaded Gateway</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("CustomerReferredBy","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Customer Referred By Count</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("CustomerBlockedProcessing","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Customer Blocked Processing</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("CustomerPaymentBlocked","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Customer Payment Blocked</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("RunsNotSentToBank","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Runs Not Sent To Bank</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("ManagementPrediction","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Management Prediction</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("CustomerComments","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Customer Comments</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("DepositBalanceReport","Reports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Deposit Balance</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("LiabilityCurrent","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Liability Current</p>
-                            </a>
-                        </li>
-                        @*<li class="nav-item">
-                            <a href="@Url.Action("Rbr","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>RBR</p>
-                            </a>
-                        </li>*@
-                        <li class="nav-item">
-                            <a href="@Url.Action("LateUnpaidsCreditProvided","SQLReports")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Late Unpaids Credit Provided</p>
-                            </a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("Revenue","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Revenue</p>
-                            </a>
-                        </li>
-                        
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("ManagementView","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Management(TP)</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("SubmissionsView","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Submissions</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("OverviewView","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Over View</p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="@Url.Action("WithholdingsView","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Withholdings</p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a href="@Url.Action("AccountingView","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Accounting</p>
-                            </a>
-                        </li>
-                        
-                        <li class="nav-item">
-                            <a href="@Url.Action("CustomerView","Home")" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>Customer</p>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                </nav>
+                @Html.Partial("_SideMenu")
                 <!-- /.sidebar-menu -->
             </div>
             <!-- /.sidebar -->
@@ -234,22 +133,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
+            <div class="content-header dark-mode  mb-2">
                 <div class="container-fluid">
-                    <div class="row mb-2">
-                        
+                    <div class="row">
                         <div class="col-sm-6">
-                           
+                        @ViewBag.Title
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
+
+
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
                     @RenderBody()
                     <!-- /.row -->
+                    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content -->
@@ -268,22 +169,46 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <footer class="main-footer">
             <!-- To the right -->
             <div class="float-right d-none d-sm-inline">
-               
+
             </div>
             <!-- Default to the left -->
-           
+
         </footer>
     </div>
     <!-- ./wrapper -->
-
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/Scripts/Chart.js"></script>
-    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/general.js"></script>
+
 
     <!-- REQUIRED SCRIPTS -->
-    
-    
     <!-- AdminLTE App -->
     <script src="~/dist/js/adminlte.min.js"></script>
+    <script type="text/javascript">
+        // Get the button:
+        let mybutton = document.getElementById("myBtn");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        } 
+    </script>
+    @RenderSection("scripts", required: false)
+
+
 </body>
 </html>
