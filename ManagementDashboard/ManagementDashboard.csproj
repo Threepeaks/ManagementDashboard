@@ -262,6 +262,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarketingController.cs" />
     <Compile Include="Controllers\MDConst.cs" />
+    <Compile Include="Controllers\RiskController.cs" />
     <Compile Include="Controllers\SQLReportsController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\TopController.cs" />
@@ -566,6 +567,7 @@
     <Content Include="SQLQueries\rbr.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SQLQueries\Risk\ClientsColelctionUnpaidsByActionDate.sql" />
     <Content Include="SQLQueries\RunsNotSentToBank.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -667,6 +669,7 @@
     <Content Include="Views\Gateways\Summary.cshtml" />
     <Content Include="Views\Customers\XeroClients.cshtml" />
     <Content Include="Views\Customers\Xero.cshtml" />
+    <Content Include="Views\Risk\ClientsColelctionUnpaidsByActionDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,15 @@
+﻿@model ManagementDashboard.Models.SQLReportTableViewModel
+@{
+    ViewBag.Title = "Clients Colelction and Unpaids Ratios By Action Date";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        Client's Unpaid Ratio by Bank Date (Current + Last Three Months)
+    </div>
+    <div class="card-body">
+        @Html.Raw(Model.HtmlTable)
+    </div>
+</div>
+

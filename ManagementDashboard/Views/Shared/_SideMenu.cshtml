@@ -12,7 +12,7 @@
 
 
 <nav class="mt-2">
-    <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" 
+    <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview"
         role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
     with font-awesome or any other icon font library -->
@@ -25,22 +25,41 @@
 
 
         <!--<li class="nav-item ">
-            <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                    Sample
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview" style="display: none;">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Active Page</p>
-                    </a>
-                </li>
-            </ul>
-        </li>--><!--./title-->
+        <a href="#" class="nav-link ">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+                Sample
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Active Page</p>
+                </a>
+            </li>
+        </ul>
+    </li>-->
+        <!--./title-->
+        <li class="nav-item ">
+        <a href="#" class="nav-link ">
+            <i class="nav-icon fa fa-exclamation-triangle"></i>
+            <p>
+                Risk
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="@Url.Action("ClientsColelctionUnpaidsByActionDate","Risk")" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Client Unpaid Ratios</p>
+                </a>
+            </li>
+        </ul>
+    </li><!--./Risk-->
+
         <li class="nav-item @Html.IsOpen("Customers")">
             <a href="#" class="nav-link @Html.IsActive("Customers")">
                 <i class="nav-icon fas fa-users"></i>
@@ -74,7 +93,7 @@
                         <p>XERO</p>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a href="@Url.Action("TopStats","Customers")" class="nav-link @Html.IsActive("Customers","TopStats")">
                         <i class="nav-icon fas fa-chart-area"></i>
@@ -147,7 +166,7 @@
                         <i class="nav-icon fas fa-check-square"></i>
                         <p>Loaded Gateway</p>
                     </a>
-                </li>               
+                </li>
                 <li class="nav-item">
                     <a href="@Url.Action("HyphenBatchesStates","Gateways")" class="nav-link  @Html.IsActive("Gateways","HyphenBatchesStates")">
                         <i class="nav-icon fas fa-th"></i>
@@ -180,7 +199,7 @@
                         <p>Runs Not Sent To Bank</p>
                     </a>
                 </li>
-  
+
             </ul>
         </li><!--./Submissions-->
 

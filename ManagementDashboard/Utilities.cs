@@ -11,7 +11,8 @@ namespace ManagementDashboard
     {
         String,
         Decimal,
-
+        DecimanNoThoundSep,
+        Percentage
     }
 
     public class ColumnTypeItems : List<ColumnTypePair>
@@ -97,8 +98,9 @@ namespace ManagementDashboard
                     if (fieldType == ColumnType.String)
                         html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
                     if (fieldType == ColumnType.Decimal)
-                        html += "<td class='text-right'>" + ToDecimalValue(dt.Rows[i][j]) + "</td>";
-
+                        html += "<td class='text-right'>" + ToDecimalValue(dt.Rows[i][j]) + "</td>";                    
+                    if (fieldType == ColumnType.Percentage)
+                        html += "<td class='text-right'>" + dt.Rows[i][j] + "</td>";
 
                 }
                 html += "</tr>";
@@ -108,7 +110,25 @@ namespace ManagementDashboard
             return html;
         }
 
-        private static string ToDecimalValue(object obj)
+        private static string ToPercentageValue(object obj, int v2)
+        {
+            try
+            {
+                if (obj == null)
+                    return "";
+                var v = decimal.Parse(obj.ToString());
+                return v.ToString();
+            }
+            catch (Exception e )
+            {
+
+
+                return "";
+            }
+
+        }
+
+        private static string ToDecimalValue(object obj,bool thousandSeperator = true)
         {
             try
             {
