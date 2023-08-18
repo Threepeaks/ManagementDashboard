@@ -1,7 +1,13 @@
-﻿using System;
+﻿using Google.Protobuf.WellKnownTypes;
+using ManagementDashboard.DTOs;
+using RestSharp;
+using RestSharp.Authenticators;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -13,6 +19,57 @@ namespace ManagementDashboard.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
+        public ActionResult DisputesNotResolved(int id)
+        {
+
+            var options = new RestClientOptions("https://disputetracker.threepeaks.co.za/")
+            {
+                //Authenticator = new HttpBasicAuthenticator("username", "password")
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("api/disputes/GetNotResolved/" + id);
+            // The cancellation token comes from the caller. You can still make a call without it.
+            var response = client.Get(request);
+            List<Dispute> a = new List<Dispute>();
+
+            if (response.IsSuccessful)
+            {
+
+                a = JsonSerializer.Deserialize<List<Dispute>>(response.Content);
+            }
+
+
+
+            return View(a);
+        }
+
+
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
+        public ActionResult DisputesNotResolvedSummary()
+        {
+          
+            var options = new RestClientOptions("https://disputetracker.threepeaks.co.za/")
+            {
+                //Authenticator = new HttpBasicAuthenticator("username", "password")
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("api/disputes/GetNotResolvedSummary");
+            // The cancellation token comes from the caller. You can still make a call without it.
+            var response = client.Get(request);
+            List<ClientDisputeSummary> a = new List<ClientDisputeSummary>();
+
+            if (response.IsSuccessful)
+            {
+                
+                a = JsonSerializer.Deserialize<List<ClientDisputeSummary>>(response.Content);
+            }
+
+
+
+            return View(a);
         }
 
 

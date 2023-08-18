@@ -267,6 +267,7 @@
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Controllers\TPMSController.cs" />
+    <Compile Include="DTOs\DisputesNotResolvedSummaryResponse.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -670,6 +671,8 @@
     <Content Include="Views\Customers\XeroClients.cshtml" />
     <Content Include="Views\Customers\Xero.cshtml" />
     <Content Include="Views\Risk\ClientsColelctionUnpaidsByActionDate.cshtml" />
+    <Content Include="Views\Risk\DisputesNotResolvedSummary.cshtml" />
+    <Content Include="Views\Risk\DisputesNotResolved.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
