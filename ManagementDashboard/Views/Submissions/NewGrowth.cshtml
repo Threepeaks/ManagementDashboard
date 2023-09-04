@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Clients New Growth";
+}
+
+
+<div id="NewGrowth0">
+    Loading.
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+
+            aJaxPost("@Url.Action("NewGrowth", "Top")", { id: 0 }, "#NewGrowth0");
+
+        })
+    </script>
+}
+

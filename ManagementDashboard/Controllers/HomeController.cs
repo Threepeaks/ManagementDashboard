@@ -91,10 +91,7 @@ namespace ManagementDashboard.Controllers
             return View();
         }
    
-        public ActionResult NewGrowthView()
-        {
-            return View();
-        }
+
 
         public ActionResult OverviewView()
         {

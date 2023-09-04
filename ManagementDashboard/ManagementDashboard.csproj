@@ -673,6 +673,7 @@
     <Content Include="Views\Risk\ClientsColelctionUnpaidsByActionDate.cshtml" />
     <Content Include="Views\Risk\DisputesNotResolvedSummary.cshtml" />
     <Content Include="Views\Risk\DisputesNotResolved.cshtml" />
+    <Content Include="Views\Submissions\NewGrowth.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
