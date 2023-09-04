@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Deposit Not Covered EFT DO";
+}
+
+<div class="row">
+    <div class="col-4">
+        <div id="depositCover0">
+            Loading.
+        </div>
+
+    </div>
+    <div class="col-4">
+        <div id="depositCover-1">
+            Loading.
+        </div>
+
+    </div>
+    <div class="col-4">
+        <div id="depositCover-2">
+            Loading.
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(function () {
+
+            aJaxPost("@Url.Action("DepositNotCoveredEFTDOPartialView", "Risk")", { id: 0 }, "#depositCover0");
+            aJaxPost("@Url.Action("DepositNotCoveredEFTDOPartialView", "Risk")", { id: -1 }, "#depositCover-1");
+            aJaxPost("@Url.Action("DepositNotCoveredEFTDOPartialView", "Risk")", { id: -2 }, "#depositCover-2");
+
+        })
+    </script>
+}

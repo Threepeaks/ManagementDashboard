@@ -568,6 +568,7 @@
     <Content Include="SQLQueries\rbr.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SQLQueries\Risk\DeposotNotCoveredEFTDO.sql" />
     <Content Include="SQLQueries\Risk\ClientsColelctionUnpaidsByActionDate.sql" />
     <Content Include="SQLQueries\RunsNotSentToBank.sql" />
     <Content Include="Web.config" />
@@ -674,6 +675,8 @@
     <Content Include="Views\Risk\DisputesNotResolvedSummary.cshtml" />
     <Content Include="Views\Risk\DisputesNotResolved.cshtml" />
     <Content Include="Views\Submissions\NewGrowth.cshtml" />
+    <Content Include="Views\Risk\DepositNotCoveredEFTDOPartialView.cshtml" />
+    <Content Include="Views\Risk\DepositNotCoveredEFTDO.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

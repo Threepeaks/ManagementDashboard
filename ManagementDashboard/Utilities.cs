@@ -67,27 +67,30 @@ namespace ManagementDashboard
 
         public static string ConvertDataTableToHTML(this DataTable dt, ColumnTypeItems colTypeItems = null)
         {
+
+            var dataTable = dt;
+
             string html = "<table class='table table-striped table-sm '>";
 
             //add header row
             html += "<thead>";
             html += "<tr>";
-            for (int i = 0; i < dt.Columns.Count; i++)
-                html += "<th>" + dt.Columns[i].ColumnName + "</th>";
+            for (int i = 0; i < dataTable.Columns.Count; i++)
+                html += "<th>" + dataTable.Columns[i].ColumnName + "</th>";
             html += "</tr>";
             html += "</thead>";
             //add rows
             html += "<tbody>";
-            for (int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 html += "<tr>";
-                for (int j = 0; j < dt.Columns.Count; j++)
+                for (int j = 0; j < dataTable.Columns.Count; j++)
                 {
                     var fieldType = ColumnType.String;
 
                     if (colTypeItems != null)
                     {
-                        var col = colTypeItems.FirstOrDefault(x => x.ColumnName == dt.Columns[j].ColumnName);
+                        var col = colTypeItems.FirstOrDefault(x => x.ColumnName == dataTable.Columns[j].ColumnName);
                         if (col != null)
                         {
                             fieldType = col.Type;
@@ -96,11 +99,11 @@ namespace ManagementDashboard
 
                     }
                     if (fieldType == ColumnType.String)
-                        html += "<td>" + dt.Rows[i][j].ToString() + "</td>";
+                        html += "<td>" + dataTable.Rows[i][j].ToString() + "</td>";
                     if (fieldType == ColumnType.Decimal)
-                        html += "<td class='text-right'>" + ToDecimalValue(dt.Rows[i][j]) + "</td>";                    
+                        html += "<td class='text-right'>" + ToDecimalValue(dataTable.Rows[i][j]) + "</td>";                    
                     if (fieldType == ColumnType.Percentage)
-                        html += "<td class='text-right'>" + dt.Rows[i][j] + "</td>";
+                        html += "<td class='text-right'>" + dataTable.Rows[i][j] + "</td>";
 
                 }
                 html += "</tr>";

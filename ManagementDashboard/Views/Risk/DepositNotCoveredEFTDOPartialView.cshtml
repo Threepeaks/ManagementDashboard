@@ -1,0 +1,11 @@
+﻿@model ManagementDashboard.Models.SQLReportTableViewModel
+<div class="card card-primary">
+    <div class="card-header">
+        Risk Deposit Cover - @ViewBag.SubReportTitle
+    </div>
+    <div class="card-body">
+        @Html.Raw(Model.HtmlTable)
+    </div>
+</div>
+
+
