@@ -46,9 +46,10 @@ namespace ManagementDashboard.Controllers
         {
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";Connection Timeout=120;";
+            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";Connection Timeout=240;default command timeout=120;";
             MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandTimeout = 120;
+            cmd.CommandTimeout = 240;
+            
 
             connection = new MySqlConnection(connectionString);
         }
