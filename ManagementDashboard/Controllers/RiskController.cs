@@ -1,9 +1,16 @@
-﻿using System;
+﻿using Google.Protobuf.WellKnownTypes;
+using ManagementDashboard.DTOs;
+using RestSharp;
+using RestSharp.Authenticators;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace ManagementDashboard.Controllers
 {
@@ -13,6 +20,57 @@ namespace ManagementDashboard.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
+        public ActionResult DisputesNotResolved(int id)
+        {
+
+            var options = new RestClientOptions("https://disputetracker.threepeaks.co.za/")
+            {
+                //Authenticator = new HttpBasicAuthenticator("username", "password")
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("api/disputes/GetNotResolved/" + id);
+            // The cancellation token comes from the caller. You can still make a call without it.
+            var response = client.Get(request);
+            List<Dispute> a = new List<Dispute>();
+
+            if (response.IsSuccessful)
+            {
+
+                a = JsonSerializer.Deserialize<List<Dispute>>(response.Content);
+            }
+
+
+
+            return View(a);
+        }
+
+
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
+        public ActionResult DisputesNotResolvedSummary()
+        {
+
+            var options = new RestClientOptions("https://disputetracker.threepeaks.co.za/")
+            {
+                //Authenticator = new HttpBasicAuthenticator("username", "password")
+            };
+            var client = new RestClient(options);
+            var request = new RestRequest("api/disputes/GetNotResolvedSummary");
+            // The cancellation token comes from the caller. You can still make a call without it.
+            var response = client.Get(request);
+            List<ClientDisputeSummary> a = new List<ClientDisputeSummary>();
+
+            if (response.IsSuccessful)
+            {
+
+                a = JsonSerializer.Deserialize<List<ClientDisputeSummary>>(response.Content);
+            }
+
+
+
+            return View(a);
         }
 
 
@@ -35,7 +93,7 @@ namespace ManagementDashboard.Controllers
                 var startDate = new DateTime(endDate.Year, endDate.Month, 1).AddMonths(-3);
 
 
-                var queryParms= new Dictionary<string, string>();
+                var queryParms = new Dictionary<string, string>();
                 queryParms.Add("startDate", startDate.ToString("yyyy-MM-dd"));
                 queryParms.Add("endDate", endDate.ToString("yyyy-MM-dd"));
 
@@ -66,6 +124,57 @@ namespace ManagementDashboard.Controllers
                 query = query.Replace("{" + param.Key + "}", param.Value);
             }
             return query;
+        }
+
+
+        public ActionResult DepositNotCoveredEFTDO()
+        {
+            return View();
+        }
+
+        public PartialViewResult DepositNotCoveredEFTDOPartialView(int id)
+        {
+
+            var cm = new Models.SQLReportTableViewModel();
+
+            DateTime currentDate = DateTime.Now.AddMonths(id);
+            DateTime startDate = new DateTime(currentDate.Year, currentDate.Month, 1);
+            DateTime endDate = startDate.AddMonths(1).AddDays(-1);
+
+            var db = new DBConnect();
+
+            string file = Server.MapPath("~") + "SQLQueries\\Risk\\DeposotNotCoveredEFTDO.sql";
+
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+
+
+
+
+                var queryParms = new Dictionary<string, string>();
+                queryParms.Add("startDate", startDate.ToString("yyyy-MM-dd"));
+                queryParms.Add("endDate", endDate.ToString("yyyy-MM-dd"));
+
+                string query = QueryReplace(fileContent, queryParms);
+
+                var result = db.Query(query);
+
+                ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+                columnTypePairs.Add("Deposit", ColumnType.Decimal);
+                columnTypePairs.Add("Collection", ColumnType.Decimal);
+                columnTypePairs.Add("Unpaids", ColumnType.Decimal);
+                columnTypePairs.Add("Unp Ratio", ColumnType.Decimal);
+                //columnTypePairs.Add("UNP RATIO", ColumnType.Percentage);
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
+                cm.HtmlTable = htmlTable;
+
+            }
+            ViewBag.SubReportTitle = $"{startDate.ToString("dd/MM/yyyy")} - {endDate.ToString("dd/MM/yyyy")}";
+            return PartialView(cm);
         }
     }
 }

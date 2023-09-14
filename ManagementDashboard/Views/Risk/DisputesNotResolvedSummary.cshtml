@@ -1,0 +1,38 @@
+﻿@model List<ManagementDashboard.DTOs.ClientDisputeSummary>
+@{
+    ViewBag.Title = "Disputes Not Resolved Summary";
+}
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Client Reference</th>
+            <th>Client</th>
+            <th>No of Disputes</th>
+            <th>Sum of Disputes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(x=>x.ClientReference))
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.ClientReference, "DisputesNotResolved", "Risk",new {id = item.ClientId},null)
+                    
+                
+                </td>
+                <td>@item.ClientName</td>
+                <td>@item.Count</td>
+                <td class="text-right">@item.Value.ToString("N")</td>
+
+
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+
+

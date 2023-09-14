@@ -57,6 +57,18 @@
                     <p>Client Unpaid Ratios</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="@Url.Action("DisputesNotResolvedSummary","Risk")" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Unresolved Disputes</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="@Url.Action("DepositNotCoveredEFTDO","Risk")" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Deposits Not Covered</p>
+                </a>
+            </li>
         </ul>
     </li><!--./Risk-->
 
@@ -197,6 +209,13 @@
                     <a href="@Url.Action("RunsNotSentToBank","Submissions")" class="nav-link @Html.IsActive("Submissions","RunsNotSentToBank")">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Runs Not Sent To Bank</p>
+                    </a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="@Url.Action("NewGrowth","Submissions")" class="nav-link @Html.IsActive("Submissions","RunsNotSentToBank")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>New Growth</p>
                     </a>
                 </li>
 

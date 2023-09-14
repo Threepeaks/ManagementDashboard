@@ -19,6 +19,13 @@ namespace ManagementDashboard.Controllers
             return View();
         }
 
+        public ActionResult NewGrowth()
+        {
+
+
+            return View();
+        }
+
         [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
         public ActionResult RunsNotSentToBank()
         {

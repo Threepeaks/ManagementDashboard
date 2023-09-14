@@ -1,0 +1,35 @@
+﻿@model List<ManagementDashboard.DTOs.Dispute>
+@{
+    ViewBag.Title = "Disputes Not Resolved";
+}
+
+<h2>@Model.FirstOrDefault().ClientReference</h2>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Client Reference</th>
+            <th>Debtor Reference</th>
+            <th>Debtor</th>
+            <th>Action Date</th>
+            <th>Due Date</th>
+            <th>Amount</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ClientReference</td>
+                <td>@item.DebtorReference</td>
+                <td>@item.DebtorName</td>
+                <td>@item.ActionDate.ToShortDateString()</td>
+                <td>@item.ResolveDueDate.ToShortDateString()</td>
+                <td class="text-right">@item.Amount.ToString("N")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
