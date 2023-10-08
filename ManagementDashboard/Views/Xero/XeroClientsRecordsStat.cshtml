@@ -1,0 +1,91 @@
+﻿@model ManagementDashboard.ModelViews.XeroClientsRecords
+@{
+    ViewBag.Title = "Xero Clients Records";
+}
+@section styles {
+    <link href="https://cdn.webdatarocks.com/latest/webdatarocks.min.css" rel="stylesheet" />
+    <!--<link href="https://cdn.webdatarocks.com/latest/theme/lightblue/webdatarocks.min.css" rel="stylesheet" />-->
+}
+
+
+
+<div id="wdr-component" </div>
+
+
+
+
+
+
+
+
+@section scripts {
+
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.toolbar.min.js"></script>
+    <script src="https://cdn.webdatarocks.com/latest/webdatarocks.js"></script>
+
+    <script>
+        const jsonData = @Html.Raw(Model.JsonData);
+
+
+        var pivot = new WebDataRocks({
+            container: "#wdr-component",
+            beforetoolbarcreated: customizeToolbar,
+            toolbar: true,
+            height: 500,
+            report: {
+                dataSource: {
+                    data: jsonData
+                },
+                slice: {
+                    "rows": [
+                        {
+                            "uniqueName": "Client Reference"
+                        }
+                    ],
+                    "columns": [
+                        {
+                            "uniqueName": "Action Date.Year"
+                        },
+                        {
+                            "uniqueName": "Action Date.Month"
+                        },
+                        {
+                            "uniqueName": "Measures"
+                        }
+                    ],
+                    "measures": [
+                        {
+                            "uniqueName": "Records",
+                            "aggregation": "sum"
+                        }
+                    ]
+                }
+            },
+
+
+        });
+
+        function customizeToolbar(toolbar) {
+            var tabs = toolbar.getTabs(); // get all tabs from the toolbar
+            toolbar.getTabs = function () {
+                delete tabs[0]; // delete the first tab
+                delete tabs[1]; // delete the first tab
+                delete tabs[2]; // delete the first tab
+                delete tabs[4]; // delete the first tab
+                delete tabs[5]; // delete the first tab
+                delete tabs[6]; // delete the first tab
+                delete tabs[7]; // delete the first tab
+                return tabs;
+            }
+        }
+
+    </script>
+}
+
+
+
+
+
+
+
+
