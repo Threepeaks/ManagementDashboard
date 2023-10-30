@@ -4,12 +4,13 @@
    
 }
 
-<table class="table table-striped">
+<table class="table table-striped table-sm">
     <thead>
 
     <tr>
         <th>Reference</th>
-        <th>Customer</th>
+        <th>Client</th>
+        <th>Tenant Name</th>
         <th>Connection</th>
     </tr>
     </thead>
@@ -25,6 +26,7 @@
         <tr>
             <td>@client.CustomerReference</td>
             <td>@client.CustomerName</td>
+            <td>@client.TenantName</td>
             <td>
                 <span class=" badge  @connectionClass">
 

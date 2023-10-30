@@ -567,7 +567,7 @@ namespace ManagementDashboard.Controllers
                 Password = Properties.Settings.Default.MySqlPasswordPortal,
             });
             var query = "select " +
-                " comref,com_name," +
+                " comref,com_name,ifnull(tenantName,'Not available') as tenantName, " +
                 " case connection_status when 0 then 'Disconnected' when 1 then 'Connected' end  as connection_status" +
                 " from tblxeroauth " +
                 " left join tblcompany on com_ref = comref";
@@ -581,6 +581,8 @@ namespace ManagementDashboard.Controllers
                 XeroClient xeroClient = new XeroClient();
                 xeroClient.CustomerReference = dr.Field<string>("comref");
                 xeroClient.CustomerName = dr.Field<string>("com_name");
+                xeroClient.TenantName = dr.Field<string>("tenantName");
+
                 xeroClient.ConnectionStatus = dr.Field<string>("connection_status");
                 xeroClients.Add(xeroClient);
 

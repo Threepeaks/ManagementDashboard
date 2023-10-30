@@ -10,5 +10,6 @@ namespace ManagementDashboard.Models
         public string ConnectionStatus { get; set; }
         public string CustomerName { get; set; }
         public string CustomerReference { get; set; }
+        public string TenantName { get; set; }
     }
 }
