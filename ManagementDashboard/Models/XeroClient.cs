@@ -11,5 +11,6 @@ namespace ManagementDashboard.Models
         public string CustomerName { get; set; }
         public string CustomerReference { get; set; }
         public string TenantName { get; set; }
+        public int ServiceStatus { get; set; }
     }
 }

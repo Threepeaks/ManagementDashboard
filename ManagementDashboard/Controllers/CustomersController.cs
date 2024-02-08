@@ -568,7 +568,8 @@ namespace ManagementDashboard.Controllers
             });
             var query = "select " +
                 " comref,com_name,ifnull(tenantName,'Not available') as tenantName, " +
-                " case connection_status when 0 then 'Disconnected' when 1 then 'Connected' end  as connection_status" +
+                " case connection_status when 0 then 'Disconnected' when 1 then 'Connected' end  as connection_status," +
+                " service_status" +
                 " from tblxeroauth " +
                 " left join tblcompany on com_ref = comref";
 
@@ -584,6 +585,7 @@ namespace ManagementDashboard.Controllers
                 xeroClient.TenantName = dr.Field<string>("tenantName");
 
                 xeroClient.ConnectionStatus = dr.Field<string>("connection_status");
+                xeroClient.ServiceStatus = dr.Field<int>("service_status");
                 xeroClients.Add(xeroClient);
 
             }

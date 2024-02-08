@@ -16,7 +16,8 @@
     </thead>
     <tbody>
 
-    @foreach (var client in Model.OrderBy(x=>x.CustomerReference))
+    @foreach (var client in Model.Where(x =>x.ServiceStatus == 1)
+        .OrderBy(x=>x.CustomerReference))
     {
         var connectionClass = "badge-success";
         if (client.ConnectionStatus == "Disconnected")
