@@ -556,7 +556,6 @@ namespace ManagementDashboard.Controllers
             return View();
         }
 
-
         [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
         public PartialViewResult XeroClients()
         {
@@ -569,7 +568,8 @@ namespace ManagementDashboard.Controllers
             var query = "select " +
                 " comref,com_name,ifnull(tenantName,'Not available') as tenantName, " +
                 " case connection_status when 0 then 'Disconnected' when 1 then 'Connected' end  as connection_status," +
-                " service_status" +
+                " service_status, " + 
+                " connection_status as 'connectionStatusId'" +
                 " from tblxeroauth " +
                 " left join tblcompany on com_ref = comref";
 
@@ -579,13 +579,17 @@ namespace ManagementDashboard.Controllers
 
             foreach (DataRow dr in result.Tables[0].Rows)
             {
+
                 XeroClient xeroClient = new XeroClient();
                 xeroClient.CustomerReference = dr.Field<string>("comref");
                 xeroClient.CustomerName = dr.Field<string>("com_name");
                 xeroClient.TenantName = dr.Field<string>("tenantName");
 
                 xeroClient.ConnectionStatus = dr.Field<string>("connection_status");
+                xeroClient.ConnectionStatusId = dr.Field<int>("connectionStatusId");
                 xeroClient.ServiceStatus = dr.Field<int>("service_status");
+                
+
                 xeroClients.Add(xeroClient);
 
             }
@@ -594,6 +598,48 @@ namespace ManagementDashboard.Controllers
 
             return PartialView(xeroClients);
         }
+
+        public ActionResult Insiders()
+        {
+
+
+            return View();
+        }
+
+        ///InsiderClients
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
+        public PartialViewResult InsiderClients()
+        {
+            var db = new DBConnect(new MySqlConfig()
+            {
+                Database = Properties.Settings.Default.MySqlDBPortal,
+                Host = Properties.Settings.Default.MySQLHostPortal,
+                Username = Properties.Settings.Default.MySqlUsernamePortal,
+                Password = Properties.Settings.Default.MySqlPasswordPortal,
+            });
+
+            var query = "select * from tbl_customer_profile where cpr_isInsider = 1";
+
+
+            var insiderClients = new List<InsiderClient>();
+            var result = db.Query(query);
+
+            foreach (DataRow dr in result.Tables[0].Rows)
+            {
+
+                InsiderClient insiderClient = new InsiderClient();
+                insiderClient.ClientReference = dr.Field<string>("cpr_ref");
+                insiderClient.CustomerName = dr.Field<string>("cpr_name");
+                if (dr["insider_activation_date"] != DBNull.Value)
+                    insiderClient.ActivationDate = Convert.ToDateTime(dr["insider_activation_date"]);
+                insiderClients.Add(insiderClient);
+            }
+
+
+
+            return PartialView(insiderClients);
+        }
+
 
     }
 }

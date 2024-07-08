@@ -12,5 +12,13 @@ namespace ManagementDashboard.Models
         public string CustomerReference { get; set; }
         public string TenantName { get; set; }
         public int ServiceStatus { get; set; }
+        public int ConnectionStatusId { get; set; }
+    }
+
+    public class InsiderClient
+    {
+        public string ClientReference { get; set; }
+        public string CustomerName { get; set; }
+        public DateTime ActivationDate { get; set; }
     }
 }

@@ -689,6 +689,8 @@
     <Content Include="Views\Risk\DepositNotCoveredEFTDOPartialView.cshtml" />
     <Content Include="Views\Risk\DepositNotCoveredEFTDO.cshtml" />
     <Content Include="Views\Xero\XeroClientsRecordsStat.cshtml" />
+    <Content Include="Views\Customers\Insiders.cshtml" />
+    <Content Include="Views\Customers\InsiderClients.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

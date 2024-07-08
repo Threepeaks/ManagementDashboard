@@ -76,7 +76,7 @@
             <a href="#" class="nav-link @Html.IsActive("Customers")">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                    Customers
+                    Clients
                     <i class="right fas fa-angle-left"></i>
                 </p>
             </a>
@@ -96,7 +96,13 @@
                 <li class="nav-item">
                     <a href="@Url.Action("NewCustomers","Customers")" class="nav-link @Html.IsActive("Customers","NewCustomers")">
                         <i class="nav-icon fas fa-star"></i>
-                        <p>New Customers</p>
+                        <p>New Clients</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("Insiders","Customers")" class="nav-link @Html.IsActive("Customers","Insiders")">
+                        <i class="nav-icon fas fa-star"></i>
+                        <p>Insiders</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -111,6 +117,7 @@
                         <p>XERO Records</p>
                     </a>
                 </li>
+
 
 
                 <li class="nav-item">

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Insiders";
+}
+
+<h2>Insiders</h2>
+
+
+
+<div id="InsiderClients">
+
+</div>
+
+
+@section scripts
+{
+    <script>
+        $().ready(function () {
+            aJaxPost("@Url.Action("InsiderClients", "Customers")", null, "#InsiderClients");
+        });
+
+    </script>
+
+
+}
