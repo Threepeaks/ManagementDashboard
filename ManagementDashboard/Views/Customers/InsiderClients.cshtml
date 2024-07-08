@@ -27,7 +27,7 @@
                     @if (client.ActivationDate == DateTime.MinValue) {
                         <span>NO DATE</span>
                     } else {
-                        @client.ActivationDate.ToShortDateString()
+                        @client.ActivationDate.ToString("dd/MM/yyyy")
                     }
 
                 </td>
