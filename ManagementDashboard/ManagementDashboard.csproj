@@ -700,6 +700,7 @@
     <Content Include="Views\Customers\InsiderClients.cshtml" />
     <Content Include="Views\ServiceDigitalMandates\Index.cshtml" />
     <Content Include="Views\DigitalMandateService\ActiveDigitalMandateConfigs.cshtml" />
+    <Content Include="Views\DigitalMandateService\RecordsTrend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

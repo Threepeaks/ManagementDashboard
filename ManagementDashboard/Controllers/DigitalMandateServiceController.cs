@@ -41,5 +41,33 @@ namespace ManagementDashboard.Controllers
         }
 
 
+        public ActionResult RecordsTrend()
+        {
+            var dbConfig = new MySqlConfig()
+            {
+                Database = Properties.Settings.Default.MySqlDBPortal,
+                Host = Properties.Settings.Default.MySQLHostPortal,
+                Password = Properties.Settings.Default.MySqlPasswordPortal,
+                Username = Properties.Settings.Default.MySqlUsernamePortal
+            };
+            var db = new DBConnect(dbConfig);
+
+            var query = "SELECT " +
+                " ifnull(cpr_ref,'NOT SET') as 'ClientReference'," +
+                " date_format(m.createdDate,'%Y-%m-%d') as 'CreationDate'," +
+                " count(1) as 'Records' " +
+                " FROM threesmq_webportal.tblcustomer_mandate m" +
+                " left join tbl_customer_profile on cpr_id = m.clientProfileId" +
+                " group by cpr_ref,date_format(m.createdDate,'%Y-%m-%d')";
+
+            var dbREsult = db.Query(query);
+            var jsonString = Newtonsoft.Json.JsonConvert.SerializeObject(dbREsult.Tables[0]);
+            var vm = new ModelViews.XeroClientsRecords();
+            vm.JsonData = jsonString;
+
+
+            return View(vm);
+        }
+
     }
 }

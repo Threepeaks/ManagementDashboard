@@ -166,11 +166,19 @@
             <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                    <a href="@Url.Action("ActiveDigitalMandateConfigs","DigitalMandateService")" class="nav-link @Html.IsActive("Marketing","CustomerReferredBy")">
+                    <a href="@Url.Action("ActiveDigitalMandateConfigs","DigitalMandateService")" class="nav-link @Html.IsActive("DigitalMandateService","ActiveDigitalMandateConfigs")">
                         <i class="nav-icon fas fa-th"></i>
                         <p>Active Service(s)</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("RecordsTrend","DigitalMandateService")" class="nav-link @Html.IsActive("DigitalMandateService","RecordsTrend")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Records Trend</p>
+                    </a>
+                </li>
+
+
             </ul>
         </li><!--./Marketing-->
 
