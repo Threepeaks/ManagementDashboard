@@ -1,0 +1,19 @@
+﻿@model ManagementDashboard.Models.SQLReportTableViewModel
+@{
+    ViewBag.Title = "Digital Mandate Clients";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        Digital Mandate Clients
+    </div>
+
+
+    <div class="card-body dark-mode">
+
+        @Html.Raw(Model.HtmlTable)
+    </div>
+</div>
+
+

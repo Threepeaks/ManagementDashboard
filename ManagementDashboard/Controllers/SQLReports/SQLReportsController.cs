@@ -1,7 +1,4 @@
-﻿using ManagementDashboard.Models;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -10,75 +7,6 @@ using System.Web.Mvc;
 
 namespace ManagementDashboard.Controllers
 {
-    public class DataColumnAttribute : Attribute { }
-
-    internal class SqlVarReplacementItems : List<SqlVarReplacementItem>
-    {
-        public void Add(string name,string value)
-        {
-            var item = new SqlVarReplacementItem();
-            item.Name = name;
-            item.Value = value;
-            this.Add(item);
-        }
-    }
-    internal class SqlVarReplacementItem
-    {
-        public string Name { get; set; }
-        public string Value { get; set; }
-    }
-
-    internal class SQLReportManager
-    {
-        private string GetFileContent(string fileName)
-        {
-            if (!System.IO.File.Exists(fileName))
-                return "";
-
-            string fileContent = "";
-            using (StreamReader streamReader = new StreamReader(fileName))
-            {
-                fileContent = streamReader.ReadToEnd();
-            }
-            return fileContent;
-
-        }
-
-
-        public SQLReportTableViewModel GetSqlReportTableViewModel(string sqlFileFullPath,
-            SqlVarReplacementItems varItems )
-        {
-            if (varItems == null)
-                varItems = new SqlVarReplacementItems();
-
-            var vm = new Models.SQLReportTableViewModel();
-
-            var db = new DBConnect();
-
-            string query = GetFileContent(sqlFileFullPath);
-
-            if (string.IsNullOrEmpty(query))
-                return vm;
-
-            foreach (var varItem in varItems)
-            {
-                query = query.Replace("{{" + varItem.Name + "}}", varItem.Value);
-            }
-
-
-
-            var result = db.Query(query);
-            string htmlTable = result.Tables[0].ConvertDataTableToHTML();
-            vm.HtmlTable = htmlTable;
-
-            return vm;
-
-        }
-
-
-
-
-    }
 
 
     [Authorize]
@@ -115,6 +43,8 @@ namespace ManagementDashboard.Controllers
             html += "</table>";
             return html;
         }
+
+
 
         [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION, VaryByParam = "id")]
         public ActionResult RBR(int id)

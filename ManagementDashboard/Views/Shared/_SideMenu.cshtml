@@ -15,7 +15,7 @@
     <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview"
         role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
-        with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
         <li class="nav-item">
             <a href="@Url.Action("Index","Home")" class="nav-link @Html.IsActive("Home","Index")">
                 <i class="nav-icon fas fa-home"></i>
@@ -25,22 +25,22 @@
 
 
         <!--<li class="nav-item ">
-            <a href="#" class="nav-link ">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                    Sample
-                    <i class="right fas fa-angle-left"></i>
-                </p>
-            </a>
-            <ul class="nav nav-treeview" style="display: none;">
-                <li class="nav-item">
-                    <a href="#" class="nav-link active">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Active Page</p>
-                    </a>
-                </li>
-            </ul>
-        </li>-->
+        <a href="#" class="nav-link ">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>
+                Sample
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Active Page</p>
+                </a>
+            </li>
+        </ul>
+    </li>-->
         <!--./title-->
         <li class="nav-item ">
             <a href="#" class="nav-link ">
@@ -154,6 +154,26 @@
                 </li>
             </ul>
         </li><!--./Customers-->
+
+        <li class="nav-item @Html.IsOpen("Marketing")">
+            <a href="#" class="nav-link @Html.IsActive("Marketing")">
+                <i class="nav-icon fas fa-file"></i>
+                <p>
+                    Digital Mandate
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+
+                <li class="nav-item">
+                    <a href="@Url.Action("ActiveDigitalMandateConfigs","DigitalMandateService")" class="nav-link @Html.IsActive("Marketing","CustomerReferredBy")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Active Service(s)</p>
+                    </a>
+                </li>
+            </ul>
+        </li><!--./Marketing-->
+
         <li class="nav-item @Html.IsOpen("Marketing")">
             <a href="#" class="nav-link @Html.IsActive("Marketing")">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -172,6 +192,9 @@
                 </li>
             </ul>
         </li><!--./Marketing-->
+
+
+
         <li class="nav-item @Html.IsOpen("Gateways")">
             <a href="#" class="nav-link @Html.IsActive("Gateways")">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -292,11 +315,11 @@
             </ul>
         </li><!--./Accounting-->
         @*<li class="nav-item">
-                <a href="@Url.Action("Rbr","SQLReports")" class="nav-link">
-                    <i class="nav-icon fas fa-th"></i>
-                    <p>RBR</p>
-                </a>
-            </li>*@
+            <a href="@Url.Action("Rbr","SQLReports")" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>RBR</p>
+            </a>
+        </li>*@
 
 
 

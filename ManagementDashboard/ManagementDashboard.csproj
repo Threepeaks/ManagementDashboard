@@ -265,7 +265,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
+    <Compile Include="Controllers\DataColumnAttribute.cs" />
     <Compile Include="Controllers\DBConnect.cs" />
+    <Compile Include="Controllers\DigitalMandateServiceController.cs" />
     <Compile Include="Controllers\GatewaysController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -273,7 +275,10 @@
     <Compile Include="Controllers\MDConst.cs" />
     <Compile Include="Controllers\RiskController.cs" />
     <Compile Include="Controllers\ServiceDigitalMandatesController.cs" />
-    <Compile Include="Controllers\SQLReportsController.cs" />
+    <Compile Include="Controllers\SQLReports\SQLReportManager.cs" />
+    <Compile Include="Controllers\SQLReports\SQLReportsController.cs" />
+    <Compile Include="Controllers\SQLReports\SqlVarReplacementItem.cs" />
+    <Compile Include="Controllers\SQLReports\SqlVarReplacementItems.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\TopController.cs" />
     <Compile Include="Controllers\TPMSController.cs" />
@@ -569,6 +574,7 @@
     <Content Include="SQLQueries\CustomerComments.sql" />
     <Content Include="SQLQueries\CustomerPaymentBlocked.sql" />
     <Content Include="SQLQueries\CustomerReferredBy.sql" />
+    <Content Include="SQLQueries\DigitalMandate\ActiveDigitalMandateConfigsPortal.sql" />
     <Content Include="SQLQueries\HyphenBatchStates.sql" />
     <Content Include="SQLQueries\LateUnpaidsCreditProvided.sql" />
     <Content Include="SQLQueries\liabilitycurrent.sql" />
@@ -692,12 +698,13 @@
     <Content Include="Views\Xero\XeroClientsRecordsStat.cshtml" />
     <Content Include="Views\Customers\Insiders.cshtml" />
     <Content Include="Views\Customers\InsiderClients.cshtml" />
+    <Content Include="Views\ServiceDigitalMandates\Index.cshtml" />
+    <Content Include="Views\DigitalMandateService\ActiveDigitalMandateConfigs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Views\Reports\" />
-    <Folder Include="Views\ServiceDigitalMandates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
