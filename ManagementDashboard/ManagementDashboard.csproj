@@ -272,6 +272,7 @@
     <Compile Include="Controllers\MarketingController.cs" />
     <Compile Include="Controllers\MDConst.cs" />
     <Compile Include="Controllers\RiskController.cs" />
+    <Compile Include="Controllers\ServiceDigitalMandatesController.cs" />
     <Compile Include="Controllers\SQLReportsController.cs" />
     <Compile Include="Controllers\SubmissionsController.cs" />
     <Compile Include="Controllers\TopController.cs" />
@@ -696,6 +697,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Views\Reports\" />
+    <Folder Include="Views\ServiceDigitalMandates\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
