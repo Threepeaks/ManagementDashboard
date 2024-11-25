@@ -14,7 +14,7 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Description</td>
+                <td class="description" data-description="@item.Description">@item.Description</td>
                 <td class="text-right">@item.Code</td>
                 <td class="text-right">@item.Count</td>
                 <td class="text-right">@item.Amount.ToString("N")</td>

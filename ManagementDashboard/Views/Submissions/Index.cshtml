@@ -183,9 +183,25 @@
                 aJaxPost("@Url.Action("GetTop20Unpaids", "Submissions")", { id: 2 }, "#Top20Unpaids2");
 
 
-        });
+        })
+
 
         </script>
 
+        <script>
+            $(document).on("click", '.description', function () {
+                var t = $(this).data("description");
+                console.log("Clicked description:", t);
+
+                // Clear previous highlights
+                $(".description").parent().removeClass("bg-warning");
+
+                // Find the element using .filter() to avoid selector issues with special characters
+                $(".description").filter(function () {
+                    return $(this).data("description") === t;
+                }).parent().addClass("bg-warning");
+            });
+
+        </script>
 
     }
