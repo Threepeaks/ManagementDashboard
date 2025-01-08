@@ -12,7 +12,7 @@ namespace ManagementDashboard.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -70,6 +70,24 @@ namespace ManagementDashboard.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("OperationsDashbo")]
+        public string MySqlUsernamePortal {
+            get {
+                return ((string)(this["MySqlUsernamePortal"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("fAL8M2orD0l7MMhc9GHW")]
+        public string MySqlPasswordPortal {
+            get {
+                return ((string)(this["MySqlPasswordPortal"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("threesmq_webportal")]
         public string MySqlDBPortal {
             get {
@@ -79,19 +97,19 @@ namespace ManagementDashboard.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("ppsdash@apps.thr")]
-        public string MySqlUsernamePortal {
+        [global::System.Configuration.DefaultSettingValueAttribute("https://tat.threepeaks.co.za/")]
+        public string TimeAttendanceUrl {
             get {
-                return ((string)(this["MySqlUsernamePortal"]));
+                return ((string)(this["TimeAttendanceUrl"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("OzHWz3bGu8TaC1bFFIDJ")]
-        public string MySqlPasswordPortal {
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string CompanyIds {
             get {
-                return ((string)(this["MySqlPasswordPortal"]));
+                return ((string)(this["CompanyIds"]));
             }
         }
     }

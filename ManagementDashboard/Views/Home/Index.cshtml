@@ -1,4 +1,8 @@
-﻿@{
+﻿<div id="PartialViewContainer">
+    <!-- Placeholder for the partial view -->
+</div>
+
+@{
     ViewBag.Title = "Dashboard";
     var runsNotSendClass = "btn-primary";
     if (ViewBag.CountRunsNotSend > 0)
@@ -147,6 +151,17 @@
 
 
         });
+
+            $(document).ready(function () {
+        $.ajax({
+            url: '@Url.Action("GetEmployeeClockingInfo", "Home")',
+            type: 'GET',
+            success: function (data) {
+
+                $('#PartialViewContainer').html(data);
+            },
+        });
+    });
 
     </script>
 

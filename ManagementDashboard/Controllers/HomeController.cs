@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ManagementDashboard.Models;
+using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -105,8 +107,33 @@ namespace ManagementDashboard.Controllers
             return View();
         }
 
- 
-      
+        public PartialViewResult GetEmployeeClockingInfo()
+        {
+            try
+            {
+                var url = Properties.Settings.Default.TimeAttendanceUrl;
+                var client = new RestClient(url);
+                var request = new RestRequest("Api/Employees/GetEmployeesClockingInformation");
+
+                var companyIds = Properties.Settings.Default.CompanyIds;
+                request.AddQueryParameter("companyIds", companyIds);
+
+                var response = client.Execute(request);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return PartialView("_GetEmployeeClockingInfo", new List<EmployeeClockingInfoResult>());
+                }
+
+                var timeAttendance = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EmployeeClockingInfoResult>>(response.Content);
+                return PartialView("_GetEmployeeClockingInfo", timeAttendance);
+            }
+            catch (Exception)
+            {
+                return PartialView("_GetEmployeeClockingInfo", new List<EmployeeClockingInfoResult>());
+            }
+        }
+
 
     }
 }

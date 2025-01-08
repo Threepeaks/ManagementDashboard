@@ -1,0 +1,22 @@
+﻿@model IEnumerable<ManagementDashboard.Models.EmployeeClockingInfoResult>
+
+<div class="employee-clocking-info" style="display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 5px;">
+    @foreach (var employee in Model)
+    {
+        // Determine if the employee has clocked in today
+        bool hasClockedInToday = employee.LastClockedInDate.HasValue && employee.LastClockedInDate.Value.Date == DateTime.Now.Date;
+
+        // Set the card color: green if clocked in, red if not clocked in
+        var cardClass = hasClockedInToday ? "bg-success text-white" : "bg-danger text-white";
+
+        // Create a link to a specific action for each employee
+            <div class="card @cardClass" style="width: 150px; height: 40px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px;">
+                <div class="card-body p-0 d-flex justify-content-center align-items-center" style="height: 100%; padding: 0;">
+                    <!-- Display employee name in the center of the card -->
+                    <h6 class="card-title mb-0" style="font-size: 0.9em; line-height: 1.2;">
+                        @employee.Name
+                    </h6>
+                </div>
+            </div>
+    }
+</div>

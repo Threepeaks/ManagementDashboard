@@ -26,5 +26,11 @@
     <Setting Name="MySqlDBPortal" Type="System.String" Scope="Application">
       <Value Profile="(Default)">threesmq_webportal</Value>
     </Setting>
+    <Setting Name="TimeAttendanceUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://tat.threepeaks.co.za/</Value>
+    </Setting>
+    <Setting Name="CompanyIds" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

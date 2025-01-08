@@ -287,6 +287,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmployeeClockingInfoResult.cs" />
     <Compile Include="Models\HtmlHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CanceledClients.cs" />
@@ -701,6 +702,7 @@
     <Content Include="Views\ServiceDigitalMandates\Index.cshtml" />
     <Content Include="Views\DigitalMandateService\ActiveDigitalMandateConfigs.cshtml" />
     <Content Include="Views\DigitalMandateService\RecordsTrend.cshtml" />
+    <Content Include="Views\Home\_GetEmployeeClockingInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
