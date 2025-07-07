@@ -2,6 +2,33 @@
 @{
     ViewBag.Title = "Deposit Not Covered EFT DO";
 }
+<style>
+    .popup-overlay {
+        display: none; /* Initially hidden */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        width: 90%;
+    }
+
+    .show-popup {
+        display: flex; /* Or block, depending on layout */
+    }
+</style>
 
 <div class="row">
     <div class="col-4">
@@ -33,5 +60,8 @@
             aJaxPost("@Url.Action("DepositNotCoveredEFTDOPartialView", "Risk")", { id: -2 }, "#depositCover-2");
 
         })
+
+
+
     </script>
 }

@@ -1,14 +1,22 @@
 ﻿@model ManagementDashboard.Models.SQLReportTableViewModel
 @{
-    ViewBag.Title = "Clients Colelction and Unpaids Ratios By Action Date";
+    ViewBag.Title = "Clients Collection and Unpaids Ratios By Action Date";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card card-primary">
     <div class="card-header">
         Client's Unpaid Ratio by Bank Date (Current + Last Three Months)
+        <div class="card-tools">
+            @*<button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>*@
+            <button type="button" class="btn btn-primary btn-sm" data-card-widget="maximize" title="Maximize">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
     </div>
-    <div class="card-body">
+    <div class="card-body overflow-auto">
         @Html.Raw(Model.HtmlTable)
     </div>
 </div>

@@ -7,6 +7,7 @@
             <th>Ref</th>
             <th>Customer</th>
             <th>Start Date</th>
+            <th>Subs</th>
             
         </tr>
     </thead>
@@ -17,6 +18,16 @@
                 <td>@item.Ref</td>
                 <td>@item.Customer</td>
                 <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
+                <td>
+                    @if (item.CountSubmissions > 0)
+                    {
+                        <span class="badge badge-success">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">No</span>
+                    }
+                            </td>
              
             </tr>
         }

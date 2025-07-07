@@ -8,5 +8,6 @@ namespace ManagementDashboard.Models
         public string Customer { get; set; }
 
         public DateTime StartDate { get; set; }
+        public Int64 CountSubmissions { get; internal set; }
     } 
 }

@@ -289,17 +289,32 @@ namespace ManagementDashboard.Controllers
             DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
 
             var db = new DBConnect();
-            string query = "SELECT com_ref as 'Customer Refernece', com_name as 'Company', com_startdate as 'Start Date'  FROM " +
+            string query = "SELECT com_ref as 'Customer Reference', com_name as 'Company', com_startdate as 'Start Date'  FROM " +
                 $"threepeaks_tpms.tblcompany where com_startdate between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'";
+
+
+            query = "SELECT com_ref as 'Customer Reference', " +
+                " com_name as 'Company', " +
+                " com_startdate as 'Start Date'  ,   " +
+                $" (select count(*) from tblrbr where rbr_date between com_startdate and now() and rbr_comref = com_ref ) as 'Count Subs' " +
+                $" FROM threepeaks_tpms.tblcompany where com_startdate between '{startDate.ToString("yyyy-MM-dd")}' and '{endDate.ToString("yyyy-MM-dd")}'";
+
             var model = new List<ManagementDashboard.Models.NewClients>();
             var result = db.Query(query);
 
             foreach (DataRow dRow in result.Tables[0].Rows)
             {
                 var nClient = new Models.NewClients();
-                nClient.Ref = dRow.Field<string>("Customer Refernece");
+                nClient.Ref = dRow.Field<string>("Customer Reference");
                 nClient.Customer = dRow.Field<string>("Company");
                 nClient.StartDate = (DateTime)dRow.Field<DateTime>("Start Date");
+
+                //Get the type of the field 
+                Type t = dRow["Count Subs"].GetType();
+
+
+                nClient.CountSubmissions = dRow.Field<Int64>("Count Subs");
+
                 model.Add(nClient);
             }
             return PartialView(model);

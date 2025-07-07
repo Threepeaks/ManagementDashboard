@@ -24,12 +24,22 @@ namespace ManagementDashboard
             c.Type= columnType;
             this.Add(c);
         }
+
+        internal void Add(string columnName, ColumnType columnType, bool isAccoutnReference)
+        {
+            var c = new ColumnTypePair();
+            c.ColumnName = columnName;
+            c.Type = columnType;
+            c.IsAccountReference = isAccoutnReference;
+            this.Add(c);
+        }
     }
 
     public class ColumnTypePair
     {
         public string ColumnName { get; set; }
         public ColumnType Type { get; set; }
+        public bool IsAccountReference { get; set; }
     }
 
     public static class Utilities
@@ -70,7 +80,7 @@ namespace ManagementDashboard
 
             var dataTable = dt;
 
-            string html = "<table class='table table-striped table-sm '>";
+            string html = "<table class='table table-striped table-sm text-sm'>";
 
             //add header row
             html += "<thead>";
@@ -86,6 +96,7 @@ namespace ManagementDashboard
                 html += "<tr>";
                 for (int j = 0; j < dataTable.Columns.Count; j++)
                 {
+                    var isAccountReference = false;
                     var fieldType = ColumnType.String;
 
                     if (colTypeItems != null)
@@ -94,16 +105,34 @@ namespace ManagementDashboard
                         if (col != null)
                         {
                             fieldType = col.Type;
+                            isAccountReference = col.IsAccountReference;
                         }
 
 
                     }
                     if (fieldType == ColumnType.String)
-                        html += "<td>" + dataTable.Rows[i][j].ToString() + "</td>";
+                    {
+                        html += "<td" + (isAccountReference ? " class='account-reference text-nowrap'" : "") + "><div>" + dataTable.Rows[i][j].ToString();
+                        if (isAccountReference)
+                        {
+                            var reference = dataTable.Rows[i][j].ToString().Trim();
+
+
+                            html += "<a class='ml-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + reference + "' target='_blank'><i class='fa fa-comment'></i></a>";
+                        }
+                        html += "</div></td>";
+
+                    }
+
+
                     if (fieldType == ColumnType.Decimal)
                         html += "<td class='text-right'>" + ToDecimalValue(dataTable.Rows[i][j]) + "</td>";                    
                     if (fieldType == ColumnType.Percentage)
                         html += "<td class='text-right'>" + dataTable.Rows[i][j] + "</td>";
+                    
+
+                    if (fieldType == ColumnType.Percentage)
+                        html += "<td class='text-right'>" + ToPercentageValue(dataTable.Rows[i][j], 2) + "</td>";
 
                 }
                 html += "</tr>";

@@ -163,6 +163,9 @@ namespace ManagementDashboard.Controllers
                 var result = db.Query(query);
 
                 ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+
+
+                columnTypePairs.Add("Account Reference", ColumnType.String,true);
                 columnTypePairs.Add("Deposit", ColumnType.Decimal);
                 columnTypePairs.Add("Collection", ColumnType.Decimal);
                 columnTypePairs.Add("Unpaids", ColumnType.Decimal);

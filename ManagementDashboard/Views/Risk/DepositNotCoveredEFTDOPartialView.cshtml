@@ -2,8 +2,16 @@
 <div class="card card-primary">
     <div class="card-header">
         Risk Deposit Cover - @ViewBag.SubReportTitle
+        <div class="card-tools">
+            @*<button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>*@
+            <button type="button" class="btn btn-primary btn-sm" data-card-widget="maximize" title="Maximize">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
     </div>
-    <div class="card-body">
+    <div class="card-body overflow-auto">
         @Html.Raw(Model.HtmlTable)
     </div>
 </div>
