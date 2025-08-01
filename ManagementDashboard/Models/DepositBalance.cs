@@ -9,5 +9,6 @@ namespace ManagementDashboard.Models
 
         public string Customer { get; set; }
         public decimal Amount { get; set; }
+        public string Client { get; set; }
     }
 }

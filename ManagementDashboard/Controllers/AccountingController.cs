@@ -69,8 +69,10 @@ namespace ManagementDashboard.Controllers
             DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
 
             var db = new DBConnect();
-            string query = "select cref as Customer, sum(amount) as Amount from tbl_accounting_depost_tracking a left join tblcompany b on a.cref = b.com_ref " +
-                $"where deposit_date <= '{endDate.ToString("yyyy-MM-dd")}' and com_acc_cancel != 2 and com_retterms = 3 group by cref";
+            string query = "select cref as Customer," +
+                " b.com_name as 'Client', " +
+                " sum(amount) as Amount from tbl_accounting_depost_tracking a left join tblcompany b on a.cref = b.com_ref " +
+                $"where deposit_date <= '{endDate.ToString("yyyy-MM-dd")}' and com_acc_cancel != 2 and com_retterms = 3 group by cref order by cref";
 
             var model = new List<ManagementDashboard.Models.DepositBalance>();
             var result = db.Query(query);
@@ -81,6 +83,7 @@ namespace ManagementDashboard.Controllers
             {
                 var depMov = new Models.DepositBalance();
                 depMov.Customer = dRow.Field<string>("Customer");
+                depMov.Client = dRow.Field<string>("Client");
                 depMov.Amount = (int)dRow.Field<decimal>("Amount");
 
 

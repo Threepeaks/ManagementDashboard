@@ -112,23 +112,22 @@ namespace ManagementDashboard
                     }
                     if (fieldType == ColumnType.String)
                     {
-                        html += "<td" + (isAccountReference ? " class='account-reference text-nowrap'" : "") + "><div>" + dataTable.Rows[i][j].ToString();
+                        html += "<td" + (isAccountReference ? " class='account-reference text-nowrap'" : "") + "><div>";
                         if (isAccountReference)
                         {
                             var reference = dataTable.Rows[i][j].ToString().Trim();
-
-
-                            html += "<a class='ml-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + reference + "' target='_blank'><i class='fa fa-comment'></i></a>";
+                            html += "<a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + reference + "' target='_blank'><i class='fa fa-comment'></i></a>";
                         }
+                        html += dataTable.Rows[i][j].ToString();
                         html += "</div></td>";
-
                     }
 
 
                     if (fieldType == ColumnType.Decimal)
                         html += "<td class='text-right'>" + ToDecimalValue(dataTable.Rows[i][j]) + "</td>";                    
+
                     if (fieldType == ColumnType.Percentage)
-                        html += "<td class='text-right'>" + dataTable.Rows[i][j] + "</td>";
+                        html += "<td class='text-right'>" + dataTable.Rows[i][j] + " %</td>";
                     
 
                     if (fieldType == ColumnType.Percentage)
