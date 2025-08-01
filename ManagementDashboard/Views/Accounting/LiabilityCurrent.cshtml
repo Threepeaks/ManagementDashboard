@@ -3,48 +3,89 @@
     ViewBag.Title = "LiabilityCurrent";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="card card-primary">
-    <div class="card-header">
-        Liability Current
-    </div>
-    <div class="card">
-        <table class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th>Customer</th>
-                    <th>Status</th>
-                    <th>Gateway</th>
-                    <th>B/F</th>
-                    <th>Collection</th>
-                    <th>Unpaids</th>
-                    <th>Late Unpaids</th>
-                    <th>Retention Held</th>
-                    <th>Account</th>
-                    <th>Balance</th>
-                    <th>Debit</th>
-                    <th>Credit</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Customer</td>
-                        <td>@item.Status</td>
-                        <td>@item.Gateway</td>
-                        <td>@item.BalanceBroughtForward</td>
-                        <td>@item.Collection</td>
-                        <td>@item.Unpaids</td>
-                        <td>@item.LateUnpaids</td>
-                        <td>@item.RetentionHeld</td>
-                        <td>@item.Account</td>
-                        <td>@item.Balance</td>
-                        <td>@item.Debit</td>
-                        <td>@item.Credit</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<style>
+    .table thead {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: #fff; /* Ensure the header has a background */
+    }
+</style>
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>Status</th>
+            <th>Gateway</th>
+            <th>B/F</th>
+            <th>Collection</th>
+            <th>Unpaids</th>
+            <th>Late Unpaids</th>
+            <th>Retention Held</th>
+            <th>Account</th>
+            <th>Balance</th>
+            <th>Debit</th>
+            <th>Credit</th>
+            <th>Deposit Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var isCancelled = item.IsCancelled ? "text-danger" : "";
+            <tr class="@isCancelled">
+                <td>
+                    <div>
+                        <a class='mr-2 float-left' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + @item.ClientReference + "' target='_blank'><i class='fa fa-comment'></i></a>
+                        @item.ClientReference
+                    </div>
+                    <div class="text-sm text-muted">@item.Client</div>
+                </td>
+                <td>@item.Status</td>
+                <td>@item.Gateway</td>
+                <td class="text-right">@item.BalanceBroughtForward.ToString("N")</td>
+                <td class="text-right">@item.Collection.ToString("N")</td>
+                <td class="text-right">@item.Unpaids.ToString("N")</td>
+                <td class="text-right">@item.LateUnpaids.ToString("N")</td>
+                <td class="text-right">@item.RetentionHeld.ToString("N")</td>
+                <td class="text-right">@item.Account.ToString("N")</td>
+                <td class="text-right">
+                    @if (@item.Balance != 0 && item.IsCancelled)
+                    {
+                        <div class="bg-danger text-white">
+                            @item.Balance.ToString("N")
+                        </div>
+                    }
+                    else if (@item.Balance < 0 && !item.IsCancelled)
+                    {
+                        <div class="bg-warning text-white">
+                            @item.Balance.ToString("N")
+                        </div>
 
-    </div>
-</div>
+                    }
+                    else
+                    {
+                        @item.Balance.ToString("N")
+                    }
+                </td>
+                <td class="text-right">@item.Debit.ToString("N")</td>
+                <td class="text-right">@item.Credit.ToString("N")</td>
+                <td class="text-right">
+
+                    @if (item.DepositAmount > 0 && item.IsCancelled)
+                    {
+                        <div class="bg-danger text-white">
+                            @item.DepositAmount.ToString("N")
+                        </div>
+                    }
+                    else
+                    {
+                        @item.DepositAmount.ToString("N")
+                    }
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

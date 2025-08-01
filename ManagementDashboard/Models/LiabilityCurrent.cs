@@ -2,7 +2,7 @@
 {
     public class LiabilityCurrent
     {
-        public string Customer { get; set; }
+        public string ClientReference { get; set; }
         public string Status { get; set; }
         public string Gateway { get; set; }
         public decimal BalanceBroughtForward { get; set; }
@@ -14,6 +14,10 @@
         public decimal Balance { get; set; }
         public decimal Debit { get; set; }
         public decimal Credit { get; set; }
+        public decimal DepositAmount { get; set; }
+        public string StatusCode { get; set; }
+        public bool IsCancelled { get; set; }
+        public string Client { get; set; }
 
     }
 

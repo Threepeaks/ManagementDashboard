@@ -116,12 +116,19 @@ namespace ManagementDashboard.Controllers
                 var query = fileContent;
 
                 var result = db.Query(query);
+
+                var cancelledStatusCodes = new List<string> { "20", "21"};
+
                 if (result.Tables[0].Rows.Count > 0)
                 {
+
+
+
                     foreach (DataRow dRow in result.Tables[0].Rows)
                     {
                         LiabilityCurrent lc = new LiabilityCurrent();
-                        lc.Customer = dRow.Field<string>("CREF");
+                        lc.ClientReference = dRow.Field<string>("CREF");
+                        lc.Client = dRow.Field<string>("ClientName");
                         lc.Status = dRow.Field<string>("Status");
                         lc.Gateway = dRow.Field<string>("Gateway");
                         lc.BalanceBroughtForward = dRow.Field<decimal>("BCF");
@@ -136,6 +143,17 @@ namespace ManagementDashboard.Controllers
                         lc.Debit = (lc.Balance < 0) ? -1 * lc.Balance : 0;
                         //=IF([@Balance]>0,[@Balance],0)
                         lc.Credit = (lc.Balance > 0) ? lc.Balance : 0;
+                        lc.DepositAmount = dRow.Field<decimal>("DepositAmout");
+                        lc.StatusCode = dRow.Field<string>("StatusCode");
+
+                        if (cancelledStatusCodes.Contains(lc.StatusCode) && lc.Balance == 0 && lc.DepositAmount == 0)
+                            continue;
+
+                        if (cancelledStatusCodes.Contains(lc.StatusCode))
+                        {
+                            lc.IsCancelled = true;
+                        }
+
                         model.Add(lc);
                     }
 
