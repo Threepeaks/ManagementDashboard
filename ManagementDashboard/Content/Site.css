@@ -15,9 +15,17 @@ textarea {
 }
 
 
-.table-sm td {
+/*.table-sm td {
     font-size: 10px !important;
-}
+}*/
 html {
     scroll-behavior: smooth;
 }
+
+.table-head-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: #fff; /* Ensure the header has a background */
+}
+

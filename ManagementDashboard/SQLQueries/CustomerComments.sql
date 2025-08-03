@@ -1,7 +1,7 @@
 
 select 
 cc_dateentry as 'Entry Date',
-cc_comref as 'Customer Reference',
+cc_comref as 'Reference',
 cc_rbr as 'RBR',
 cc_debtorreference as 'Debtor Reference',
 cc_comment as 'Comment',

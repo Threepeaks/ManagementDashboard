@@ -3,7 +3,10 @@
     ViewBag.Title = "Disputes Not Resolved";
 }
 
-<h2>@Model.FirstOrDefault().ClientReference</h2>
+<h2>
+    @Model.FirstOrDefault().ClientReference
+<a class='ml-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@Model.FirstOrDefault().ClientReference' target='_blank'><i class='fa fa-comment'></i></a>
+</h2>
 
 
 <table class="table table-striped">
@@ -22,7 +25,8 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.ClientReference</td>
+                <td>
+                <a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@item.ClientReference' target='_blank'><i class='fa fa-comment'></i></a> @item.ClientReference</td>
                 <td>@item.DebtorReference</td>
                 <td>@item.DebtorName</td>
                 <td>@item.ActionDate.ToShortDateString()</td>

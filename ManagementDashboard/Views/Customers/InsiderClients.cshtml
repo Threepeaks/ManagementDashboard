@@ -10,6 +10,7 @@
     <thead>
 
         <tr>
+            <th></th>
             <th>Reference</th>
             <th>Client</th>
             <th>Activation Date</th>
@@ -20,13 +21,17 @@
         @foreach (var client in Model.OrderBy(x => x.ClientReference))
         {
             <tr>
+                <td style="width:20px;"><a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@client.ClientReference' target='_blank'><i class='fa fa-comment'></i></a></td>
                 <td>@client.ClientReference</td>
                 <td>@client.CustomerName</td>
                 <td>
 
-                    @if (client.ActivationDate == DateTime.MinValue) {
+                    @if (client.ActivationDate == DateTime.MinValue)
+                    {
                         <span>NO DATE</span>
-                    } else {
+                    }
+                    else
+                    {
                         @client.ActivationDate.ToString("dd/MM/yyyy")
                     }
 

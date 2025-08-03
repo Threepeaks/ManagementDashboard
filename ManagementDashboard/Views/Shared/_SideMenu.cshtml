@@ -52,23 +52,31 @@
             </a>
             <ul class="nav nav-treeview" style="display: none;">
                 <li class="nav-item">
-                    <a href="@Url.Action("ClientsColelctionUnpaidsByActionDate","Risk")" class="nav-link active">
+                    <a href="@Url.Action("ClientsColelctionUnpaidsByActionDate","Risk")" class="nav-link ">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Client Unpaid Ratios</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="@Url.Action("DisputesNotResolvedSummary","Risk")" class="nav-link active">
+                    <a href="@Url.Action("DisputesNotResolvedSummary","Risk")" class="nav-link ">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Unresolved Disputes</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="@Url.Action("DepositNotCoveredEFTDO","Risk")" class="nav-link active">
+                    <a href="@Url.Action("DepositNotCoveredEFTDO","Risk")" class="nav-link ">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Deposits Not Covered</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("NoRetentionDeposit","Collateral")" class="nav-link">
+                        <i class="nav-icon fas fa-ban"></i>
+                        <p>No Collateral</p>
+                    </a>
+                </li>
+
+
             </ul>
         </li><!--./Risk-->
 
@@ -141,17 +149,12 @@
                 <li class="nav-item">
                     <a href="@Url.Action("CustomerComments","Customers")" class="nav-link @Html.IsActive("Customers","CustomerComments")">
                         <i class="nav-icon fas fa-comment"></i>
-                        <p>Customer Comments</p>
+                        <p>Client Comments</p>
                     </a>
                 </li>
 
 
-                <li class="nav-item">
-                    <a href="@Url.Action("WithholdingsView","Home")" class="nav-link">
-                        <i class="nav-icon fas fa-ban"></i>
-                        <p>No Collateral</p>
-                    </a>
-                </li>
+
             </ul>
         </li><!--./Customers-->
 

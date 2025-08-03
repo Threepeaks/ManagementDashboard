@@ -3,8 +3,8 @@
 <table class="table table-striped table-sm">
     <thead>
         <tr>
-            <th>Ref</th>
-            <th>Customer</th>
+            <th>Reference</th>
+            <th>Client</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Pending Status</th>
@@ -16,7 +16,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Ref</td>
+                <td>
+                    <a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@item.Ref' target='_blank'><i class='fa fa-comment'></i></a>
+                    @item.Ref
+                </td>
                 <td>@item.Customer</td>
                 <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
                 <td>@item.EndDate.ToString("dd-MM-yyyy")</td>

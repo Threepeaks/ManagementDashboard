@@ -53,7 +53,11 @@ namespace ManagementDashboard.Controllers
                 var query = fileContent;
 
                 var result = db.Query(query);
-                string htmlTable = result.Tables[0].ConvertDataTableToHTML();
+
+                ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+                columnTypePairs.Add("Reference", ColumnType.String, true);
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
                 cm.HtmlTable = htmlTable;
 
             }
@@ -77,7 +81,11 @@ namespace ManagementDashboard.Controllers
                 var query = fileContent;
 
                 var result = db.Query(query);
-                string htmlTable = result.Tables[0].ConvertDataTableToHTML();
+
+                ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+                columnTypePairs.Add("Reference", ColumnType.String, true);
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
                 vm.HtmlTable = htmlTable;
 
             }
@@ -102,7 +110,12 @@ namespace ManagementDashboard.Controllers
                 var query = fileContent;
 
                 var result = db.Query(query);
-                string htmlTable = result.Tables[0].ConvertDataTableToHTML();
+
+                ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+                columnTypePairs.Add("Reference", ColumnType.String, true);
+
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
                 vm.HtmlTable = htmlTable;
 
             }

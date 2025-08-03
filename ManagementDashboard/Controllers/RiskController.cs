@@ -102,6 +102,7 @@ namespace ManagementDashboard.Controllers
                 var result = db.Query(query);
 
                 ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+                columnTypePairs.Add("Reference", ColumnType.String,true);
                 columnTypePairs.Add("Deposit", ColumnType.Decimal);
                 columnTypePairs.Add("Retention", ColumnType.Decimal);
                 columnTypePairs.Add("Debits Value", ColumnType.Decimal);

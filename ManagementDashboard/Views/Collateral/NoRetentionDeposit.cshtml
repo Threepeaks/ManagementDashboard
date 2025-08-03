@@ -1,27 +1,38 @@
 ﻿
+
 @{
-    ViewBag.Title = "WithholdingsView";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+        
+    ViewBag.Title = "EFT DO | Collateral : Risk";
+        //Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="card card-primary">
     <div class="card-header">
         <a href="#" id="NoRetentionDeposit"></a>
-        No Deposits & Retentions
+        Collateral but not holding | EFT Debit Order
     </div>
 
-    <div class="row">
-
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="panel-body1" style="overflow:auto;">
-                        <div id="NoRetentionDeposit0"><i class="fa fa-spinner fa-spin"></i> Loading</div>
-                    </div>
-                </div>
-            </div>
+    <div class="card-body">
+        <div id="NoRetentionDeposit0">
+            <i class="fa fa-spinner fa-spin"></i> Loading
         </div>
     </div>
 </div>
+
+<div class="card card-primary">
+    <div class="card-header">
+        <a href="#" id="NoRetentionDeposit"></a>
+        No Collateral | EFT Debit Order
+    </div>
+
+    <div class="card-body">
+        <div id="CollateralNone">
+            <i class="fa fa-spinner fa-spin"></i> Loading
+        </div>
+    </div>
+</div>
+
+model
 
 @section scripts
 {
@@ -62,7 +73,8 @@
             }
 
                //Html.Action("NoRetentionDeposit", "Top", new { id = 0 })
-               aJaxPost("@Url.Action("NoRetentionDeposit", "Top")", { id: 0, }, "#NoRetentionDeposit0");
+               aJaxPost("@Url.Action("NoRetentionDepositPartialView", "Collateral")", { id: 0, }, "#NoRetentionDeposit0");
+            aJaxPost("@Url.Action("CollateralNonePartialView", "Collateral")", null, "#CollateralNone");
 
 
 

@@ -104,36 +104,6 @@ namespace ManagementDashboard.Controllers
    
 
 
-        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION, VaryByParam = "id")]
-        public PartialViewResult NoRetentionDeposit(int id)
-        {
-            var db = new DBConnect();
-
-            string query = $"select com_ref as 'Ref', com_name as 'Customer', case com_retterms when 1 then 'Retention' when 3 then 'Deposit' else '' end 'Collateral', " +
-                $"case com_retterms when 1 then ifnull((select sum(rbr_total_retention) from tblrbr where rbr_status = 3 and rbr_comref = com_ref " +
-                $"and rbr_ret_released = 0),0) when 2 then - 1 when 3 then ifnull((select sum(amount) from tbl_accounting_depost_tracking where " +
-                $"cref = com_ref),0) end as 'Value', if ((select count(*) from tblrbr where rbr_comref = com_ref limit 1) >= 1, 'Yes','No') as " +
-                $"'Have Runs' from tblcompany where com_acc_cancel in (0, 1) ";
-
-            var model = new List<ManagementDashboard.Models.NoRetentionDeposit>();
-            var result = db.Query(query);
-
-            foreach (DataRow dRow in result.Tables[0].Rows)
-            {
-                var RetDep = new Models.NoRetentionDeposit();
-                RetDep.Ref = dRow.Field<string>("Ref");
-                RetDep.Customer = dRow.Field<string>("Customer");
-                RetDep.Collateral = dRow.Field<string>("Collateral");
-                RetDep.Value = (int)dRow.Field<decimal>("Value");
-                RetDep.HaveRuns = dRow.Field<string>("Have Runs");
-
-                model.Add(RetDep);
-            }
-
-            List<ManagementDashboard.Models.NoRetentionDeposit> filteredModel = model.Where(x => x.Value == 0).ToList();
-            return PartialView(filteredModel);
-        }
-
      
   
 

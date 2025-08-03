@@ -1,4 +1,6 @@
-﻿namespace ManagementDashboard.Models
+﻿using System;
+
+namespace ManagementDashboard.Models
 {
     public class NoRetentionDeposit
     {
@@ -7,6 +9,8 @@
         public string Collateral { get; set; }
         public string HaveRuns { get; set; }
         public decimal Value { get; set; }
+        public decimal RiskRatioSet { get; set; }
+        public DateTime StartDate { get; set; }
 
     }
 }

@@ -1,0 +1,49 @@
+﻿@using ManagementDashboard.Helpers;
+@model List<ManagementDashboard.Models.NoRetentionDeposit>
+
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th>Reference</th>
+            <th>Client</th>
+            <th>Inception</th>
+            <th>Collateral</th>
+            <th>Ratio</th>
+            <th>Value</th>
+            <th>Submission(s)</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderBy(x=>x.Ref))
+        {
+            <tr>
+                <td>
+                    @Html.LinkToTPMSWeb(x=>item.Ref)
+                    @item.Ref
+                </td>
+                <td>@item.Customer</td>
+                <td>@item.StartDate.ToShortDateString()</td>
+                <td>@item.Collateral</td>
+                <td>
+                    @if (item.RiskRatioSet == 0)
+                    {
+                        <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>
+                    }
+                        @item.RiskRatioSet
+                </td>
+                <td class="text-right">@item.Value.ToString("N")</td>
+                <td>
+                    @if (item.HaveRuns == "Yes")
+                    {
+                        <span class="badge badge-success">Yes</span>
+                    }
+                    else
+                    {
+                        <span class="badge badge-danger">No</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

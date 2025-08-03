@@ -264,6 +264,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AccountingController.cs" />
+    <Compile Include="Controllers\CollateralController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\DataColumnAttribute.cs" />
     <Compile Include="Controllers\DBConnect.cs" />
@@ -287,6 +288,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Models\EmployeeClockingInfoResult.cs" />
     <Compile Include="Models\HtmlHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -640,7 +642,7 @@
     <Content Include="Views\Customers\CanceledClients.cshtml" />
     <Content Include="Views\Top\RetNotReleased.cshtml" />
     <Content Include="Views\Customers\PendingClients.cshtml" />
-    <Content Include="Views\Top\NoRetentionDeposit.cshtml" />
+    <Content Include="Views\Collateral\NoRetentionDepositPartialView.cshtml" />
     <Content Include="Views\Customers\DormantClients.cshtml" />
     <Content Include="Views\Customers\HighestCustomerValue.cshtml" />
     <Content Include="Views\Customers\ListOfPendingClient.cshtml" />
@@ -672,7 +674,6 @@
     <Content Include="Views\Home\OverviewView.cshtml" />
     <Content Include="Views\Accounting\AccountingView.cshtml" />
     <Content Include="Views\Submissions\Index.cshtml" />
-    <Content Include="Views\Home\WithholdingsView.cshtml" />
     <Content Include="Views\Accounting\ManagementView.cshtml" />
     <Content Include="Views\Accounting\LateUnpaidsCreditProvided.cshtml" />
     <Content Include="Views\SQLReports\HyphenBatchesStates.cshtml" />
@@ -705,10 +706,11 @@
     <Content Include="Views\DigitalMandateService\ActiveDigitalMandateConfigs.cshtml" />
     <Content Include="Views\DigitalMandateService\RecordsTrend.cshtml" />
     <Content Include="Views\Home\_GetEmployeeClockingInfo.cshtml" />
+    <Content Include="Views\Collateral\NoRetentionDeposit.cshtml" />
+    <Content Include="Views\Collateral\CollateralNonePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Views\Reports\" />
   </ItemGroup>
   <ItemGroup>

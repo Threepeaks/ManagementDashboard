@@ -127,7 +127,7 @@ namespace ManagementDashboard
                         html += "<td class='text-right'>" + ToDecimalValue(dataTable.Rows[i][j]) + "</td>";                    
 
                     if (fieldType == ColumnType.Percentage)
-                        html += "<td class='text-right'>" + dataTable.Rows[i][j] + " %</td>";
+                        html += "<td class='text-right'>" + dataTable.Rows[i][j] + "</td>";
                     
 
                     if (fieldType == ColumnType.Percentage)
