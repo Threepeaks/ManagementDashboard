@@ -16,7 +16,7 @@
         {
             <tr>
                 <td>
-                    <a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@item.Ref' target='_blank'><i class='fa fa-comment'></i></a>
+                    @Html.LinkToTPMSWeb(x=>item.Ref)
                     @item.Ref
                 </td>
                 <td>@item.Customer</td>

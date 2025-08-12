@@ -43,7 +43,11 @@ namespace ManagementDashboard.Controllers
                 var query = fileContent;
 
                 var result = db.Query(query);
-                string htmlTable = result.Tables[0].ConvertDataTableToHTML();
+
+                var config = new ColumnTypeItems();
+                config.Add("Customer", ColumnType.ClientReference);
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(config);
                 rnsb.HtmlTable = htmlTable;
 
             }

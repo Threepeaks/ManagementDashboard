@@ -49,7 +49,9 @@
             connectionClass = "badge-warning";
         }
         <tr>
-            <td style="width:20px;"><a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@client.CustomerReference' target='_blank'><i class='fa fa-comment'></i></a></td>
+            <td style="width:20px;">
+                @Html.LinkToTPMSWeb(x=>client.CustomerReference)
+            </td>
             <td>@client.CustomerReference</td>
             <td>@client.CustomerName</td>
             <td>@client.TenantName</td>

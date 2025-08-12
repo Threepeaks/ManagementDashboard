@@ -4,6 +4,7 @@
     <thead>
         <tr>
             <th>Unpaid Date</th>
+            <th></th>
             <th>Customer Reference</th>
             <th>Type</th>
             <th>Amount</th>
@@ -16,9 +17,10 @@
         {
             <tr>
                 <td>@item.UnpaidDate.ToString("dd-MM-yyyy")</td>
+                <td style="width:20px;">@Html.LinkToTPMSWeb(x=>item.CustomerReference)</td>
                 <td>@item.CustomerReference</td>
                 <td>@item.Type</td>
-                <td>@item.Amount</td>
+                <td class="text-right">@item.Amount.ToString("N")</td>
                 <td>@item.Code</td>
                 <td>@item.Reason</td>
             </tr>

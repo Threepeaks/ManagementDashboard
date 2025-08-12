@@ -20,7 +20,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.CustomerReference</td>
+                <td style="width:20px;">
+                    @Html.LinkToTPMSWeb(x=>item.CustomerReference)
+                </td>
+                <td class="reference" data-reference="@item.CustomerReference">@item.CustomerReference</td>
                 <td>@item.GetTypeEnumString()</td>
                 <td><div class="text-right">@item.PrevValue.ToString("#,##0.00")</div></td>
                 <td><div class="text-right">@item.NextValue.ToString("#,##0.00")</div></td>

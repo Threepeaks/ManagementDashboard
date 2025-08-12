@@ -7,6 +7,14 @@ using System.Web.Mvc;
 
 namespace ManagementDashboard.Helpers
 {
+    public static class DateHelpers
+    {
+        //ToSAShortDate dd/MM/yyyy
+        public static string ToSAShortDate(this DateTime date)
+        {
+            return date.ToString("dd/MM/yyyy");
+        }
+    }
     public static class HtmlHelpers
     {
         public static MvcHtmlString LinkToTPMSWeb<TModel>(
@@ -20,7 +28,7 @@ namespace ManagementDashboard.Helpers
             // Get the property name for extra context (optional)
             string propertyName = metadata.DisplayName ?? metadata.PropertyName;
 
-            var html = "<a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + value + "' target='_blank'><i class='fa fa-comment'></i></a>";
+            var html = "<a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + value + "' target='_blank'><i class=\"bi bi-box-arrow-up-right\"></i></a>";
 
 
             return new MvcHtmlString(html);

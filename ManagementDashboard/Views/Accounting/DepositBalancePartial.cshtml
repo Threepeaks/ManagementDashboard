@@ -6,6 +6,7 @@
         <table class="table table-striped table-sm">
             <thead>
                 <tr>
+                    <th></th>
                     <th>Client</th>
 
                     <th class="text-right">Amount</th>
@@ -15,8 +16,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td>
-                            <a class='mr-2 float-left' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + @item.Customer + "' target='_blank'><i class='fa fa-comment'></i></a>
+                        <td style="width:20px;">@Html.LinkToTPMSWeb(x => item.Customer)</td>
+                        <td class="reference" data-reference="@item.Customer">
+                            
                             <div>
 
                             @item.Customer

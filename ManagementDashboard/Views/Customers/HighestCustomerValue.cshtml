@@ -14,8 +14,10 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td style="width:20px;"><a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@item.Ref' target='_blank'><i class='fa fa-comment'></i></a></td>
-                <td>@item.Ref</td>
+                <td style="width:20px;">
+                    @Html.LinkToTPMSWeb(x=> item.Ref)
+                </td>
+                <td class="reference" data-reference="@item.Ref">@item.Ref</td>
                 <td class="text-right">@item.Count</td>
                 <td class="text-right">@item.Value.ToString("N")</td>
             </tr>

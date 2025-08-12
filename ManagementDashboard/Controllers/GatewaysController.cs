@@ -44,7 +44,13 @@ namespace ManagementDashboard.Controllers
                 var query = fileContent;
 
                 var result = db.Query(query);
-                string htmlTable = result.Tables[0].ConvertDataTableToHTML();
+
+                ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+                columnTypePairs.Add("Customer Reference", ColumnType.ClientReference);
+                columnTypePairs.Add("Send", ColumnType.DateTime);
+                columnTypePairs.Add("Action Date", ColumnType.Date);
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
                 cm.HtmlTable = htmlTable;
 
             }
@@ -291,7 +297,14 @@ namespace ManagementDashboard.Controllers
                 var query = fileContent;
 
                 var result = db.Query(query);
-                string htmlTable = result.Tables[0].ConvertDataTableToHTML();
+
+                //Customer Reference
+
+                ColumnTypeItems columnTypePairs = new ColumnTypeItems();
+                columnTypePairs.Add("Customer Reference", ColumnType.ClientReference);
+                
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
                 vm.HtmlTable = htmlTable;
 
             }

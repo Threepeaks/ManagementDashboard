@@ -36,7 +36,7 @@
             <tr class="@isCancelled">
                 <td>
                     <div>
-                        <a class='mr-2 float-left' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + @item.ClientReference + "' target='_blank'><i class='fa fa-comment'></i></a>
+                        @Html.LinkToTPMSWeb(x=> item.ClientReference)
                         @item.ClientReference
                     </div>
                     <div class="text-sm text-muted">@item.Client</div>

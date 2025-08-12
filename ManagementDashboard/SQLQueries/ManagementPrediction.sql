@@ -21,8 +21,8 @@ when '01' then if(com_acc_cancel_enddate < (date_add(LAST_DAY(CURDATE()),interva
 when '11' then 'Pending/In Canellation'
 
 else concat(com_ac_pending,com_acc_cancel)
-end as 'Prediction Amount',
-concat(com_ac_pending,com_acc_cancel) as 'P'
+end as 'Prediction Amount'
+,concat(com_ac_pending,com_acc_cancel) as 'P'
 
 from tblcompany
 LEFT JOIN `tblfee_monthlyfee` ON `tblcompany`.`com_fee_monthly` = `tblfee_monthlyfee`.`fmf_id`

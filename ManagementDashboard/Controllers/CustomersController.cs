@@ -55,7 +55,8 @@ namespace ManagementDashboard.Controllers
                 var result = db.Query(query);
 
                 ColumnTypeItems columnTypePairs = new ColumnTypeItems();
-                columnTypePairs.Add("Reference", ColumnType.String, true);
+                columnTypePairs.Add("Reference", ColumnType.ClientReference);
+                columnTypePairs.Add("Entry Date", ColumnType.DateTime);
 
                 string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
                 cm.HtmlTable = htmlTable;
@@ -83,7 +84,7 @@ namespace ManagementDashboard.Controllers
                 var result = db.Query(query);
 
                 ColumnTypeItems columnTypePairs = new ColumnTypeItems();
-                columnTypePairs.Add("Reference", ColumnType.String, true);
+                columnTypePairs.Add("Reference", ColumnType.ClientReference);
 
                 string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);
                 vm.HtmlTable = htmlTable;
@@ -112,7 +113,7 @@ namespace ManagementDashboard.Controllers
                 var result = db.Query(query);
 
                 ColumnTypeItems columnTypePairs = new ColumnTypeItems();
-                columnTypePairs.Add("Reference", ColumnType.String, true);
+                columnTypePairs.Add("Reference", ColumnType.ClientReference);
 
 
                 string htmlTable = result.Tables[0].ConvertDataTableToHTML(columnTypePairs);

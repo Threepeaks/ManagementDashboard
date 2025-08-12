@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.Mvc;
 
 namespace ManagementDashboard
@@ -12,7 +13,11 @@ namespace ManagementDashboard
         String,
         Decimal,
         DecimanNoThoundSep,
-        Percentage
+        Percentage,
+        ClientReference,
+        Date,
+        DateTime,
+        Hidden
     }
 
     public class ColumnTypeItems : List<ColumnTypePair>
@@ -21,18 +26,10 @@ namespace ManagementDashboard
         {
             var c = new ColumnTypePair();
             c.ColumnName = columnName;
-            c.Type= columnType;
+            c.Type = columnType;
             this.Add(c);
         }
 
-        internal void Add(string columnName, ColumnType columnType, bool isAccoutnReference)
-        {
-            var c = new ColumnTypePair();
-            c.ColumnName = columnName;
-            c.Type = columnType;
-            c.IsAccountReference = isAccoutnReference;
-            this.Add(c);
-        }
     }
 
     public class ColumnTypePair
@@ -75,6 +72,62 @@ namespace ManagementDashboard
         }
 
 
+        static string ToHtmlAccountReference(string clientReference)
+        {
+            if (String.IsNullOrEmpty(clientReference))
+            {
+                return "<td></td>";
+            }
+            //class="reference" data-reference="@item.Ref"
+            var html = "<td  class='account-reference reference text-nowrap' data-reference=\"" + clientReference + "\">";
+            html += "<div>";
+
+            html += "<a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + clientReference + "' target='_blank'><i class=\"bi bi-box-arrow-up-right\"></i></i></a>";
+            html += clientReference;
+            
+            html += "</div></td>";
+
+            return html;
+        
+        }
+
+        static string ToHtmlDateTime(object obj)
+        {
+            if (obj == null)
+                return "<td></td>";
+            var date = DateTime.Parse(obj.ToString());
+            var html = "<td class='text-nowrap'>" + date.ToString("dd/MM/yyyy hh:mm:ss tt") + "</td>";
+            return html;
+        }
+        static string ToHtmlDate(object obj)
+        {
+            if (obj == null)
+                return "<td></td>";
+            var dateString = obj.ToString();
+            if (string.IsNullOrEmpty(dateString))
+                return "<td></td>";
+
+            var date = DateTime.Parse(obj.ToString());
+            var html = "<td class='text-nowrap'>" + date.ToString("dd/MM/yyyy") + "</td>";
+            return html;
+        }
+        static string ToHtmlString(string obj)
+        {
+            //class="reference" data-reference="@item.Ref"
+            var html = "<td><div>";
+            html += obj.Trim();
+            html += "</div></td>";
+            return html;
+        }
+        static string ToHtmlDecimal(object obj)
+        {
+            var html = "<td class='text-right'>" + ToDecimalValue(obj) + "</td>";
+            return html;
+        }
+        static string ToHtmlPercentage(object obj)
+        {
+            return "<td class='text-right'>" + ToPercentageValue(obj, 2) + "</td>";
+        }
         public static string ConvertDataTableToHTML(this DataTable dt, ColumnTypeItems colTypeItems = null)
         {
 
@@ -111,27 +164,34 @@ namespace ManagementDashboard
 
                     }
                     if (fieldType == ColumnType.String)
-                    {
-                        html += "<td" + (isAccountReference ? " class='account-reference text-nowrap'" : "") + "><div>";
-                        if (isAccountReference)
-                        {
-                            var reference = dataTable.Rows[i][j].ToString().Trim();
-                            html += "<a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/" + reference + "' target='_blank'><i class='fa fa-comment'></i></a>";
-                        }
-                        html += dataTable.Rows[i][j].ToString();
-                        html += "</div></td>";
-                    }
+                        html += ToHtmlString(dataTable.Rows[i][j].ToString());
+              
+
+                    if (fieldType == ColumnType.ClientReference)
+                        html += ToHtmlAccountReference(dataTable.Rows[i][j].ToString().Trim());
 
 
                     if (fieldType == ColumnType.Decimal)
-                        html += "<td class='text-right'>" + ToDecimalValue(dataTable.Rows[i][j]) + "</td>";                    
+                        html += ToHtmlDecimal(dataTable.Rows[i][j]);
 
                     if (fieldType == ColumnType.Percentage)
                         html += "<td class='text-right'>" + dataTable.Rows[i][j] + "</td>";
-                    
+
 
                     if (fieldType == ColumnType.Percentage)
-                        html += "<td class='text-right'>" + ToPercentageValue(dataTable.Rows[i][j], 2) + "</td>";
+                        html += ToHtmlPercentage(dataTable.Rows[i][j]);
+
+                    if (fieldType == ColumnType.Date)
+                        html += ToHtmlDate(dataTable.Rows[i][j]);
+
+                    //Date Time
+                    if (fieldType == ColumnType.DateTime)
+                        html += ToHtmlDateTime(dataTable.Rows[i][j]);
+
+                    if (fieldType == ColumnType.Hidden)
+                        html += "<td data-value='" + dataTable.Rows[i][j] + "' ></td>";
+
+
 
                 }
                 html += "</tr>";
@@ -150,7 +210,7 @@ namespace ManagementDashboard
                 var v = decimal.Parse(obj.ToString());
                 return v.ToString();
             }
-            catch (Exception e )
+            catch (Exception e)
             {
 
 
@@ -159,7 +219,7 @@ namespace ManagementDashboard
 
         }
 
-        private static string ToDecimalValue(object obj,bool thousandSeperator = true)
+        private static string ToDecimalValue(object obj, bool thousandSeperator = true)
         {
             try
             {

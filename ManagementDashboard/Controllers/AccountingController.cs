@@ -38,11 +38,19 @@ namespace ManagementDashboard.Controllers
                 var result = db.Query(query);
 
                 var colTypes = new ColumnTypeItems();
+                colTypes.Add("Pending Start Date", ColumnType.Date);
+                colTypes.Add("Pending End Date", ColumnType.Date);
+                colTypes.Add("Cancel Start Date", ColumnType.Date);
+                colTypes.Add("Cancel End Date", ColumnType.Date);
 
                 //Management Fee
                 colTypes.Add("Management Fee", ColumnType.Decimal);
                 //Prediction Amount
                 colTypes.Add("Prediction Amount", ColumnType.Decimal);
+                colTypes.Add("Customer Reference", ColumnType.ClientReference);
+
+                colTypes.Add("P", ColumnType.Hidden);
+
 
                 string htmlTable = result.Tables[0].ConvertDataTableToHTML(colTypes);
                 vm.HtmlTable = htmlTable;
@@ -181,7 +189,7 @@ namespace ManagementDashboard.Controllers
 
                 var result = db.Query(query);
                 ColumnTypeItems fields = new ColumnTypeItems();
-                fields.Add("Customer", ColumnType.String);
+                fields.Add("Customer", ColumnType.ClientReference);
                 fields.Add("Risk Type", ColumnType.String);
                 fields.Add("Total Debits", ColumnType.Decimal);
                 fields.Add("Total Holding",ColumnType.Decimal);

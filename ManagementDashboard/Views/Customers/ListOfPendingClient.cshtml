@@ -17,12 +17,12 @@
         {
             <tr>
                 <td>
-                    <a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@item.Ref' target='_blank'><i class='fa fa-comment'></i></a>
+                    @Html.LinkToTPMSWeb(x=>item.Ref)
                     @item.Ref
                 </td>
                 <td>@item.Customer</td>
-                <td>@item.StartDate.ToString("dd-MM-yyyy")</td>
-                <td>@item.EndDate.ToString("dd-MM-yyyy")</td>
+                <td>@item.StartDate.ToSAShortDate()</td>
+                <td>@item.EndDate.ToSAShortDate()</td>
                 <td>@item.PendingStatus</td>
                 <td>@item.Service</td>
                 <td>@item.SalesAgent</td>

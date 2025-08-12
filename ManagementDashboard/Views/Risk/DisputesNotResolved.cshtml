@@ -5,7 +5,11 @@
 
 <h2>
     @Model.FirstOrDefault().ClientReference
-<a class='ml-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@Model.FirstOrDefault().ClientReference' target='_blank'><i class='fa fa-comment'></i></a>
+
+    <span class="ml-2">
+
+    @Html.LinkToTPMSWeb(x=>x.FirstOrDefault().ClientReference)
+    </span>
 </h2>
 
 
@@ -26,11 +30,13 @@
         {
             <tr>
                 <td>
-                <a class='mr-2' href='https://tpmsweb.threepeaks.co.za/Clients/Profile/ByRef/@item.ClientReference' target='_blank'><i class='fa fa-comment'></i></a> @item.ClientReference</td>
+                @Html.LinkToTPMSWeb(x=> item.ClientReference)
+                
+                @item.ClientReference</td>
                 <td>@item.DebtorReference</td>
                 <td>@item.DebtorName</td>
-                <td>@item.ActionDate.ToShortDateString()</td>
-                <td>@item.ResolveDueDate.ToShortDateString()</td>
+                <td>@item.ActionDate.ToString("dd/MM/yyyy")</td>
+                <td>@item.ResolveDueDate.ToString("dd/MM/yyyy")</td>
                 <td class="text-right">@item.Amount.ToString("N")</td>
             </tr>
         }
