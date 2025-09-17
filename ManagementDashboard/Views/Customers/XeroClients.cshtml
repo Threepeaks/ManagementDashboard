@@ -1,8 +1,8 @@
 ﻿@model List<ManagementDashboard.Models.XeroClient>
 @{ 
 
-   var countDisconnected = Model.Count(x => x.ConnectionStatusId == 0 );
-   var countConnected = Model.Count(x => x.ConnectionStatusId == 1 );
+    var countDisconnected = Model.Where(x => x.ServiceStatus == 1).Count(x => x.ConnectionStatusId == 0 );
+    var countConnected = Model.Where(x => x.ServiceStatus == 1).Count(x => x.ConnectionStatusId == 1 );
 }
 <div class="row">
     <div class="col-2">
