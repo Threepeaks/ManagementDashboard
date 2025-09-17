@@ -13,6 +13,7 @@ namespace ManagementDashboard.Models
         public string TenantName { get; set; }
         public int ServiceStatus { get; set; }
         public int ConnectionStatusId { get; set; }
+        public bool IsMapped { get; set; }
     }
 
     public class InsiderClient

@@ -36,12 +36,12 @@
         <th>Client</th>
         <th>Tenant Name</th>
         <th>Connection</th>
+        <th>Is Mapped</th>
     </tr>
     </thead>
     <tbody>
 
-    @foreach (var client in Model.Where(x =>x.ServiceStatus == 1)
-        .OrderBy(x => x.ConnectionStatusId).ThenBy(x=>x.CustomerReference))
+    @foreach (var client in Model.Where(x =>x.ServiceStatus == 1))
     {
         var connectionClass = "badge-success";
         if (client.ConnectionStatus == "Disconnected")
@@ -50,7 +50,7 @@
         }
         <tr>
             <td style="width:20px;">
-                @Html.LinkToTPMSWeb(x=>client.CustomerReference)
+                @Html.LinkToTPMSWeb(x => client.CustomerReference)
             </td>
             <td>@client.CustomerReference</td>
             <td>@client.CustomerName</td>
@@ -60,6 +60,16 @@
 
                     @client.ConnectionStatus
                 </span>
+            </td>
+            <td>
+                @if (client.IsMapped)
+                {
+                    <span class="badge badge-success">Yes</span>
+                }
+                else
+                {
+                    <span class="badge badge-warning">No</span>
+                }
             </td>
         </tr>
     }

@@ -597,10 +597,12 @@ namespace ManagementDashboard.Controllers
             var query = "select " +
                 " comref,com_name,ifnull(tenantName,'Not available') as tenantName, " +
                 " case connection_status when 0 then 'Disconnected' when 1 then 'Connected' end  as connection_status," +
-                " service_status, " + 
-                " connection_status as 'connectionStatusId'" +
+                " service_status, " +
+                " connection_status as 'connectionStatusId'," +
+                " if ((if (ISNULL(NULLIF(account_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(interbank_transfer_account_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(bank_charges_account_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(contact_group_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(settlement_contact_id,'')) = 0,1,0)) < 5 ,0,1) as 'isMapped'" +
                 " from tblxeroauth " +
                 " left join tblcompany on com_ref = comref";
+                
 
 
             var xeroClients = new List<XeroClient>();
@@ -617,15 +619,29 @@ namespace ManagementDashboard.Controllers
                 xeroClient.ConnectionStatus = dr.Field<string>("connection_status");
                 xeroClient.ConnectionStatusId = dr.Field<int>("connectionStatusId");
                 xeroClient.ServiceStatus = dr.Field<int>("service_status");
-                
+                try
+                {
+                    xeroClient.IsMapped = dr.Field<Int64>("isMapped") == 1 ? true : false;
+
+                } catch (Exception ex)
+                {
+                    xeroClient.IsMapped = false;
+                }
+
+
+
 
                 xeroClients.Add(xeroClient);
 
             }
 
+            var orderedXeroClients = xeroClients
+                .OrderBy(x => x.ConnectionStatusId)
+                .ThenBy(x => x.IsMapped)
+                .ThenBy(x => x.CustomerReference)
+                .ToList();
 
-
-            return PartialView(xeroClients);
+            return PartialView(orderedXeroClients);
         }
 
         public ActionResult Insiders()
