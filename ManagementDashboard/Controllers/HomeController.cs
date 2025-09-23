@@ -134,6 +134,58 @@ namespace ManagementDashboard.Controllers
             }
         }
 
+        public JsonResult GetBirthdays()
+        {
+            var result = new List<BirthdayMessageVM>();
 
+            try
+            {
+                var url = Properties.Settings.Default.TimeAttendanceUrl;
+                var client = new RestClient(url);
+                var request = new RestRequest("Api/Employees/GetTodaysBirthday");
+                var response = client.Execute(request);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<BirthdayMessageVM>>(response.Content);
+            }
+            catch (Exception ex)
+            {
+                // optionally log ex
+            }
+
+            // ✅ Always return JsonResult with AllowGet
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetUpcomingBirthdays()
+        {
+            var result = new List<EmployeeBirthdayDto>();
+
+            try
+            {
+                var url = Properties.Settings.Default.TimeAttendanceUrl;
+                var client = new RestClient(url);
+                var request = new RestRequest("Api/Employees/GetUpcomingBirthdays");
+                var response = client.Execute(request);
+
+                if (response.StatusCode != System.Net.HttpStatusCode.OK)
+                {
+                    return Json(result, JsonRequestBehavior.AllowGet);
+                }
+
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<EmployeeBirthdayDto>>(response.Content);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            // ✅ Always return JsonResult with AllowGet
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

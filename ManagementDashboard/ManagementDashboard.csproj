@@ -289,6 +289,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HtmlHelpers.cs" />
+    <Compile Include="Models\BirthdayMessageVM.cs" />
     <Compile Include="Models\EmployeeClockingInfoResult.cs" />
     <Compile Include="Models\HtmlHelpers.cs" />
     <Compile Include="Models\AccountViewModels.cs" />

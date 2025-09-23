@@ -1,4 +1,17 @@
-﻿<div id="PartialViewContainer">
+﻿<!-- Birthday Overlay and Ticker -->
+<div id="upcomingBirthdaysWrapper" style="margin:20px 0; position:relative; display:none; height:auto; transition: height 0.3s;">
+    <div id="upcomingBirthdaysContainer" style="display:block; height:50px; transition: height 0.3s;">
+        <div style="display:flex; align-items:center; background:#1ABC9C; border-radius:12px; padding:10px 15px; box-shadow:0 3px 8px rgba(0,0,0,0.1); font-family:sans-serif; height:100%;">
+            <span style="font-weight:bold; color:white; margin-right:15px; white-space:nowrap;">🎂 Upcoming Birthdays:</span>
+            <div id="upcomingBirthdaysTicker" style="overflow:hidden; flex:1;">
+                <div id="upcomingBirthdaysContent" style="display:inline-block; white-space:nowrap; color:#fefefe; font-size:0.9em; font-weight:500;"></div>
+            </div>
+            <span id="closeTickerBtn" style="color:white; font-weight:bold; margin-left:15px; cursor:pointer;">×</span>
+        </div>
+    </div>
+</div>
+
+<div id="PartialViewContainer">
     <!-- Placeholder for the partial view -->
 </div>
 
@@ -19,9 +32,9 @@
     {
         CountPayBlock = "btn-warning";
     }
-
 }
 
+<!-- Dashboard Status Boxes -->
 <div class="row">
     <div class="col-md-3">
         <div class="small-box bg-warning">
@@ -29,9 +42,7 @@
                 <h3>@ViewBag.CountRunsNotSend</h3>
                 <p>Submission not Processed to Bank</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-ban"></i>
-            </div>
+            <div class="icon"><i class="fa fa-ban"></i></div>
             <a href="@Url.Action("RunsNotSentToBank","Submissions")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -41,9 +52,7 @@
                 <h3>@ViewBag.CountBlockProcess</h3>
                 <p>Customer Blocked Processing</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-ban"></i>
-            </div>
+            <div class="icon"><i class="fa fa-ban"></i></div>
             <a href="@Url.Action("CustomerBlockedProcessing","Customers")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -53,117 +62,247 @@
                 <h3>@ViewBag.CountPayBlock</h3>
                 <p>Customer Payment Blocked</p>
             </div>
-            <div class="icon">
-                <i class="fa fa-ban"></i>
-            </div>
+            <div class="icon"><i class="fa fa-ban"></i></div>
             <a href="@Url.Action("CustomerPaymentBlocked","Customers")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>
 </div>
 
 
+<!-- Floating cake icon button -->
+<button id="showTickerBtn" title="Show Upcoming Birthdays">🎂</button>
 
+<style>
+    #showTickerBtn {
+        position: fixed;
+        top: 16%; /* vertically center on screen */
+        right: 20px; /* offset from the edge */
+        transform: translateY(-50%); /* truly center vertically */
+        background: #1ABC9C;
+        color: white;
+        border: none;
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 1.6em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        display: none;
+        transition: transform 0.2s ease, background 0.2s ease;
+        z-index: 10000;
+    }
 
-<div style="height: 20px;display:block;">
-
-</div>
-
-
-
-
-@*<div class="btn-group" role="group" aria-label="Basic example";top:45px;z-index: 99999;background: #FFFFFF;">
-
-
-        <a class="btn btn-primary" href="#DepositMovement">Deposit Movements Per Month</a>
-        <a class="btn btn-primary" href="#GetTopUnpaids">Unpaids per Month</a>
-
-        <a class="btn btn-primary" href="#NoRunClients">No Run Clients</a>
-        <a class="btn btn-primary" href="#CanceledClients">Canceled Clients</a>
-        <a class="btn btn-primary" href="#inCancelation">In Cancelation Clients</a>
-        <a class="btn btn-primary" href="#RetNotReleased">Retention Not Released</a>
-        <a class="btn btn-primary" href="#PendingClients">Pending Clients</a>
-        <a class="btn btn-primary" href="#ListOfPendingClient">List of Pending Clients</a>
-        <a class="btn btn-primary" href="#DormantClients">Dormant Clients</a>
-        <a class="btn btn-primary" href="#uManageCustomers">uManage Customers</a>
-        <a class="btn btn-primary" href="#NoRetentionDeposit">No Deposits & Retentions</a>
-        <a class="btn btn-primary" href="#NewClientByIndustryA">New Client By Industry</a>
-        <a class="btn btn-primary" href="#NewClients">New Clients</a>
-        <a class="btn btn-primary" href="#TransactionCodes">Transaction Codes</a>
-
-        <a class="btn btn-primary" href="#ManagementFees">Management Fees</a>
-
-
-    </div>*@
-
-@*<button type="button" onclick="printJS('Report', 'html')">
-        Print
-    </button>*@
-<div id="Report">
-
-
-
-
-</div><!--/Report -->
-
+        #showTickerBtn:hover {
+            background: #16a085;
+            transform: scale(1.1) translateY(-50%);
+        }
+</style>
 
 @section scripts
 {
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 
     <script>
-        $().ready(function () {
+        $(document).ready(function () {
 
-            $("#PrintThis").click(function () {
-                $('#Report').printThis();
+            // Load employee clocking info
+            $.ajax({
+                url: '@Url.Action("GetEmployeeClockingInfo", "Home")',
+                type: 'GET',
+                success: function (data) {
+                    $('#PartialViewContainer').html(data);
+                }
             });
 
-        });
-
-    </script>
-
-
-    <script>
-
-        $().ready(function () {
-
-
-            function aJaxPost(action, myData, target) {
+            // Load today's birthday messages after 2 seconds
+            setTimeout(function () {
                 $.ajax({
-                    method: "POST",
-                    url: action,
-                    data: myData,
-                    success: function (response) {
-                        $(target).html(response);
-                        // alert(response);
-                        // alert(target + " Details saved successfully!!!");
-                    },
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        $(target).html(xhr.status);
-                        //alert(xhr.status);
-                        //alert(thrownError);
+                    url: '@Url.Action("GetBirthdays", "Home")',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        showBirthdayMessages(data);
                     }
                 });
+            }, 2000);
+
+            // Load upcoming birthdays after 6 seconds
+            setTimeout(function () {
+                $.ajax({
+                    url: '@Url.Action("GetUpcomingBirthdays", "Home")',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (data) {
+                        showUpcomingBirthdays(data);
+                    }
+                });
+            }, 6000);
+
+            // Birthday ticker show/hide buttons
+            const closeBtn = document.getElementById("closeTickerBtn");
+            const showBtn = document.getElementById("showTickerBtn");
+            const container = document.getElementById("upcomingBirthdaysContainer");
+            const wrapper = document.getElementById("upcomingBirthdaysWrapper");
+
+            closeBtn.onclick = () => { container.style.display = "none"; wrapper.style.display = "none"; showBtn.style.display = "inline-flex"; };
+            showBtn.onclick = () => { container.style.display = "block"; wrapper.style.display = "block"; showBtn.style.display = "none"; };
+        });
+
+        // ================================
+        // Full Birthday Functions
+        // ================================
+
+        function getBirthdayId(employee) {
+            return encodeURIComponent(employee.Name + "_" + employee.Age);
+        }
+
+        function getBirthdayCookie() {
+            const today = new Date().toISOString().split('T')[0];
+            const name = `birthdayShown_${today}=`;
+            const cookies = document.cookie.split(';').map(c => c.trim());
+            const cookie = cookies.find(c => c.startsWith(name));
+            if (!cookie) return [];
+            const value = cookie.split('=')[1];
+            return value ? value.split(',') : [];
+        }
+
+        function setBirthdayCookie(birthdayId) {
+            const today = new Date().toISOString().split('T')[0];
+            let shown = getBirthdayCookie();
+            if (!shown.includes(birthdayId)) shown.push(birthdayId);
+            document.cookie = `birthdayShown_${today}=${shown.join(',')}; path=/; max-age=${24*60*60}`;
+        }
+
+        function hasSeenBirthday(birthdayId) {
+            const shown = getBirthdayCookie();
+            return shown.includes(birthdayId);
+        }
+
+        function showBirthdayMessages(birthdayMessages) {
+            if (!birthdayMessages || birthdayMessages.length === 0) return;
+            let index = 0;
+
+            function showBirthday(employee) {
+                const birthdayId = getBirthdayId(employee);
+                if (hasSeenBirthday(birthdayId)) {
+                    index++;
+                    if(index < birthdayMessages.length) showBirthday(birthdayMessages[index]);
+                    return;
+                }
+
+                const messageText = employee.Message;
+                const isLandmark = employee.IsLandmark;
+                const age = employee.Age || null;
+
+                // Confetti
+                confetti({ particleCount: 150, spread: 120, origin: { y: 0.6 } });
+
+                // Overlay
+                const overlay = $('<div class="birthdayOverlay"></div>').css({
+                    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex',
+                    justifyContent: 'center', alignItems: 'center', flexDirection: 'column', zIndex: 9999
+                });
+
+                let messageContent = messageText;
+                if (isLandmark && age) messageContent += `<br><strong>Landmark Birthday: ${age} years!</strong>`;
+
+                const message = $('<div></div>').css({
+                    background: '#1ABC9C', padding: '25px 35px', borderRadius: '20px',
+                    textAlign: 'center', boxShadow: '0 0 20px rgba(0,0,0,0.5)',
+                    color: 'white', fontFamily: 'sans-serif', fontSize: '1.3em'
+                }).html(messageContent);
+
+                overlay.append(message);
+                $('body').append(overlay);
+
+                // Balloons
+                const balloonInterval = setInterval(() => {
+                    const colors = ['#FF595E','#FFCA3A','#8AC926','#1982C4','#FF6D00','#FF77A9','#1ABC9C'];
+                    const balloon = $('<div class="balloon"></div>');
+                    const size = Math.floor(Math.random() * 35) + 25;
+                    balloon.css({
+                        width: size + 'px', height: size * 1.3 + 'px',
+                        backgroundColor: colors[Math.floor(Math.random()*colors.length)],
+                        borderRadius: '50%', position: 'fixed', bottom: '-60px',
+                        left: Math.random() * window.innerWidth + 'px', zIndex: 10000, opacity: 0.85
+                    });
+                    $('body').append(balloon);
+                    balloon.animate({
+                        bottom: window.innerHeight + 120 + 'px',
+                        left: "+=" + ((Math.random()*100)-50) + "px"
+                    }, 4000 + Math.random()*1500, 'linear', function(){ $(this).remove(); });
+                }, 250);
+
+                // Landmark banners
+                if(isLandmark){
+                    const leftBanner = $('<div>🎉 Landmark Birthday! 🎉</div>').css({
+                        position: 'fixed', top: '50%', left: '-150px',
+                        transform: 'translateY(-50%) rotate(-10deg)',
+                        background: '#FFD700', color: '#333', fontWeight: 'bold',
+                        fontSize: '1.3em', padding: '15px 25px',
+                        borderRadius: '10px', boxShadow: '0 0 15px rgba(0,0,0,0.5)',
+                        zIndex: 10000, opacity: 0
+                    });
+                    const rightBanner = leftBanner.clone().css({ left: '', right: '-150px', transform: 'translateY(-50%) rotate(10deg)' });
+                    $('body').append(leftBanner).append(rightBanner);
+
+                    leftBanner.animate({left:"20px", opacity:1}, 800).delay(2500).animate({left:"-150px", opacity:0}, 800, function(){ $(this).remove(); });
+                    rightBanner.animate({right:"20px", opacity:1}, 800).delay(2500).animate({right:"-150px", opacity:0}, 800, function(){ $(this).remove(); });
+                }
+
+                setBirthdayCookie(birthdayId);
+
+                setTimeout(() => {
+                    clearInterval(balloonInterval);
+                    overlay.fadeOut(500, () => {
+                        overlay.remove();
+                        index++;
+                        if(index < birthdayMessages.length) showBirthday(birthdayMessages[index]);
+                    });
+                }, 6000);
             }
 
+            showBirthday(birthdayMessages[index]);
+        }
 
+        function showUpcomingBirthdays(birthdays) {
+            if (!birthdays || birthdays.length === 0) return;
+            const items = birthdays.map(e => {
+                const dob = new Date(parseInt(e.DateOfBirthday.substr(6)));
+                const dateStr = dob.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+                return `${e.Name} ${e.Surname} (${dateStr})`;
+            });
+            const content = items.join(" • ");
+            const ticker = document.getElementById("upcomingBirthdaysContent");
+            ticker.textContent = content;
 
+            const wrapper = document.getElementById("upcomingBirthdaysWrapper");
+            wrapper.style.display = "block";
 
+            function scrollMessage() {
+                const fullWidth = ticker.offsetWidth;
+                const container = document.getElementById("upcomingBirthdaysTicker");
+                const containerWidth = container.offsetWidth;
+                let start = containerWidth;
 
+                ticker.style.transform = `translateX(${start}px)`;
 
-
-        });
-
-            $(document).ready(function () {
-        $.ajax({
-            url: '@Url.Action("GetEmployeeClockingInfo", "Home")',
-            type: 'GET',
-            success: function (data) {
-
-                $('#PartialViewContainer').html(data);
-            },
-        });
-    });
-
+                const speed = 1.5;
+                function animate() {
+                    start -= speed;
+                    ticker.style.transform = `translateX(${start}px)`;
+                    if (start > -fullWidth) requestAnimationFrame(animate);
+                    else setTimeout(scrollMessage, 500);
+                }
+                animate();
+            }
+            scrollMessage();
+        }
     </script>
-
-
 }

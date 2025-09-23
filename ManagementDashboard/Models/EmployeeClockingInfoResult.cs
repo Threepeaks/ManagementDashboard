@@ -13,5 +13,7 @@ namespace ManagementDashboard.Models
         public string EmployeeCode { get; set; }
         public DateTime? LastClockedInDate { get; set; }
         public DateTime? LastClockedOutDate { get; set; }
+        public bool IsBirthdayToday { get; set; }
+        public int CompanyId { get; set; }
     }
 }

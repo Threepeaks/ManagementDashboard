@@ -1,22 +1,111 @@
 ﻿@model IEnumerable<ManagementDashboard.Models.EmployeeClockingInfoResult>
+@{
+    var excludedCompanyIds = ((string)ViewBag.CompanyIds)?.Split(',').Select(int.Parse).ToList() ?? new List<int>();
+}
 
-<div class="employee-clocking-info" style="display: flex; flex-wrap: nowrap; overflow-x: auto; gap: 5px;">
+<div class="employee-clocking-info" style="display: flex; flex-wrap: wrap; gap: 10px;">
     @foreach (var employee in Model)
     {
-        // Determine if the employee has clocked in today
         bool hasClockedInToday = employee.LastClockedInDate.HasValue && employee.LastClockedInDate.Value.Date == DateTime.Now.Date;
 
-        // Set the card color: green if clocked in, red if not clocked in
-        var cardClass = hasClockedInToday ? "bg-success text-white" : "bg-danger text-white";
+        string cardClass;
+        string customStyle = "";
 
-        // Create a link to a specific action for each employee
-            <div class="card @cardClass" style="width: 150px; height: 40px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px;">
-                <div class="card-body p-0 d-flex justify-content-center align-items-center" style="height: 100%; padding: 0;">
-                    <!-- Display employee name in the center of the card -->
-                    <h6 class="card-title mb-0" style="font-size: 0.9em; line-height: 1.2;">
+        if (employee.IsBirthdayToday && !excludedCompanyIds.Contains(employee.CompanyId))
+        {
+            cardClass = "";
+            customStyle = "background: linear-gradient(45deg, #6a0dad, #9b30ff); color: #fff; font-weight: bold; box-shadow: 0 0 10px #9b30ff;";
+        }
+        else if (hasClockedInToday)
+        {
+            cardClass = "bg-success text-white";
+        }
+        else
+        {
+            cardClass = "bg-danger text-white";
+        }
+
+        <a href="@Url.Action("Index", "TimeAttendance", new { id = employee.EmployeeCode })" style="text-decoration: none; position: relative;">
+            <div class="card @cardClass" style="width: 150px; height: 60px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 5px; position: relative; overflow: hidden; @customStyle">
+
+                <div class="card-body p-0 d-flex justify-content-center align-items-center" style="height: 100%; padding: 0; position: relative;">
+
+                    @* Birthday cake background *@
+                    @if (employee.IsBirthdayToday)
+                    {
+                        <span class="cake-bg" style="
+                            position:absolute;
+                            top:50%;
+                            left:50%;
+                            transform:translate(-50%, -50%) scale(1);
+                            font-size:3.5em;
+                            opacity:0.5;
+                            pointer-events:none;
+                            user-select:none;
+                            z-index:0;
+                            text-shadow: 0 0 10px #FFD700, 0 0 20px #FFB347;
+                            transition: transform 0.8s ease-in-out, opacity 0.8s ease-in-out;
+                        ">🎂</span>
+
+                        <div class="star-container" style="
+                            position:absolute;
+                            top:50%;
+                            left:50%;
+                            width:100%;
+                            height:100%;
+                            transform:translate(-50%, -50%);
+                            pointer-events:none;
+                            z-index:0;
+                        "></div>
+                    }
+
+                    <h6 class="card-title mb-0" style="font-size: 0.9em; line-height: 1.2; z-index:1; text-shadow:1px 1px 2px black;">
                         @employee.Name
                     </h6>
+
                 </div>
             </div>
+        </a>
     }
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        // Cake pulse effect
+        $('.cake-bg').each(function () {
+            var cake = $(this);
+            setInterval(function () {
+                cake.css('transform', 'translate(-50%, -50%) scale(1.2)');
+                setTimeout(function () {
+                    cake.css('transform', 'translate(-50%, -50%) scale(1)');
+                }, 400);
+            }, 800);
+        });
+
+        // Sparkling stars on cake
+        $('.star-container').each(function () {
+            var container = $(this);
+
+            function spawnStar() {
+                var star = $('<div>✨</div>').css({
+                    position: 'absolute',
+                    fontSize: (10 + Math.random() * 8) + 'px',
+                    left: (Math.random() * 60 - 30) + 'px',
+                    top: (Math.random() * 60 - 30) + 'px',
+                    opacity: 0,
+                    color: '#FFD700',
+                    textShadow: '0 0 5px #FFD700, 0 0 10px #FFB347',
+                    pointerEvents: 'none',
+                    userSelect: 'none'
+                });
+
+                container.append(star);
+
+                star.animate({ opacity: 1 }, 400)
+                    .animate({ opacity: 0 }, 800, function () { $(this).remove(); });
+            }
+
+            setInterval(spawnStar, 200);
+        });
+    });</script>
