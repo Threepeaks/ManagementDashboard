@@ -18,6 +18,7 @@
         public string StatusCode { get; set; }
         public bool IsCancelled { get; set; }
         public string Client { get; set; }
+        public bool InCancellationProcess { get; set; }
 
     }
 

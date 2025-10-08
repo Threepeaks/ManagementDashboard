@@ -126,6 +126,7 @@ namespace ManagementDashboard.Controllers
                 var result = db.Query(query);
 
                 var cancelledStatusCodes = new List<string> { "20", "21"};
+                var inCancellationStatusCodes = new List<string> { "10","11" };
 
                 if (result.Tables[0].Rows.Count > 0)
                 {
@@ -161,6 +162,11 @@ namespace ManagementDashboard.Controllers
                         {
                             lc.IsCancelled = true;
                         }
+                        
+                        if (inCancellationStatusCodes.Contains(lc.StatusCode))
+                        {
+                            lc.InCancellationProcess = true;
+                        }
 
                         model.Add(lc);
                     }
@@ -168,7 +174,22 @@ namespace ManagementDashboard.Controllers
                 }
 
             }
-            return View(model);
+
+
+            //Reorder by state
+            var modelReordered = new List<ManagementDashboard.Models.LiabilityCurrent>();
+
+            var cancelled = model.Where(x => x.IsCancelled).OrderBy(x => x.ClientReference).ToList();
+            var inCancellation = model.Where(x => x.InCancellationProcess ).OrderBy(x => x.ClientReference).ToList();
+            var activeWithDebit = model.Where(x => !x.IsCancelled && !x.InCancellationProcess && x.Debit > 0).OrderBy(x => x.ClientReference).ToList();
+            var activeWithCredit = model.Where(x => !x.IsCancelled && !x.InCancellationProcess && x.Credit > 0).OrderBy(x => x.ClientReference).ToList();
+
+            modelReordered.AddRange(cancelled);
+            modelReordered.AddRange(inCancellation);
+            modelReordered.AddRange(activeWithDebit);
+            modelReordered.AddRange(activeWithCredit);
+
+            return View(modelReordered);
         }
 
         [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
