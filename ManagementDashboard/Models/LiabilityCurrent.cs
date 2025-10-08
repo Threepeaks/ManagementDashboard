@@ -1,4 +1,6 @@
-﻿namespace ManagementDashboard.Models
+﻿using System;
+
+namespace ManagementDashboard.Models
 {
     public class LiabilityCurrent
     {
@@ -19,6 +21,7 @@
         public bool IsCancelled { get; set; }
         public string Client { get; set; }
         public bool InCancellationProcess { get; set; }
+        public DateTime CancelledDate { get; set; }
 
     }
 

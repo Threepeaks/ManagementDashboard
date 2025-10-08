@@ -161,6 +161,7 @@ namespace ManagementDashboard.Controllers
                         if (cancelledStatusCodes.Contains(lc.StatusCode))
                         {
                             lc.IsCancelled = true;
+                            lc.CancelledDate = Convert.ToDateTime(dRow["com_acc_cancel_enddate"]);
                         }
                         
                         if (inCancellationStatusCodes.Contains(lc.StatusCode))

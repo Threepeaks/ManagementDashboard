@@ -1,7 +1,8 @@
 
 select 
                 com_ref  as 'CREF',
-                com_name as 'ClientName'
+                com_name as 'ClientName',
+                com_acc_cancel_enddate
                 
    , case concat(com_acc_cancel,com_ac_pending) 
                                 when '00' then 'Active'

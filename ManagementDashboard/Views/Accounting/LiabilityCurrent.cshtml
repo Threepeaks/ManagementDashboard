@@ -42,7 +42,19 @@
                     </div>
                     <div class="text-sm text-muted">@item.Client</div>
                 </td>
-                <td>@item.Status</td>
+                <td>
+                    <div>
+                    @item.Status
+
+                    </div>
+                    @if(item.IsCancelled)
+                    {
+                        <div class="text-sm text-muted">
+                            @item.CancelledDate.ToString("dd/MM/yyyy") <i class="fa fa-calendar-alt " title="Cancelled"></i>   
+                        </div>
+                        
+                    }
+                </td>
                 <td>@item.Gateway</td>
                 <td class="text-right">
                     @if (item.BalanceBroughtForward < 0)
