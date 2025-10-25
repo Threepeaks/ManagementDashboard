@@ -73,16 +73,28 @@ namespace ManagementDashboard.Controllers
             return View(a);
         }
 
+        public ActionResult ClientsCollectionUnpaidsByActionDate()
+        {
+            DateTime endDate = DateTime.Now.AddDays(1);
+            var startDate = new DateTime(endDate.Year, endDate.Month, 1).AddMonths(-3);
+
+            ViewBag.StartDate = startDate;
+            ViewBag.EndDate = endDate;
+
+            return View();
+        }
+
 
         [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION)]
-        public ActionResult ClientsColelctionUnpaidsByActionDate()
+        [HttpGet]
+        public PartialViewResult ClientsCollectionUnpaidsByActionDateGrid()
         {
 
             var cm = new Models.SQLReportTableViewModel();
 
             var db = new DBConnect();
 
-            string file = Server.MapPath("~") + "SQLQueries\\Risk\\ClientsColelctionUnpaidsByActionDate.sql";
+            string file = Server.MapPath("~") + "SQLQueries\\Risk\\ClientsCollectionUnpaidsByActionDate.sql";
 
             if (System.IO.File.Exists(file))
             {
@@ -96,6 +108,9 @@ namespace ManagementDashboard.Controllers
                 var queryParms = new Dictionary<string, string>();
                 queryParms.Add("startDate", startDate.ToString("yyyy-MM-dd"));
                 queryParms.Add("endDate", endDate.ToString("yyyy-MM-dd"));
+
+                ViewBag.StartDate = startDate;
+                ViewBag.EndDate = endDate;
 
                 string query = QueryReplace(fileContent, queryParms);
 
@@ -114,7 +129,7 @@ namespace ManagementDashboard.Controllers
 
             }
 
-            return View(cm);
+            return PartialView(cm);
         }
 
         private string QueryReplace(string fileContent, Dictionary<string, string> queryParms)

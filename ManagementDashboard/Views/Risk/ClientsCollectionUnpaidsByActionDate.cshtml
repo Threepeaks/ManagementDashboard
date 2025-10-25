@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Clients Collection and Unpaids Ratios By Action Date";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card card-primary">
+    <div class="card-header">
+        Client's Unpaid Ratio by Bank Date (Current + Last Three Months) | @ViewBag.StartDate.ToString("dd/MM/yyyy") => @ViewBag.EndDate.ToString("dd/MM/yyyy")
+        <div class="card-tools">
+            @*<button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>*@
+            <button type="button" class="btn btn-primary btn-sm" data-card-widget="maximize" title="Maximize">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body overflow-auto">
+        <div id="gridContainer">
+            
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+
+    <script>
+
+        $(function () {
+            $("#gridContainer").html("<i class=\"fa fa-spinner fa-spin\"></i> Loading...");
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("ClientsCollectionUnpaidsByActionDateGrid", "Risk")',
+                
+                success: function (data) {
+                    $('#gridContainer').html(data);
+                },
+                error: function (xhr, status, error) {
+                    $('#gridContainer').html('<div class="text-danger">An error occurred while loading data.</div>');
+                }
+            });
+
+
+        })
+
+
+    </script>
+
+    }

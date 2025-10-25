@@ -593,7 +593,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SQLQueries\Risk\DeposotNotCoveredEFTDO.sql" />
-    <Content Include="SQLQueries\Risk\ClientsColelctionUnpaidsByActionDate.sql" />
+    <Content Include="SQLQueries\Risk\ClientsCollectionUnpaidsByActionDate.sql" />
     <Content Include="SQLQueries\RunsNotSentToBank.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -694,7 +694,7 @@
     <Content Include="Views\Gateways\Summary.cshtml" />
     <Content Include="Views\Customers\XeroClients.cshtml" />
     <Content Include="Views\Customers\Xero.cshtml" />
-    <Content Include="Views\Risk\ClientsColelctionUnpaidsByActionDate.cshtml" />
+    <Content Include="Views\Risk\ClientsCollectionUnpaidsByActionDate.cshtml" />
     <Content Include="Views\Risk\DisputesNotResolvedSummary.cshtml" />
     <Content Include="Views\Risk\DisputesNotResolved.cshtml" />
     <Content Include="Views\Submissions\NewGrowth.cshtml" />
@@ -709,6 +709,7 @@
     <Content Include="Views\Home\_GetEmployeeClockingInfo.cshtml" />
     <Content Include="Views\Collateral\NoRetentionDeposit.cshtml" />
     <Content Include="Views\Collateral\CollateralNonePartialView.cshtml" />
+    <Content Include="Views\Risk\ClientsCollectionUnpaidsByActionDateGrid.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
