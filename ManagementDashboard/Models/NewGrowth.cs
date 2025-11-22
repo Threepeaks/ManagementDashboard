@@ -31,7 +31,7 @@ namespace ManagementDashboard.Models
                     return "Increase";
                     
                 case DiffEnum.Decrease:
-                    return "Descrease";
+                    return "Decrease";
                     
                 default:
                     return "Unknown";
