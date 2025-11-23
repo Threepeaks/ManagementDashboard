@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManagementDashboard.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -7,6 +8,8 @@ using System.Web.Mvc;
 
 namespace ManagementDashboard.Controllers
 {
+    [Authorize]
+    [LogUserAccess]
     public class CollateralController : Controller
     {
         private DBConnect db = new DBConnect();

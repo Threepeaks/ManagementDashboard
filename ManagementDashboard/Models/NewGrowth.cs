@@ -2,6 +2,8 @@
 
 namespace ManagementDashboard.Models
 {
+
+    
     public class NewGrowth
     {
 

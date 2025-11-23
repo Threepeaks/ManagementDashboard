@@ -1,4 +1,5 @@
-﻿using ManagementDashboard.Models;
+﻿using ManagementDashboard.Attributes;
+using ManagementDashboard.Models;
 using RestSharp;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace ManagementDashboard.Controllers
 {
 
     [Authorize]
+    [LogUserAccess]
     public class HomeController : Controller
     {
         public ActionResult Index()

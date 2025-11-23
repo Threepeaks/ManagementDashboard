@@ -29,5 +29,7 @@ namespace ManagementDashboard.Models
         {
             return new ApplicationDbContext();
         }
+        public DbSet<UserActionLog> UserActionLogs { get; set; }
+
     }
 }

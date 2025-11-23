@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManagementDashboard.Attributes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace ManagementDashboard.Controllers
 {
 
     [Authorize]
+    [LogUserAccess]
     public class MarketingController : Controller
     {
         // GET: Marketing

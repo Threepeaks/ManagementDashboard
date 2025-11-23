@@ -1,4 +1,5 @@
 ﻿using Chart.Mvc.ComplexChart;
+using ManagementDashboard.Attributes;
 using ManagementDashboard.Models;
 using NLog;
 using System;
@@ -12,6 +13,7 @@ using System.Web.Mvc;
 namespace ManagementDashboard.Controllers
 {
     [Authorize]
+    [LogUserAccess]
     public class CustomersController : Controller
     {
         public object debMov { get; private set; }

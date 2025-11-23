@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.WellKnownTypes;
+using ManagementDashboard.Attributes;
 using ManagementDashboard.DTOs;
 using RestSharp;
 using RestSharp.Authenticators;
@@ -14,6 +15,8 @@ using System.Web.UI.WebControls;
 
 namespace ManagementDashboard.Controllers
 {
+    [Authorize]
+    [LogUserAccess]
     public class RiskController : Controller
     {
         // GET: Risk

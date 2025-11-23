@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManagementDashboard.Attributes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,8 @@ using System.Web.Mvc;
 
 namespace ManagementDashboard.Controllers
 {
+    [Authorize]
+    [LogUserAccess]
     public class DigitalMandateServiceController : Controller
     {
 

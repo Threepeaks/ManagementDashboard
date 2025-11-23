@@ -1,4 +1,5 @@
 ﻿using Google.Protobuf.Reflection;
+using ManagementDashboard.Attributes;
 using ManagementDashboard.Models;
 using MySqlX.XDevAPI.Relational;
 using System;
@@ -13,6 +14,7 @@ namespace ManagementDashboard.Controllers
 {
 
     [Authorize]
+    [LogUserAccess]
     public class AccountingController : Controller
     {
         // GET: Accounting

@@ -1,4 +1,5 @@
 ﻿using Chart.Mvc.ComplexChart;
+using ManagementDashboard.Attributes;
 using ManagementDashboard.Models;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace ManagementDashboard.Controllers
 {
 
     [Authorize]
+    [LogUserAccess]
     public class GatewaysController : Controller
     {
         // GET: Gateways

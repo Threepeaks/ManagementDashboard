@@ -1,15 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿using ManagementDashboard.Attributes;
+using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 
 namespace ManagementDashboard.Controllers
 {
-
+    [Authorize]
+    [LogUserAccess]
     public class XeroController : Controller
     {
 
