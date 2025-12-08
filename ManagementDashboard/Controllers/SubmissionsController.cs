@@ -48,6 +48,8 @@ namespace ManagementDashboard.Controllers
 
                 var config = new ColumnTypeItems();
                 config.Add("Customer", ColumnType.ClientReference);
+                config.Add("Action Date", ColumnType.Date);
+                config.Add("Received", ColumnType.DateTime);
 
                 string htmlTable = result.Tables[0].ConvertDataTableToHTML(config);
                 rnsb.HtmlTable = htmlTable;
