@@ -601,6 +601,7 @@
     <Content Include="SQLQueries\HyphenBatchesStates.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="SQLQueries\ManagementUnpaids.sql" />
     <Content Include="SQLQueries\rbr.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -722,6 +723,8 @@
     <Content Include="Views\Collateral\NoRetentionDeposit.cshtml" />
     <Content Include="Views\Collateral\CollateralNonePartialView.cshtml" />
     <Content Include="Views\Risk\ClientsCollectionUnpaidsByActionDateGrid.cshtml" />
+    <Content Include="Views\Accounting\ManagementUnpaids.cshtml" />
+    <Content Include="Views\Accounting\UnpaidsManagementPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

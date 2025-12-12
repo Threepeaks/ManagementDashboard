@@ -1,6 +1,7 @@
 ﻿using Google.Protobuf.Reflection;
 using ManagementDashboard.Attributes;
 using ManagementDashboard.Models;
+using MySqlX.XDevAPI.Common;
 using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
@@ -127,8 +128,8 @@ namespace ManagementDashboard.Controllers
 
                 var result = db.Query(query);
 
-                var cancelledStatusCodes = new List<string> { "20", "21"};
-                var inCancellationStatusCodes = new List<string> { "10","11" };
+                var cancelledStatusCodes = new List<string> { "20", "21" };
+                var inCancellationStatusCodes = new List<string> { "10", "11" };
 
                 if (result.Tables[0].Rows.Count > 0)
                 {
@@ -165,7 +166,7 @@ namespace ManagementDashboard.Controllers
                             lc.IsCancelled = true;
                             lc.CancelledDate = Convert.ToDateTime(dRow["com_acc_cancel_enddate"]);
                         }
-                        
+
                         if (inCancellationStatusCodes.Contains(lc.StatusCode))
                         {
                             lc.InCancellationProcess = true;
@@ -183,7 +184,7 @@ namespace ManagementDashboard.Controllers
             var modelReordered = new List<ManagementDashboard.Models.LiabilityCurrent>();
 
             var cancelled = model.Where(x => x.IsCancelled).OrderBy(x => x.ClientReference).ToList();
-            var inCancellation = model.Where(x => x.InCancellationProcess ).OrderBy(x => x.ClientReference).ToList();
+            var inCancellation = model.Where(x => x.InCancellationProcess).OrderBy(x => x.ClientReference).ToList();
             var activeWithDebit = model.Where(x => !x.IsCancelled && !x.InCancellationProcess && x.Debit > 0).OrderBy(x => x.ClientReference).ToList();
             var activeWithCredit = model.Where(x => !x.IsCancelled && !x.InCancellationProcess && x.Credit > 0).OrderBy(x => x.ClientReference).ToList();
 
@@ -216,12 +217,12 @@ namespace ManagementDashboard.Controllers
                 fields.Add("Customer", ColumnType.ClientReference);
                 fields.Add("Risk Type", ColumnType.String);
                 fields.Add("Total Debits", ColumnType.Decimal);
-                fields.Add("Total Holding",ColumnType.Decimal);
+                fields.Add("Total Holding", ColumnType.Decimal);
                 fields.Add("Adjustment Account", ColumnType.Decimal);
                 fields.Add("Subs not Settled", ColumnType.Decimal);
                 fields.Add("Upcoming Subs", ColumnType.Decimal);
-                fields.Add("Credit Provided",ColumnType.Decimal);
-                
+                fields.Add("Credit Provided", ColumnType.Decimal);
+
 
                 string htmlTable = result.Tables[0].ConvertDataTableToHTML(fields);
                 cm.HtmlTable = htmlTable;
@@ -309,6 +310,51 @@ namespace ManagementDashboard.Controllers
             }
             return PartialView(model);
 
+        }
+
+
+        //Management Unpaids
+        public ActionResult ManagementUnpaids()
+        {
+            return View();
+        }
+
+        public PartialViewResult UnpaidsManagementPartial(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+
+            var cm = new Models.SQLReportTableViewModel();
+
+            string file = Server.MapPath("~") + "SQLQueries\\ManagementUnpaids.sql";
+            if (System.IO.File.Exists(file))
+            {
+                StreamReader streamReader = new StreamReader(file);
+                var fileContent = streamReader.ReadToEnd();
+
+                //Replace dates
+                fileContent = fileContent.Replace("{{StartDate}}", startDate.ToString("yyyy-MM-dd"));
+                fileContent = fileContent.Replace("{{EndDate}}", endDate.ToString("yyyy-MM-dd"));
+
+                var query = fileContent;
+                var db = new DBConnect();
+                var result = db.Query(query);
+                ColumnTypeItems fields = new ColumnTypeItems();
+                fields.Add("Client", ColumnType.ClientReference);
+                fields.Add("Unpaid Date", ColumnType.Date);
+
+
+
+                string htmlTable = result.Tables[0].ConvertDataTableToHTML(fields);
+                cm.HtmlTable = htmlTable;
+
+            }
+
+            return PartialView(cm);
         }
     }
 }

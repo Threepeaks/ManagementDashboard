@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Management Unpaids";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+
+<div class="row">
+
+    <div class="col-sm-4">
+        <div class="card dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="month-1"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-1).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="month-2"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card  dark-mode">
+            <div class="card-header">
+                <h4>@DateTime.Now.AddMonths(-2).ToString("MMMM yyyy")</h4>
+            </div>
+            <div class="card-body">
+                <div class="panel-body1" style="overflow:auto;">
+                    <div id="month-3"><i class="fa fa-spinner fa-spin"></i> Loading</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+
+    $(function () {
+        function loadAjax() {
+
+            aJaxPost("@Url.Action("UnpaidsManagementPartial", "Accounting")", { id: 0 }, "#month-1");
+            aJaxPost("@Url.Action("UnpaidsManagementPartial", "Accounting")", { id: 1 }, "#month-2");
+            aJaxPost("@Url.Action("UnpaidsManagementPartial", "Accounting")", { id: 2 }, "#month-3");
+
+
+        }
+        loadAjax();
+
+
+
+
+
+
+    })
+    </script>
+}
+
