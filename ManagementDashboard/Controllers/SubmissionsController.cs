@@ -1,5 +1,6 @@
 ﻿using Chart.Mvc.ComplexChart;
 using ManagementDashboard.Attributes;
+using ManagementDashboard.Helpers;
 using ManagementDashboard.Models;
 using System;
 using System.Collections.Generic;
@@ -37,12 +38,16 @@ namespace ManagementDashboard.Controllers
             var db = new DBConnect();
 
             string file = Server.MapPath("~") + "SQLQueries\\RunsNotSentToBank.sql";
+            
             if (System.IO.File.Exists(file))
             {
                 StreamReader streamReader = new StreamReader(file);
                 var fileContent = streamReader.ReadToEnd();
 
                 var query = fileContent;
+
+                var endActionDate = DateHelpers.GetNextActionDate(DateTime.Now, 4);
+                query = query.Replace("{{endActionDate}}", endActionDate.ToString("yyyy-MM-dd"));
 
                 var result = db.Query(query);
 

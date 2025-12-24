@@ -19,7 +19,7 @@ select
     from tblrbr 
 left join tblhyphen_batchno on hbn_rbr = rbr_id and hbn_type = 1
 
-where rbr_date <= (CURDATE() + INTERVAL 4 DAY)
+where rbr_date <= '{{endActionDate}}'
 and rbr_status in (0,1)
 order by rbr_date,rbr_datetime_sub
 

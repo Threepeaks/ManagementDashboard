@@ -1,4 +1,25 @@
-﻿<!-- Birthday Overlay and Ticker -->
+﻿@model ManagementDashboard.ModelViews.HomeViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    var runsNotSendClass = "bg-success";
+    if (ViewBag.CountRunsNotSend > 0)
+    {
+        runsNotSendClass = "bg-warning";
+    }
+    var CountBlockProcess = "btn-primary";
+    if (ViewBag.CountBlockProcess > 0)
+    {
+        CountBlockProcess = "btn-warning";
+    }
+    var CountPayBlock = "btn-primary";
+    if (ViewBag.CountPayBlock > 0)
+    {
+        CountPayBlock = "btn-warning";
+    }
+
+    var runsNotSendFutureClass = "bg-success";
+}
+<!-- Birthday Overlay and Ticker -->
 <div id="upcomingBirthdaysWrapper" style="margin:20px 0; position:relative; display:block; height:50px; transition: height 0.3s;">
     <div id="upcomingBirthdaysContainer" style="display:flex; align-items:center; justify-content:center; background:#0066cc !important; border-radius:12px; padding:10px 15px; box-shadow:0 3px 8px rgba(0,0,0,0.1); font-family:sans-serif; height:100%;">
 
@@ -25,37 +46,26 @@
     <!-- Placeholder for the partial view -->
 </div>
 
-@{
-    ViewBag.Title = "Dashboard";
-    var runsNotSendClass = "btn-primary";
-    if (ViewBag.CountRunsNotSend > 0)
-    {
-        runsNotSendClass = "btn-warning";
-    }
-    var CountBlockProcess = "btn-primary";
-    if (ViewBag.CountBlockProcess > 0)
-    {
-        CountBlockProcess = "btn-warning";
-    }
-    var CountPayBlock = "btn-primary";
-    if (ViewBag.CountPayBlock > 0)
-    {
-        CountPayBlock = "btn-warning";
-    }
-}
+
 
 <!-- Dashboard Status Boxes -->
 <div class="row">
-    <div class="col-md-3">
-        <div class="small-box bg-warning">
-            <div class="inner">
-                <h3>@ViewBag.CountRunsNotSend</h3>
-                <p>Submission not Processed to Bank</p>
+    @foreach (var item in Model.ActionDateWidgets)
+    {
+        <div class="col-md-2">
+            <div class="small-box @item.Level">
+                <div class="inner">
+                    <h3>@item.Count</h3>
+                    <p>@item.Title</p>
+                </div>
+                <div class="icon"><i class="fa fa-ban"></i></div>
+                <a href="@Url.Action("RunsNotSentToBank","Submissions")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-            <div class="icon"><i class="fa fa-ban"></i></div>
-            <a href="@Url.Action("RunsNotSentToBank","Submissions")" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
         </div>
-    </div>
+    }
+
+
+
     <div class="col-md-3">
         <div class="small-box bg-warning">
             <div class="inner">
