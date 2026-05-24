@@ -14,11 +14,11 @@ namespace ManagementDashboard.Controllers
 
     public class DBConnect
     {
-        private MySqlConnection connection;
         private string server;
         private string database;
         private string uid;
         private string password;
+        private string connectionString;
 
         //Constructor
         public DBConnect()
@@ -44,48 +44,46 @@ namespace ManagementDashboard.Controllers
 
         private void Initialize()
         {
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";Connection Timeout=240;default command timeout=120;";
-            MySqlCommand cmd = new MySqlCommand();
-            cmd.CommandTimeout = 240;
-            
+            var builder = new MySqlConnectionStringBuilder
+            {
+                Server = server,
+                Database = database,
+                UserID = uid,
+                Password = password,
+                ConnectionTimeout = 240,
+                DefaultCommandTimeout = 120,
+                Pooling = true,
+                MinimumPoolSize = 5,
+                MaximumPoolSize = 200
+            };
 
-            connection = new MySqlConnection(connectionString);
+            connectionString = builder.ConnectionString;
         }
-
         internal DataSet Query(string query)
         {
+            var ds = new DataSet();
 
-            if (connection.State != System.Data.ConnectionState.Open)
+            using (var conn = new MySqlConnection(connectionString))
+            using (var cmd = new MySqlCommand(query, conn))
             {
-                connection.Open();
-            }
+                cmd.CommandTimeout = 220;
+                cmd.CommandType = CommandType.Text;
 
-            //        //SQL Command ?? need this to do a query to the dB
+                conn.Open();
 
-            var cmd = new MySqlCommand(query, connection);
-            cmd.CommandTimeout = 220;
-            cmd.CommandType = CommandType.Text;
-            using (var sdr = cmd.ExecuteReader())
-            {
-                DataTable dt = new DataTable();
-                using (var ds = new DataSet())
+                using (var sdr = cmd.ExecuteReader())
                 {
+                    var dt = new DataTable();
                     ds.EnforceConstraints = false;
                     ds.Tables.Add(dt);
+
                     dt.BeginLoadData();
-                    dt.Clear();
                     dt.Load(sdr, LoadOption.OverwriteChanges);
                     dt.EndLoadData();
-                    //ds.Tables.Remove(dt);
-                    return ds;
                 }
-
             }
 
-
-            return null;
+            return ds;
         }
 
 

@@ -20,7 +20,6 @@ namespace ManagementDashboard.Attributes
             System.Diagnostics.Debug.WriteLine(
                 $"[{DateTime.Now}] User '{user}' accessed {method} {controller}/{action} at {url}"
             );
-            var db = new Models.ApplicationDbContext();
             var userActionLog = new Models.UserActionLog
             {
                 DateTimeUtc = DateTime.UtcNow,
@@ -31,8 +30,12 @@ namespace ManagementDashboard.Attributes
                 UrlAccessed = url,
                 AccessedAt = DateTime.Now
             };
-            db.UserActionLogs.Add(userActionLog);
-            db.SaveChanges();
+
+            using (var db = new Models.ApplicationDbContext())
+            {
+                db.UserActionLogs.Add(userActionLog);
+                db.SaveChanges();
+            }
 
 
 
