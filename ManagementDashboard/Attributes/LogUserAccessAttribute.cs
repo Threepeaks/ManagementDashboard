@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ManagementDashboard.Services;
 
 namespace ManagementDashboard.Attributes
 {
@@ -31,13 +32,7 @@ namespace ManagementDashboard.Attributes
                 AccessedAt = DateTime.Now
             };
 
-            using (var db = new Models.ApplicationDbContext())
-            {
-                db.UserActionLogs.Add(userActionLog);
-                db.SaveChanges();
-            }
-
-
+            UserActionLogBuffer.Enqueue(userActionLog);
 
             base.OnActionExecuting(filterContext);
         }

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using ManagementDashboard.Services;
 
 namespace ManagementDashboard
 {
@@ -16,6 +17,12 @@ namespace ManagementDashboard
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            UserActionLogBuffer.Start();
+        }
+
+        protected void Application_End()
+        {
+            UserActionLogBuffer.Stop();
         }
     }
 }
