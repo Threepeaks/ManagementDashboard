@@ -14,6 +14,7 @@ namespace ManagementDashboard.Models
         public int ServiceStatus { get; set; }
         public int ConnectionStatusId { get; set; }
         public bool IsMapped { get; set; }
+        public DateTime? LastActionDate { get; set; }
     }
 
     public class InsiderClient

@@ -596,14 +596,47 @@ namespace ManagementDashboard.Controllers
                 Username = Properties.Settings.Default.MySqlUsernamePortal,
                 Password = Properties.Settings.Default.MySqlPasswordPortal,
             });
-            var query = "select " +
-                " comref,com_name,ifnull(tenantName,'Not available') as tenantName, " +
-                " case connection_status when 0 then 'Disconnected' when 1 then 'Connected' end  as connection_status," +
-                " service_status, " +
-                " connection_status as 'connectionStatusId'," +
-                " if ((if (ISNULL(NULLIF(account_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(interbank_transfer_account_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(bank_charges_account_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(contact_group_id,'')) = 0,1,0)+\r\nif (ISNULL(NULLIF(settlement_contact_id,'')) = 0,1,0)) < 5 ,0,1) as 'isMapped'" +
-                " from tblxeroauth " +
-                " left join tblcompany on com_ref = comref";
+            var query = @"
+                select 
+                    x.comref,
+                    c.com_name,
+                    ifnull(x.tenantName, 'Not available') as tenantName, 
+                    case x.connection_status 
+                        when 0 then 'Disconnected' 
+                        when 1 then 'Connected' 
+                    end as connection_status,
+                    x.service_status, 
+                    x.connection_status as connectionStatusId,
+
+                    if (
+                        (
+                            if(isnull(nullif(x.account_id, '')) = 0, 1, 0) +
+                            if(isnull(nullif(x.interbank_transfer_account_id, '')) = 0, 1, 0) +
+                            if(isnull(nullif(x.bank_charges_account_id, '')) = 0, 1, 0) +
+                            if(isnull(nullif(x.contact_group_id, '')) = 0, 1, 0) +
+                            if(isnull(nullif(x.settlement_contact_id, '')) = 0, 1, 0)
+                        ) < 5,
+                        0,
+                        1
+                    ) as isMapped,
+
+                    s.lastSubmissionActionDate
+
+                from tblxeroauth x
+                left join tblcompany c 
+                    on c.com_ref = x.comref
+
+                left join (
+                    select 
+                        sub_comref,
+                        max(sub_date) as lastSubmissionActionDate
+                    from tblsub
+                    where sub_source_id = 6
+                    group by sub_comref
+                ) s 
+                    on s.sub_comref = x.comref;
+                ";
+                          
                 
 
 
@@ -621,6 +654,9 @@ namespace ManagementDashboard.Controllers
                 xeroClient.ConnectionStatus = dr.Field<string>("connection_status");
                 xeroClient.ConnectionStatusId = dr.Field<int>("connectionStatusId");
                 xeroClient.ServiceStatus = dr.Field<int>("service_status");
+
+                xeroClient.LastActionDate = dr["lastSubmissionActionDate"] != DBNull.Value ? (DateTime?)dr.Field<DateTime>("lastSubmissionActionDate") : null;
+
                 try
                 {
                     xeroClient.IsMapped = dr.Field<Int64>("isMapped") == 1 ? true : false;

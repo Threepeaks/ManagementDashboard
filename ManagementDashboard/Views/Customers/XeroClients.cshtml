@@ -30,14 +30,15 @@
 <table class="table table-striped table-sm">
     <thead>
 
-    <tr>
-        <th></th>
-        <th>Reference</th>
-        <th>Client</th>
-        <th>Tenant Name</th>
-        <th>Connection</th>
-        <th>Is Mapped</th>
-    </tr>
+        <tr>
+            <th></th>
+            <th>Reference</th>
+            <th>Client</th>
+            <th>Tenant Name</th>
+            <th>Connection</th>
+            <th>Is Mapped</th>
+            <th>Last Action Date</th>
+        </tr>
     </thead>
     <tbody>
 
@@ -69,6 +70,16 @@
                 else
                 {
                     <span class="badge badge-warning">No</span>
+                }
+            </td>
+            <td>
+                @if (client.LastActionDate != null)
+                {
+                    @client.LastActionDate.Value.ToString("dd/MM/yyyy")
+                }
+                else
+                {
+                    <span class="badge badge-warning">N/A</span>
                 }
             </td>
         </tr>
