@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
@@ -10,5 +11,7 @@ namespace ManagementDashboard.Models
         public string Customer { get; set; }
         public decimal Amount { get; set; }
         public string Client { get; set; }
+        public bool IsCanceled { get; set; }
+        public DateTime? CanceledDate { get; internal set; }
     }
 }

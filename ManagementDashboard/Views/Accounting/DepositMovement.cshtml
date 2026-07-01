@@ -1,0 +1,44 @@
+﻿@{ 
+    var months = 12;
+}
+
+<div class="alert alert-primary">
+    Deposit Movement per Month for the lat 12 months
+</div>
+
+<div class="row">
+
+    @for (int i = 0; i < months; i++)
+    {
+        var addedMonths = -i;
+
+        <div class="col-sm-4">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <div class="card-title">
+                        @DateTime.Now.AddMonths(addedMonths).ToString("MMMM yyyy")
+                    </div>
+                    <div class="card-tools">
+                        @*<button type="button" class="btn btn-primary btn-sm" data-card-widget="collapse" title="Collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>*@
+                        <button type="button" class="btn btn-primary btn-sm" data-card-widget="maximize" title="Maximize">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="panel-body1" style="overflow:auto;">
+                        @Html.Action("DepositMovementPartial", "Accounting", new { id = i })
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+
+
+
+
+</div>

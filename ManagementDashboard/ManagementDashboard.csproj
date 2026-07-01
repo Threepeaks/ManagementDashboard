@@ -727,6 +727,8 @@
     <Content Include="Views\Risk\ClientsCollectionUnpaidsByActionDateGrid.cshtml" />
     <Content Include="Views\Accounting\ManagementUnpaids.cshtml" />
     <Content Include="Views\Accounting\UnpaidsManagementPartial.cshtml" />
+    <Content Include="Views\Accounting\DepositMovement.cshtml" />
+    <Content Include="Views\Accounting\DepositMovementPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

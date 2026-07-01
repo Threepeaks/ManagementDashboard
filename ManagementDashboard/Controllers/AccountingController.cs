@@ -6,6 +6,7 @@ using MySqlX.XDevAPI.Relational;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.EnterpriseServices;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -62,10 +63,71 @@ namespace ManagementDashboard.Controllers
 
             return View(vm);
         }
+
+        public ActionResult DepositMovement()
+        {
+            return View();
+        }
+        // GET: Reports
+        [OutputCache(Duration = MD_CONST_DURATIONS.OUTPUTCASH_DURATION, VaryByParam = "id")]
+        public PartialViewResult DepositMovementPartial(int id)
+        {
+            int monthSelected = 0;
+            if (id > 0)
+                monthSelected = -1 * id;
+            DateTime currentDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1).AddMonths(monthSelected);
+            DateTime startDate = currentDate;
+            DateTime endDate = currentDate.AddMonths(1).AddDays(-1);
+
+            var db = new DBConnect();
+            string query = "select cref as Customer," +
+                " b.com_name as 'Client', " +
+                " com_acc_cancel, " +
+                " com_acc_cancel_enddate, " +
+
+                " sum(amount) as Amount from tbl_accounting_depost_tracking a left join tblcompany b on a.cref = b.com_ref " +
+                $"where deposit_date <= '{endDate.ToString("yyyy-MM-dd")}' and " +
+                $" deposit_date >= '{startDate.ToString("yyyy-MM-dd")}'" +
+                $"  and com_retterms = 3 group by cref order by cref";
+
+            var model = new List<ManagementDashboard.Models.DepositBalance>();
+            var result = db.Query(query);
+
+
+
+            foreach (DataRow dRow in result.Tables[0].Rows)
+            {
+                var depMov = new Models.DepositBalance();
+                depMov.Customer = dRow.Field<string>("Customer");
+                depMov.Client = dRow.Field<string>("Client");
+                depMov.Amount = (int)dRow.Field<decimal>("Amount");
+
+                var clientStatus = dRow.Field<int>("com_acc_cancel");
+                var cancelledDate = dRow.Field<DateTime?>("com_acc_cancel_enddate");
+                depMov.CanceledDate = cancelledDate;
+                if (depMov.Amount == 0)
+                    continue;
+
+                if (clientStatus == 2 && cancelledDate.HasValue && cancelledDate.Value <= endDate)
+                {
+                    depMov.IsCanceled = true;
+                }
+
+                model.Add(depMov);
+
+            }
+
+            return PartialView(model);
+
+        }
+
+
         public ActionResult DepositBalanceReport()
         {
             return View();
         }
+
+       
 
 
         // GET: Reports
@@ -82,8 +144,11 @@ namespace ManagementDashboard.Controllers
             var db = new DBConnect();
             string query = "select cref as Customer," +
                 " b.com_name as 'Client', " +
+                " com_acc_cancel, " +
+                " com_acc_cancel_enddate, " +
+
                 " sum(amount) as Amount from tbl_accounting_depost_tracking a left join tblcompany b on a.cref = b.com_ref " +
-                $"where deposit_date <= '{endDate.ToString("yyyy-MM-dd")}' and com_acc_cancel != 2 and com_retterms = 3 group by cref order by cref";
+                $"where deposit_date <= '{endDate.ToString("yyyy-MM-dd")}' and com_retterms = 3 group by cref order by cref";
 
             var model = new List<ManagementDashboard.Models.DepositBalance>();
             var result = db.Query(query);
@@ -96,12 +161,33 @@ namespace ManagementDashboard.Controllers
                 depMov.Customer = dRow.Field<string>("Customer");
                 depMov.Client = dRow.Field<string>("Client");
                 depMov.Amount = (int)dRow.Field<decimal>("Amount");
+                depMov.IsCanceled = false;
 
+                var clientStatus = dRow.Field<int>("com_acc_cancel") ;
+                var cancelledDate = dRow.Field<DateTime?>("com_acc_cancel_enddate");
+                
+                depMov.CanceledDate = cancelledDate;
+
+                //if clientstatus = 2 (cancelleD) and the amount is 0, and the cancelled date is less than or equal to the end date, then we will not show this record
+                if (clientStatus == 2 && depMov.Amount == 0 && cancelledDate.HasValue && cancelledDate.Value <= endDate)
+                {
+                    continue;
+                }
+
+                if (clientStatus == 2 && cancelledDate.HasValue && cancelledDate.Value <= endDate)
+                {
+                    depMov.IsCanceled = true;
+                }
 
 
                 model.Add(depMov);
 
             }
+
+            //Order the list by IsCanceled first, then by Client, then by Customer
+            model = model.OrderByDescending(x => x.IsCanceled)
+                .ThenBy(x => x.Customer)
+                .ToList();
 
             return PartialView(model);
 

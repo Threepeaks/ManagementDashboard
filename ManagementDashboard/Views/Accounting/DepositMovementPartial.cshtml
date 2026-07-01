@@ -15,7 +15,6 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    
                     <tr>
                         <td style="width:20px;">@Html.LinkToTPMSWeb(x => item.Customer)</td>
                         <td class="reference" data-reference="@item.Customer">
@@ -30,7 +29,7 @@
 
                                     <span class="badge badge-danger">
                                         @item.CanceledDate.Value.ToString("dd/MM/yyyy")
-                                </span>
+                                    </span>
 
                                 }
                             </div>

@@ -301,9 +301,17 @@
                 <li class="nav-item">
                     <a href="@Url.Action("DepositBalanceReport","Accounting")" class="nav-link @Html.IsActive("Accounting","DepositBalanceReport")">
                         <i class="nav-icon fas fa-th"></i>
-                        <p>Deposit Balance</p>
+                        <p>Deposit Balances</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="@Url.Action("DepositMovement","Accounting")" class="nav-link @Html.IsActive("Accounting","DepositMovement")">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Deposit Movement</p>
+                    </a>
+                </li>
+
+
                 <li class="nav-item">
                     <a href="@Url.Action("LiabilityCurrent","Accounting")" class="nav-link @Html.IsActive("Accounting","LiabilityCurrent")">
                         <i class="nav-icon fas fa-th"></i>
