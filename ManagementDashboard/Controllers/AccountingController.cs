@@ -162,6 +162,8 @@ namespace ManagementDashboard.Controllers
                 depMov.Client = dRow.Field<string>("Client");
                 depMov.Amount = (int)dRow.Field<decimal>("Amount");
                 depMov.IsCanceled = false;
+                depMov.AgeSinceCancelled = TimeSpan.Zero;
+                depMov.AgeSinceCancelledString = "";
 
                 var clientStatus = dRow.Field<int>("com_acc_cancel") ;
                 var cancelledDate = dRow.Field<DateTime?>("com_acc_cancel_enddate");
@@ -177,6 +179,22 @@ namespace ManagementDashboard.Controllers
                 if (clientStatus == 2 && cancelledDate.HasValue && cancelledDate.Value <= endDate)
                 {
                     depMov.IsCanceled = true;
+                    depMov.AgeSinceCancelled = DateTime.Now -  cancelledDate.Value ;
+
+                    //Format the AgeSinceCancelled as a string in the format of "X years, Y months, Z days"
+                    int years = depMov.AgeSinceCancelled.Days / 365;
+                    int months = (depMov.AgeSinceCancelled.Days % 365) / 30;
+                    int days = (depMov.AgeSinceCancelled.Days % 365) % 30;
+                    var ageStringList = new List<string>();
+                    if (years > 0)
+                        ageStringList.Add($"{years} year{(years > 1 ? "s" : "")}");
+                    if (months > 0)
+                        ageStringList.Add($"{months} month{(months > 1 ? "s" : "")}");
+                    if (days > 0)
+                        ageStringList.Add($"{days} day{(days > 1 ? "s" : "")}");
+
+                    depMov.AgeSinceCancelledString = string.Join(", ", ageStringList);
+
                 }
 
 

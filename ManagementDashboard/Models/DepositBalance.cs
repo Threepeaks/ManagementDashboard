@@ -13,5 +13,7 @@ namespace ManagementDashboard.Models
         public string Client { get; set; }
         public bool IsCanceled { get; set; }
         public DateTime? CanceledDate { get; internal set; }
+        public TimeSpan AgeSinceCancelled { get; internal set; }
+        public string AgeSinceCancelledString { get; internal set; }
     }
 }

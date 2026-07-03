@@ -3,41 +3,54 @@
 
 
 
-        <table class="table table-striped table-sm">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Client</th>
+<table class="table table-striped table-sm">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Client</th>
 
-                    <th class="text-right">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    
-                    <tr>
-                        <td style="width:20px;">@Html.LinkToTPMSWeb(x => item.Customer)</td>
-                        <td class="reference" data-reference="@item.Customer">
+            <th class="text-right">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td style="width:20px;">@Html.LinkToTPMSWeb(x => item.Customer)</td>
+                <td class="reference" data-reference="@item.Customer">
+
+                    <div>
+                        @item.Customer
+                    </div>
+                    <div>
+
+                        
+                        @if (item.IsCanceled)
+                        {
+
+                            <span class="badge badge-danger">Canceled @@
+
                             
-                            <div>
+                                @item.CanceledDate.Value.ToString("dd/MM/yyyy")
+                            </span>
 
-                                @item.Customer
-                                @if (item.IsCanceled)
-                                {
-
-                                    <span class="badge badge-danger">Canceled</span>
-
-                                    <span class="badge badge-danger">
-                                        @item.CanceledDate.Value.ToString("dd/MM/yyyy")
+                            if (item.AgeSinceCancelled != TimeSpan.Zero)
+                            {
+                                <!-- Show age in years months days-->
+                                <span class="badge badge-warning">
+                                    @item.AgeSinceCancelledString
                                 </span>
+                            }
+                        }
 
-                                }
-                            </div>
-                            <div class="text-muted">@item.Client</div>
-                        </td>
-                        <td class="text-right">@item.Amount.ToString("N")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    </div>
+
+
+                    <div class="text-muted">@item.Client</div>
+                </td>
+                <td class="text-right">@item.Amount.ToString("N")</td>
+            </tr>
+        }
+    </tbody>
+</table>
